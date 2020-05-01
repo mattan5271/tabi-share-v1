@@ -1,0 +1,30 @@
+<h1>利用シーン新規登録・一覧画面</h1>
+
+<%= form_with model: @scene, url: admin_scenes_path, local: true do |f| %>
+
+<%= f.label :name, "利用シーン" %>
+<%= f.text_field :name %>
+
+<%= f.submit "新規登録" %>
+
+<% end %>
+
+<table>
+	<thead>
+		<tr>
+			<th>利用シーン</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @scenes.each do |scene| %>
+		<tr>
+			<td><%= scene.name %></td>
+			<td><%= link_to "編集", edit_admin_scene_path(scene) %></td>
+			<td><%= link_to "削除", admin_scene_path(scene), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

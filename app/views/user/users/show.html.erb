@@ -1,0 +1,20 @@
+<h1>ユーザー詳細画面</h1>
+
+<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+
+<%= attachment_image_tag @user, :header_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+
+<%= label_tag :ユーザーID %>
+<%= @user.id %>
+<%= @user.is_valid %>ユーザー<br>
+
+<%= label_tag :ニックネーム %>
+<%= @user.nickname %><br>
+
+<%= label_tag :住所 %>
+<%= @user.full_address %><br>
+
+<%= label_tag :メールアドレス %>
+<%= @user.email %><br>
+
+<%= link_to "編集する", edit_admin_user_path(@user) %><br>

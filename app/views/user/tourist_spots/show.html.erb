@@ -1,0 +1,30 @@
+<h1>観光スポット詳細画面</h1>
+
+<%= label_tag :地名・施設名 %><br>
+<%= @tourist_spot.name %><br>
+
+<%= label_tag :紹介文 %><br>
+<%= @tourist_spot.introduction %><br>
+
+<%= label_tag :ジャンル %><br>
+<%= @tourist_spot.genre.name %><br>
+
+<%= label_tag :利用シーン %><br>
+<%= @tourist_spot.scene.name %><br>
+
+<%= label_tag :住所 %><br>
+<%= @tourist_spot.full_address %><br>
+
+<%= label_tag :アクセス %><br>
+<%= @tourist_spot.access %><br>
+
+<%= label_tag :営業時間 %><br>
+<%= @tourist_spot.business_hour %><br>
+
+<%= label_tag :駐車場 %><br>
+<%= @tourist_spot.is_parking %><br>
+
+<% if @tourist_spot.user === current_user %>
+<%= link_to "編集", edit_user_tourist_spot_path(@tourist_spot) %>
+<%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+<% end %>
