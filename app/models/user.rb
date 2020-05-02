@@ -5,10 +5,12 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable, :omniauthable
 
   has_many :tourist_spots, dependent: :destroy
-  has_many :tourist_spot_likes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_tourist_spots, through: :favorites, source: :tourist_spot
   has_many :wents, dependent: :destroy
+  has_many :went_tourist_spots, through: :wents, source: :tourist_spot
   has_many :reviews, dependent: :destroy
-  has_many :review_likes, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   attachment :profile_image

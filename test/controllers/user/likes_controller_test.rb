@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReviewLikeTest < ActiveSupport::TestCase
+class User::LikesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

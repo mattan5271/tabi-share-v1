@@ -4,11 +4,19 @@ class TouristSpot < ApplicationRecord
   belongs_to :scene
 
   has_many :tourist_spot_images
-  has_many :tourist_spot_likes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_many :wents, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
   enum is_parking: { "有": true, "無": false }
+
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
+
+  def wented_by?(user)
+    wents.where(user_id: user.id).exists?
+  end
 
   include JpPrefecture
   jp_prefecture :prefecture_code

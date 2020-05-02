@@ -24,12 +24,16 @@ Rails.application.routes.draw do
 
 	namespace :user do
 		resources :users, only: [:show, :edit, :update]
-		resources :tourist_spots
-		resources :tourist_spot_likes, only: [:create, :destroy]
-		resources :wents, only: [:create, :destroy]
-		resources :reviews
-		resources :comments, only: [:new, :create, :edit, :update, :destroy]
-    resources :review_likes, only: [:create, :destroy]
-    resources :contacts, only: [:new, :create]
+		resources :tourist_spots do
+			resource :favorites, only: [:create, :destroy]
+			resource :wents, only: [:create, :destroy]
+			resources :reviews do
+				resource :likes, only: [:index, :create, :destroy]
+			end
+		end
+		resources :comments, only: [:create, :edit, :update, :destroy]
+		resources :contacts, only: [:new, :create]
+		get 'favorite_tourist_spots' => 'favorites#index'
+		get 'went_tourist_spots' => 'wents#index'
 	end
 end

@@ -1,2 +1,21 @@
-<h1>User::Reviews#edit</h1>
-<p>Find me in app/views/user/reviews/edit.html.erb</p>
+<h1>レビュー編集画面</h1>
+
+<%= form_with model: @review, url: user_tourist_spot_review_path(@review), local: true do |f| %>
+
+<%= f.label :title, "タイトル" %><br>
+<%= f.text_field :title %><br>
+
+<%= f.label :body, "本文" %><br>
+<%= f.text_field :body %><br>
+
+<%= f.label :score, "点数" %><br>
+<%= f.select :score, options_for_select(1..100), include_blank: "-----" %><br>
+
+<%= f.radio_button :is_value, "本名" %>
+<%= f.label :is_value,"有効" %>
+<%= f.radio_button :is_value, "ニックネーム" %>
+<%= f.label :is_value, "ニックネーム"%><br>
+
+<%= f.submit "保存" %>
+
+<% end %>

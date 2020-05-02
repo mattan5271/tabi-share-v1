@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_045224) do
+ActiveRecord::Schema.define(version: 2020_05_02_022120) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,8 +42,22 @@ ActiveRecord::Schema.define(version: 2020_05_01_045224) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "tourist_spot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,13 +65,6 @@ ActiveRecord::Schema.define(version: 2020_05_01_045224) do
   create_table "review_images", force: :cascade do |t|
     t.integer "review_id", null: false
     t.string "image_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "review_likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "review_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -82,13 +89,6 @@ ActiveRecord::Schema.define(version: 2020_05_01_045224) do
   create_table "tourist_spot_images", force: :cascade do |t|
     t.integer "tourist_spot_id", null: false
     t.string "image_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tourist_spot_likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "tourist_spot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

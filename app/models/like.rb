@@ -1,4 +1,4 @@
-class ReviewLike < ApplicationRecord
+class Like < ApplicationRecord
   belongs_to :user
   belongs_to :review
 end
