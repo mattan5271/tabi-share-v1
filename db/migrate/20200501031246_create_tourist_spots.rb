@@ -5,6 +5,7 @@ class CreateTouristSpots < ActiveRecord::Migration[5.2]
       t.integer :genre_id, null: false
       t.integer :scene_id, null: false
       t.string :name, null: false
+      t.json :images, null: false
       t.integer :postcode, null: false
       t.integer :prefecture_code, null: false
       t.string :address_city, null: false

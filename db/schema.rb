@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_022120) do
+ActiveRecord::Schema.define(version: 2020_05_02_105737) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -62,13 +62,6 @@ ActiveRecord::Schema.define(version: 2020_05_02_022120) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "review_images", force: :cascade do |t|
-    t.integer "review_id", null: false
-    t.string "image_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "tourist_spot_id", null: false
@@ -78,17 +71,11 @@ ActiveRecord::Schema.define(version: 2020_05_02_022120) do
     t.boolean "is_value", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "images"
   end
 
   create_table "scenes", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tourist_spot_images", force: :cascade do |t|
-    t.integer "tourist_spot_id", null: false
-    t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -98,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_05_02_022120) do
     t.integer "genre_id", null: false
     t.integer "scene_id", null: false
     t.string "name", null: false
+    t.json "images", null: false
     t.integer "postcode", null: false
     t.integer "prefecture_code", null: false
     t.string "address_city", null: false
@@ -110,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_05_02_022120) do
     t.boolean "is_parking", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "users", force: :cascade do |t|

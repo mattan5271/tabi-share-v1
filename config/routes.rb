@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 	root 'homes#top'
-  get 'about' => 'homes#about'
+	get 'about' => 'homes#about'
 
 	devise_for :admins, controllers: {
 		sessions:      'admins/sessions',
@@ -35,5 +35,8 @@ Rails.application.routes.draw do
 		resources :contacts, only: [:new, :create]
 		get 'favorite_tourist_spots' => 'favorites#index'
 		get 'went_tourist_spots' => 'wents#index'
+		get 'keyword/search' => 'tourist_spots#keyword_search'
+		get 'genre/search' => 'tourist_spots#genre_search'
+		get 'scene/search' => 'tourist_spots#scene_search'
 	end
 end

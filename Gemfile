@@ -70,12 +70,17 @@ gem 'omniauth-facebook'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'jp_prefecture'
+gem 'gon'
 
 gem 'carrierwave'
+gem 'mini_magick'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 
 gem 'kaminari'
+
+gem "gmaps4rails"
+gem "geocoder"
 
 gem 'dotenv-rails'
 

@@ -1,5 +1,17 @@
 <h1>観光スポット詳細画面</h1>
 
+<!-- 平均点計算 -->
+<% @sum = 0 %>
+<% @tourist_spot.reviews.each do |review| %>
+  <% @sum += review.score %>
+<% end %>
+<%=  @sum / @tourist_spot.reviews.length %>
+<!-- 平均点計算 -->
+
+<% @tourist_spot.images.each do |image| %>
+  <%= image_tag image.to_s %><br>
+<% end %>
+
 <%= label_tag :地名・施設名 %><br>
 <%= @tourist_spot.name %><br>
 
@@ -43,3 +55,33 @@
 <%= link_to "編集", edit_user_tourist_spot_path(@tourist_spot) %><br>
 <%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" } %>
 <% end %>
+
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %>},
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %>},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async defer></script>
+
+<%= link_to 'Twitterで共有', "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter', data: { show_count: false }, title: 'Twitter', target: '_blank' %>

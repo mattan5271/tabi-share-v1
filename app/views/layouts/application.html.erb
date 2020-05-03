@@ -4,7 +4,7 @@
     <title>TaBiShare</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= include_gon %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/c51513dd6c.js" crossorigin="anonymous"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -27,6 +27,7 @@
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
                 <p class="navbar-text">ようこそ <%= link_to current_user.nickname, user_user_path(current_user) %> さん！</p>
+                <li><%= link_to "観光地一覧", user_tourist_spots_path %></li>
                 <li><%= link_to "行きたい観光スポット", user_favorite_tourist_spots_path %></li>
                 <li><%= link_to "行った観光スポット", user_went_tourist_spots_path %></li>
                 <li role="presentation" class="dropdown">

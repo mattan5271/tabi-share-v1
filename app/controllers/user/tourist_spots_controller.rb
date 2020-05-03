@@ -3,7 +3,6 @@ class User::TouristSpotsController < ApplicationController
 
   def new
     @tourist_spot = TouristSpot.new
-    @tourist_spot.tourist_spot_images.new
   end
 
   def create
@@ -18,6 +17,7 @@ class User::TouristSpotsController < ApplicationController
 
   def index
     @tourist_spots = TouristSpot.all
+    gon.tourist_spots = TouristSpot.all
   end
 
   def show
@@ -39,6 +39,18 @@ class User::TouristSpotsController < ApplicationController
 		redirect_to user_tourist_spots_path
   end
 
+  def keyword_search
+    @tourist_spots = TouristSpot.keyword_search(params[:search])
+  end
+
+  def genre_search
+    @tourist_spots = TouristSpot.genre_search(params[:search])
+  end
+
+  def scene_search
+    @tourist_spots = TouristSpot.scene_search(params[:search])
+  end
+
   private
 
     def set_tourist_spot
@@ -54,11 +66,14 @@ class User::TouristSpotsController < ApplicationController
         :address_city,
         :address_street,
         :address_building,
+        :latitude,
+        :longitude,
         :introduction,
         :access,
         :phone_number,
         :business_hour,
-        :is_parking
+        :is_parking,
+        {images: []}
       )
     end
 end

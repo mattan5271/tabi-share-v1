@@ -2,7 +2,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :tourist_spot
 
-  has_many :review_images, dependent: :destroy
+  mount_uploaders :images, ImageUploader
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -10,5 +10,9 @@ class Review < ApplicationRecord
 
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
+  end
+
+  def sum_score
+    self.score.sum
   end
 end
