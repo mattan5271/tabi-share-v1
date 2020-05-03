@@ -1,0 +1,33 @@
+<h1>DM</h1>
+
+<h4>参加者</h4>
+<% @entries.each do |entry| %>
+<%= link_to entry.user.nickname, user_user_path(entry.user) %>
+<% end %>
+
+<% if @messages.present? %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.each do |message| %>
+    <tr>
+      <td><%= link_to message.user.nickname, user_user_path(message.user) %></td>
+      <td><%= message.body %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+<h3>メッセージはまだありません</h3>
+<% end %>
+
+<%= form_with model: @message, url: user_messages_path, local: true do |f| %>
+<%= f.text_field :body %>
+<%= f.hidden_field :room_id, value: @room.id %>
+<%= f.submit "送信" %>
+<% end %>

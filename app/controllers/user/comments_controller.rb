@@ -4,7 +4,9 @@ class User::CommentsController < ApplicationController
   def create
     comment = Comment.new(comment_params)
     comment.user_id = current_user.id
+    review = comment.review
     if comment.save
+      review.create_notification_comment!(current_user, comment.id)
       redirect_to user_tourist_spot_review_path(comment.review.tourist_spot, comment.review)
     else
       render 'new'

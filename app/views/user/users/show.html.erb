@@ -18,3 +18,25 @@
 <%= @user.email %><br>
 
 <%= link_to "編集する", edit_admin_user_path(@user) %><br>
+
+<%= link_to "フォロー数:#{@user.follower.count}", user_following_path(@user) %></td>
+<%= link_to "フォロワー数:#{@user.followed.count}", user_follower_path(@user) %>
+
+<div id="followbutton_<%= @user.id %>">
+  <% unless @user == current_user %>
+  <%= render "user/users/followbutton", user: @user %>
+  <% end %>
+</div>
+
+<% unless @user.id == current_user.id %>
+<% if @isRoom == true %>
+<%= link_to "チャットへ", user_room_path(@roomId) %>
+<% else %>
+<%= form_with model: @room, url: user_rooms_path, local: true do |f| %>
+<%= fields_for @entry do |e| %>
+<%= e.hidden_field :user_id, value: @user.id %>
+<% end %>
+<%= f.submit "チャットを始める" %>
+<% end %>
+<% end %>
+<% end %>

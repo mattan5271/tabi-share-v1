@@ -1,0 +1,34 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+
+<div class="col-md-6.mx-auto">
+  <div class="form-inline">
+    <%= link_to user_user_path(visitor) do %>
+    <%= visitor.nickname %>
+    <%= "さんが" %>
+    <% end %>
+    <% case notification.action %>
+
+    <% when 'follow' then %>
+    <%= "あなたをフォローしました" %>
+
+    <% when 'like' then %>
+    <%= link_to 'あなたの投稿', user_tourist_spot_review_path(notification.review, notification.review.tourist_spot), style: "font-weight: bold;" %>
+    <%= "にいいねしました" %>
+
+    <% when 'comment' then %>
+    <% if notification.review.user_id == visited.id %>
+    <%= link_to "あなたの投稿", user_tourist_spot_review_path(notification.review, notification.review.tourist_spot), style: "font-weight: bold;" %>
+    <% else %>
+    <%= link_to user_tourist_spot_review_path(notification.review, notification.review.tourist_spot) do %>
+    <%= notification.review.user.name + 'さんの投稿' %>
+    <% end %>
+    <% end %>
+
+    <%= "にコメントしました" %>
+    <p class="text-muted.mb-0">
+      <%= Comment.find_by(id: notification.comment_id)&.body %>
+    </p>
+    <% end %>
+  </div>
+</div>

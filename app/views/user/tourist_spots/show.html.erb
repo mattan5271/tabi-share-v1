@@ -3,13 +3,15 @@
 <!-- 平均点計算 -->
 <% @sum = 0 %>
 <% @tourist_spot.reviews.each do |review| %>
-  <% @sum += review.score %>
+<% @sum += review.score %>
 <% end %>
+<% if @sum > 0 %>
 <%=  @sum / @tourist_spot.reviews.length %>
+<% end %>
 <!-- 平均点計算 -->
 
 <% @tourist_spot.images.each do |image| %>
-  <%= image_tag image.to_s %><br>
+<%= image_tag image.to_s %><br>
 <% end %>
 
 <%= label_tag :地名・施設名 %><br>
@@ -40,15 +42,15 @@
 <%= link_to  "レビュー一覧", user_tourist_spot_reviews_path(@tourist_spot) %><br>
 
 <% if @tourist_spot.favorited_by?(current_user) %>
-  <%= link_to "行きたい！から削除", user_tourist_spot_favorites_path(@tourist_spot), method: :delete %><br>
+<%= link_to "行きたい！から削除", user_tourist_spot_favorites_path(@tourist_spot), method: :delete %><br>
 <% else %>
-  <%= link_to "行きたい！", user_tourist_spot_favorites_path(@tourist_spot), method: :post %><br>
+<%= link_to "行きたい！", user_tourist_spot_favorites_path(@tourist_spot), method: :post %><br>
 <% end %>
 
 <% if @tourist_spot.wented_by?(current_user) %>
-  <%= link_to "行った！から削除", user_tourist_spot_wents_path(@tourist_spot), method: :delete %><br>
+<%= link_to "行った！から削除", user_tourist_spot_wents_path(@tourist_spot), method: :delete %><br>
 <% else %>
-  <%= link_to "行った！", user_tourist_spot_wents_path(@tourist_spot), method: :post %><br>
+<%= link_to "行った！", user_tourist_spot_wents_path(@tourist_spot), method: :post %><br>
 <% end %>
 
 <% if @tourist_spot.user === current_user %>
@@ -56,32 +58,83 @@
 <%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" } %>
 <% end %>
 
+<div id="cityname"></div>
+<div id="weather"></div>
+<script>
+  $(function () {
+    var API_KEY = 'b03aacee8b5a8be1b8a2d478042879c6'
+    var city = '<%= @tourist_spot.prefecture_name %>';
+    var url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY;
+    $.ajax({
+        url: url,
+        dataType: "json",
+        type: 'GET',
+      })
+      .done(function (data) {
+        var insertHTML = "";
+        var cityName = '<h2>' + data.city.name + '</h2>';
+        $('#city-name').html(cityName);
+        for (var i = 0; i <= 8; i = i + 2) {
+          insertHTML += buildHTML(data, i);
+        }
+        $('#weather').html(insertHTML);
+      })
+      .fail(function (data) {
+        console.log("失敗しました");
+      });
+  });
+
+  function buildHTML(data, i) {
+    var Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
+    var date = new Date(data.list[i].dt_txt);
+    date.setHours(date.getHours() + 9);
+    var month = date.getMonth() + 1;
+    var day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
+    var icon = data.list[i].weather[0].icon;
+    var html =
+      '<div class="weather-report">' +
+      '<img src="http://openweathermap.org/img/w/' + icon + '.png">' +
+      '<div class="weather-date">' + day + '</div>' +
+      '<div class="weather-main">' + data.list[i].weather[0].main + '</div>' +
+      '<div class="weather-temp">' + Math.round(data.list[i].main.temp) + '℃</div>' +
+      '</div>';
+    return html
+  }
+</script>
+
 <div id='map'></div>
 
 <style>
-#map {
-  height: 600px;
-  width: 600px;
-}
+  #map {
+    height: 600px;
+    width: 600px;
+  }
 </style>
 
 <script>
-let map
+  let map
 
-function initMap(){
-  geocoder = new google.maps.Geocoder()
+  function initMap() {
+    geocoder = new google.maps.Geocoder()
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %>},
-    zoom: 12,
-  });
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: < %= @tourist_spot.latitude % > ,
+        lng: < %= @tourist_spot.longitude % >
+      },
+      zoom: 12,
+    });
 
-  marker = new google.maps.Marker({
-    position:  {lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %>},
-    map: map
-  });
-}
+    marker = new google.maps.Marker({
+      position: {
+        lat: < %= @tourist_spot.latitude % > ,
+        lng: < %= @tourist_spot.longitude % >
+      },
+      map: map
+    });
+  }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async
+  defer></script>
 
 <%= link_to 'Twitterで共有', "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter', data: { show_count: false }, title: 'Twitter', target: '_blank' %>

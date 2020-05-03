@@ -12,6 +12,15 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :books, dependent: :destroy
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :following_user, through: :follower, source: :followed
+  has_many :follower_user, through: :followed, source: :follower
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   attachment :profile_image
   attachment :header_image
@@ -21,6 +30,21 @@ class User < ApplicationRecord
 
   include JpPrefecture
   jp_prefecture :prefecture_code
+
+#ユーザーをフォローする
+  def follow(user_id)
+      follower.create(followed_id: user_id)
+  end
+
+#ユーザーをアンフォローする
+  def unfollow(user_id)
+      follower.find_by(followed_id: user_id).destroy
+  end
+
+#フォローしているかを確認する
+  def following?(user)
+      following_user.include?(user)
+  end
 
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)

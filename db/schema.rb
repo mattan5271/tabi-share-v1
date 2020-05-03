@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_105737) do
+ActiveRecord::Schema.define(version: 2020_05_03_143715) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 2020_05_02_105737) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "tourist_spot_id", null: false
@@ -62,6 +69,32 @@ ActiveRecord::Schema.define(version: 2020_05_02_105737) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id"
+    t.integer "visited_id"
+    t.integer "review_id"
+    t.integer "comment_id"
+    t.string "action"
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "tourist_spot_id", null: false
@@ -72,6 +105,12 @@ ActiveRecord::Schema.define(version: 2020_05_02_105737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "images"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "scenes", force: :cascade do |t|

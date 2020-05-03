@@ -1,2 +1,29 @@
-<h1>User::Users#following</h1>
-<p>Find me in app/views/user/users/following.html.erb</p>
+<h3>フォロー中</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Introduction</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.following_user.each do |user| %>
+    <tr>
+      <td>
+        <%= attachment_image_tag user, :profile_image, :size =>'30x30', class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
+      </td>
+      <td><%= user.nickname %></td>
+      <td><%= user.introduction %></td>
+      <td><%= link_to "Show", user_user_path(user) %></td>
+      <td id="followbutton_<%= user.id %>">
+        <% unless user == current_user %>
+        <%= render "user/users/followbutton", user: user %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
