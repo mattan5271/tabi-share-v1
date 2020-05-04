@@ -1,2 +1,19 @@
-<h1>User::Contacts#new</h1>
-<p>Find me in app/views/user/contacts/new.html.erb</p>
+<h1>お問い合わせ画面</h1>
+
+<%= form_with model: @contact, url: user_contacts_path, local: true do |f| %>
+
+<%= f.label :name, "氏名" %><br>
+<%= f.text_field :name %><br>
+
+<%= f.label :email, "メールアドレス" %><br>
+<%= f.text_field :email %><br>
+
+<%= f.label :title, "タイトル" %><br>
+<%= f.text_field :title %><br>
+
+<%= f.label :body, "本文" %><br>
+<%= f.text_area :body %><br>
+
+<%= f.submit "送信" %>
+
+<% end %>
