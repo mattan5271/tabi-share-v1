@@ -119,22 +119,21 @@
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: < %= @tourist_spot.latitude % > ,
-        lng: < %= @tourist_spot.longitude % >
+        lat: <%= @tourist_spot.latitude %> ,
+        lng: <%= @tourist_spot.longitude %>
       },
       zoom: 12,
     });
 
     marker = new google.maps.Marker({
       position: {
-        lat: < %= @tourist_spot.latitude % > ,
-        lng: < %= @tourist_spot.longitude % >
+        lat: <%= @tourist_spot.latitude %> ,
+        lng: <%= @tourist_spot.longitude %>
       },
       map: map
     });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async
-  defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" asyncdefer></script>
 
 <%= link_to 'Twitterで共有', "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter', data: { show_count: false }, title: 'Twitter', target: '_blank' %>
