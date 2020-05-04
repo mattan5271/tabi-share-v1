@@ -17,17 +17,17 @@ class User::TouristSpotsController < ApplicationController
 
   def index
     if params[:sort] == "1"
-      @tourist_spots = TouristSpot.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+      @tourist_spots = TouristSpot.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
     elsif params[:sort] == "2"
-      @tourist_spots = TouristSpot.order(:created_time)
+      @tourist_spots = TouristSpot.order(:created_time).limit(5)
     elsif params[:sort] == "3"
-      p "成功"
-      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
+    elsif params[:sort] == "4"
+      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('avg(score) desc').limit(5).pluck(:tourist_spot_id))
     else
-      p params[:sort].class
       @tourist_spots = TouristSpot.all
     end
-    gon.tourist_spots = TouristSpot.all
+      gon.tourist_spots = TouristSpot.all
   end
 
   def show

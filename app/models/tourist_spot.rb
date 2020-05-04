@@ -63,4 +63,15 @@ class TouristSpot < ApplicationRecord
       TouristSpot.all
     end
   end
+
+  def average_score
+    @sum = 0
+    reviews.each do |review|
+      @sum += review.score
+    end
+    if @sum > 0
+      @sum /= reviews.length
+    end
+    return @sum
+  end
 end

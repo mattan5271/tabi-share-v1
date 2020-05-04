@@ -1,7 +1,7 @@
 <h1>観光スポット一覧画面</h1>
 
 <%= form_with url: user_tourist_spots_path, method: :get, local: true do %>
-<%= select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["レビュー数", "3"]]), include_blank: "-----" %>
+<%= select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["レビュー数", "3"], ["点数順", "4"]]), include_blank: "-----" %>
 <%= submit_tag "並び替え" %>
 <% end %>
 
@@ -13,6 +13,7 @@
 			<th>ジャンル</th>
 			<th>利用シーン</th>
       <th>住所</th>
+      <th>点数</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -26,6 +27,7 @@
 			<td><%= tourist_spot.genre.name %></td>
 			<td><%= tourist_spot.scene.name %></td>
       <td><%= tourist_spot.full_address %></td>
+			<td><%= tourist_spot.average_score %></td>
 			<td>
 				<% if tourist_spot.favorited_by?(current_user) %>
 					<%= link_to "行きたい！から削除", user_tourist_spot_favorites_path(tourist_spot), method: :delete %>

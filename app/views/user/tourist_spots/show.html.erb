@@ -1,18 +1,11 @@
 <h1>観光スポット詳細画面</h1>
 
-<!-- 平均点計算 -->
-<% @sum = 0 %>
-<% @tourist_spot.reviews.each do |review| %>
-<% @sum += review.score %>
-<% end %>
-<% if @sum > 0 %>
-<%=  @sum /= @tourist_spot.reviews.length %>
-<% end %>
-<!-- 平均点計算 -->
-
 <% @tourist_spot.images.each do |image| %>
 <%= image_tag image.to_s %><br>
 <% end %>
+
+<%= label_tag :点数 %><br>
+<%= @tourist_spot.average_score %><br>
 
 <%= label_tag :地名・施設名 %><br>
 <%= @tourist_spot.name %><br>
