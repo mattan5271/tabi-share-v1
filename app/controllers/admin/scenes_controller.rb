@@ -33,11 +33,12 @@ class Admin::ScenesController < ApplicationController
 
 	private
 
+		def set_scene
+			@scene = Scene.find(params[:id])
+		end
+
 		def scene_params
 			params.require(:scene).permit(:name)
 		end
 
-		def set_scene
-			@scene = Scene.find(params[:id])
-		end
 end

@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :omniauthable
 
@@ -31,33 +29,37 @@ class User < ApplicationRecord
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-#ユーザーをフォローする
+  # ユーザーをフォローする
   def follow(user_id)
       follower.create(followed_id: user_id)
   end
 
-#ユーザーをアンフォローする
+  # ユーザーをアンフォローする
   def unfollow(user_id)
       follower.find_by(followed_id: user_id).destroy
   end
 
-#フォローしているかを確認する
+  # フォローしているかを確認
   def following?(user)
       following_user.include?(user)
   end
 
+  # 都道府県名
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
   end
 
+  # 都道府県名
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
 
+  # 住所を結合
   def full_address
     "〒" + self.postcode.to_s + " " + prefecture_name + " " + self.address_city + " " + self.address_street + " " + self.address_building
   end
 
+  # Facebookログイン用
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
 

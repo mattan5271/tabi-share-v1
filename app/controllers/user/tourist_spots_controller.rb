@@ -17,13 +17,13 @@ class User::TouristSpotsController < ApplicationController
 
   def index
     if params[:sort] == "1"
-      @tourist_spots = TouristSpot.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
+      @tourist_spots = TouristSpot.recommended_order #おすすめ順
     elsif params[:sort] == "2"
-      @tourist_spots = TouristSpot.order(:created_time).limit(5)
+      @tourist_spots = TouristSpot.new_order #新着順
     elsif params[:sort] == "3"
-      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
+      @tourist_spots = TouristSpot.reviews_order #レビュー数順
     elsif params[:sort] == "4"
-      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('avg(score) desc').limit(5).pluck(:tourist_spot_id))
+      @tourist_spots = TouristSpot.score.order #点数順
     else
       @tourist_spots = TouristSpot.all
     end
@@ -49,14 +49,17 @@ class User::TouristSpotsController < ApplicationController
 		redirect_to user_tourist_spots_path
   end
 
+  # キーワード検索
   def keyword_search
     @tourist_spots = TouristSpot.keyword_search(params[:search])
   end
 
+  # ジャンル検索
   def genre_search
     @tourist_spots = TouristSpot.genre_search(params[:search])
   end
 
+  # 利用シーン検索
   def scene_search
     @tourist_spots = TouristSpot.scene_search(params[:search])
   end
@@ -71,7 +74,8 @@ class User::TouristSpotsController < ApplicationController
 			params.require(:tourist_spot).permit(
         :genre_id,
         :scene_id,
-        :name, :postcode,
+        :name,
+        :postcode,
         :prefecture_code,
         :address_city,
         :address_street,

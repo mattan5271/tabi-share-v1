@@ -151,7 +151,6 @@ ActiveRecord::Schema.define(version: 2020_05_03_143715) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "nickname"
     t.integer "postcode"
     t.integer "prefecture_code"
     t.string "address_city"

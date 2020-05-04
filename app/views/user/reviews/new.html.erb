@@ -11,11 +11,6 @@
 <%= f.label :score, "点数" %><br>
 <%= f.select :score, options_for_select(1..100), include_blank: "-----" %><br>
 
-<%= f.radio_button :is_value, "本名" %>
-<%= f.label :is_value,"有効" %>
-<%= f.radio_button :is_value, "ニックネーム" %>
-<%= f.label :is_value, "ニックネーム"%><br>
-
 <%= f.hidden_field :tourist_spot_id, value: @tourist_spot.id  %>
 
 <%= f.submit "投稿" %>

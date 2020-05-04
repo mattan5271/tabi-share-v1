@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
 
 		def user_params
       params.require(:user).permit(
-        :nickname,
+        :name,
         :postcode,
         :prefecture_code,
         :address_city,

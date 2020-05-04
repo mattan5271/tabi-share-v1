@@ -6,12 +6,12 @@ class User::UsersController < ApplicationController
   end
 
   def show
-    @currentUserEntry=Entry.where(user_id: current_user.id)
-    @userEntry=Entry.where(user_id: @user.id)
+    @currentUserEntry = Entry.where(user_id: current_user.id) # ログインしているユーザーを検索
+    @userEntry = Entry.where(user_id: @user.id) # メッセージ相手のユーザーを検索
     unless @user.id == current_user.id
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
-          if cu.room_id == u.room_id then
+          if cu.room_id == u.room_id then #room_idが一致するユーザー同士を探す
             @isRoom = true
             @roomId = cu.room_id
           end
@@ -35,12 +35,12 @@ class User::UsersController < ApplicationController
 		end
   end
 
-#自分がフォローしているユーザー一覧
+  # 自分がフォローしているユーザー一覧
   def following
     @user = User.find(params[:user_id])
   end
 
-#自分をフォローしているユーザー一覧
+  # 自分をフォローしているユーザー一覧
   def follower
     @user = User.find(params[:user_id])
   end
@@ -53,13 +53,14 @@ class User::UsersController < ApplicationController
 
 		def user_params
       params.require(:user).permit(
-        :nickname,
+        :name,
         :postcode,
         :prefecture_code,
         :address_city,
         :address_street,
         :address_building,
-        :introduction, :profile_image_id,
+        :introduction,
+        :profile_image_id,
         :header_image_id,
         :point,
         :rank,

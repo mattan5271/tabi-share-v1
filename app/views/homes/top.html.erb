@@ -16,86 +16,13 @@
 
 
 <h1>ランキング(いいね数)</h1>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>地名・施設名</th>
-			<th>紹介文</th>
-			<th>ジャンル</th>
-			<th>利用シーン</th>
-      <th>住所</th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @tourist_spots_rank.each do |tourist_spot| %>
-		<tr>
-			<td><%= link_to tourist_spot.name, user_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.introduction %></td>
-			<td><%= tourist_spot.genre.name %></td>
-			<td><%= tourist_spot.scene.name %></td>
-      <td><%= tourist_spot.full_address %></td>
-			<td>
-				<% if tourist_spot.favorited_by?(current_user) %>
-					<%= link_to "行きたい！から削除 (#{tourist_spot.favorites.count})", user_tourist_spot_favorites_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行きたい！", user_tourist_spot_favorites_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-			<td>
-				<% if tourist_spot.wented_by?(current_user) %>
-					<%= link_to "行った！から削除", user_tourist_spot_wents_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行った！", user_tourist_spot_wents_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
 
 <h1>新着</h1>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>地名・施設名</th>
-			<th>紹介文</th>
-			<th>ジャンル</th>
-			<th>利用シーン</th>
-      <th>住所</th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
+<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
 
-	<tbody>
-		<% @tourist_spots_new.each do |tourist_spot| %>
-		<tr>
-			<td><%= link_to tourist_spot.name, user_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.introduction %></td>
-			<td><%= tourist_spot.genre.name %></td>
-			<td><%= tourist_spot.scene.name %></td>
-      <td><%= tourist_spot.full_address %></td>
-			<td>
-				<% if tourist_spot.favorited_by?(current_user) %>
-					<%= link_to "行きたい！から削除 (#{tourist_spot.favorites.count})", user_tourist_spot_favorites_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行きたい！", user_tourist_spot_favorites_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-			<td>
-				<% if tourist_spot.wented_by?(current_user) %>
-					<%= link_to "行った！から削除", user_tourist_spot_wents_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行った！", user_tourist_spot_wents_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+
+<!-- Google Map -->
 
 <div id='map'></div>
 
@@ -151,3 +78,5 @@
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async defer></script>
+
+<!-- Google Map -->

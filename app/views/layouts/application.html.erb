@@ -26,7 +26,7 @@
           <div class="collapse navbar-collapse" id="navbarEexample7">
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
-                <p class="navbar-text">ようこそ <%= link_to current_user.nickname, user_user_path(current_user) %> さん！</p>
+                <p class="navbar-text">ようこそ <%= link_to current_user.name, user_user_path(current_user) %> さん！</p>
                 <li><%= link_to "観光地一覧", user_tourist_spots_path %></li>
                 <li><%= link_to "行きたい観光スポット", user_favorite_tourist_spots_path %></li>
                 <li><%= link_to "行った観光スポット", user_went_tourist_spots_path %></li>

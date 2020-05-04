@@ -10,6 +10,14 @@ class User::ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     if review.save
+      if current_user.provider.present?
+        current_user.point += 1 # 本名でレビューを投稿していれば、ポイントを与える
+        review.user_rank_update(current_user) # レビューを投稿したユーザーのランクをアップデート
+        review.is_value = "本名" # レビューが本名で投稿された事を定義する
+      else
+        review.is_value = "仮名" # レビューが仮名で投稿された事を定義する
+      end
+      review.save
       redirect_to user_tourist_spot_reviews_path(review.tourist_spot, review)
     else
       render 'new'

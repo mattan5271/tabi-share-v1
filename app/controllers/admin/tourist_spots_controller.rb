@@ -34,7 +34,9 @@ class Admin::TouristSpotsController < ApplicationController
 			params.require(:tourist_spot).permit(
         :genre_id,
         :scene_id,
-        :name, :postcode,
+        :name,
+        :images,
+        :postcode,
         :prefecture_code,
         :address_city,
         :address_street,
