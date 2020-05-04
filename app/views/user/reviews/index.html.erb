@@ -3,6 +3,7 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
+			<th>投稿者</th>
 			<th>タイトル</th>
 			<th>本文</th>
 			<th>点数</th>
@@ -15,6 +16,7 @@
 	<tbody>
 		<% @reviews.each do |review| %>
 		<tr>
+			<td><%= review.user.nickname %></td>
 			<td><%= review.title %></td>
 			<td><%= review.body %></td>
 			<td><%= review.score %></td>
