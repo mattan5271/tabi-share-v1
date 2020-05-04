@@ -6,7 +6,7 @@
 <% @sum += review.score %>
 <% end %>
 <% if @sum > 0 %>
-<%=  @sum / @tourist_spot.reviews.length %>
+<%=  @sum /= @tourist_spot.reviews.length %>
 <% end %>
 <!-- 平均点計算 -->
 

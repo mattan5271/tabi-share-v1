@@ -16,7 +16,17 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def index
-    @tourist_spots = TouristSpot.all
+    if params[:sort] == "1"
+      @tourist_spots = TouristSpot.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+    elsif params[:sort] == "2"
+      @tourist_spots = TouristSpot.order(:created_time)
+    elsif params[:sort] == "3"
+      p "成功"
+      @tourist_spots = TouristSpot.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+    else
+      p params[:sort].class
+      @tourist_spots = TouristSpot.all
+    end
     gon.tourist_spots = TouristSpot.all
   end
 
