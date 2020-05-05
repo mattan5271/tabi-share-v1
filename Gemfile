@@ -66,6 +66,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'recaptcha', require: "recaptcha/rails"
 
 gem 'jquery-rails'
 gem 'bootstrap-sass'

@@ -1,55 +1,73 @@
-<h2>新規登録画面</h2>
+<div class="row">
+  <div class="col-xs-3"></div>
+  <div class="col-xs-6 devise">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= link_to  root_path do %>
+    <%= image_tag 'logo.jpg' %><br>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :nickname, "ニックネーム" %><br />
-    <%= f.text_field :nickname, autofocus: true, autocomplete: "nickname" %>
+    <div class="devise__link">
+      <%= render "users/shared/links" %>
+    </div>
+
+    <h3 class="devise__title">会員情報入力</h3>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :name, "ニックネーム" %>
+      <span class="devise__label">必須</span><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :postcode, "郵便番号" %><br />
+      <%= f.text_field :postcode, placeholder: "ハイフン無し", autofocus: true, autocomplete: "postcode", class: "form-control devise__form"  %>
+    </div>
+
+    <div class="field">
+      <%= f.label :prefecture_name, '都道府県' %><br />
+      <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: "選択してください"}, class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :address_city, "市区町村" %><br />
+      <%= f.text_field :address_city, autofocus: true, autocomplete: "address_city", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :address_street, "番地" %><br />
+      <%= f.text_field :address_street, autofocus: true, autocomplete: "address_street", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :address_building, "建物" %><br />
+      <%= f.text_field :address_building, autofocus: true, autocomplete: "address_building", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %>
+      <span class="devise__label">必須</span><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, "パスワード" %>
+      <span class="devise__label">必須</span><br />
+      <%= f.password_field :password, placeholder: "#{@minimum_password_length}文字以上", autocomplete: "new-password", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation, "パスワード(再確認)" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control devise__form" %>
+    </div>
+
+    <div class="actions devise__button">
+      <%= f.submit "新規会員登録", class: "btn btn-success btn-lg btn-block" %>
+    </div>
+    <% end %>
+
+    <div class="col-xs-3"></div>
   </div>
-
-  <div class="field">
-    <%= f.label :postcode, "郵便番号" %><br />
-    <%= f.text_field :postcode, placeholder: "ハイフン無し", autofocus: true, autocomplete: "postcode" %>
-
-  <div class="field">
-    <%= f.label :prefecture_name, '都道府県' %>
-    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, include_blank: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address_city, "市区町村" %><br />
-    <%= f.text_field :address_city, autofocus: true, autocomplete: "address_city" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address_street, "番地" %><br />
-    <%= f.text_field :address_street, autofocus: true, autocomplete: "address_street" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address_building, "建物" %><br />
-    <%= f.text_field :address_building, autofocus: true, autocomplete: "address_building" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %><br />
-    <%= f.password_field :password, placeholder: "#{@minimum_password_length}文字以上", autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード(再確認)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

@@ -1,82 +1,86 @@
-<p>検索</p>
-<%= form_with url: user_keyword_search_path, method: :get, local: true do %>
-  <%= text_field_tag :search, '', placeholder: "キーワード" %>
-  <%= submit_tag '検索', name: nil %>
-<% end %>
+<div class="row">
+	<div class="col-xs-12 homes-top">
+		<%= form_with url: user_keyword_search_path, method: :get, local: true do %>
+		<div class="row">
+			<div class="col-xs-10">
+				<%= text_field_tag :search, '', placeholder: "キーワード検索", class: "form-control" %>
+			</div>
+			<div class="col-xs-2">
+				<%= submit_tag '検索', name: nil, class: "btn btn-info btn-block" %>
+			</div>
+		</div>
+		<% end %>
 
-<h1>ジャンル検索</h1>
-<% @genres.each do |genre| %>
-  <%= link_to  genre.name, user_genre_search_path(search: genre.id) %><br>
-<% end %>
+		<h2>ランキング(いいね数)</h2>
+		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
 
-<h1>利用シーン検索</h1>
-<% @scenes.each do |scene| %>
-  <%= link_to  scene.name, user_scene_search_path(search: scene.id) %><br>
-<% end %>
-
-
-<h1>ランキング(いいね数)</h1>
-<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
-
-<h1>新着</h1>
-<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
+		<h2>新着</h2>
+		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
 
 
-<!-- Google Map -->
+		<!-- Google Map -->
 
-<div id='map'></div>
+		<div id='map'></div>
 
-<style>
-#map {
-  height: 600px;
-  width: 600px;
-}
-</style>
+		<style>
+			#map {
+				height: 600px;
+				width: 600px;
+			}
+		</style>
 
-<script>
-	let map;
-	let marker = [];
-	let infoWindow = [];
-	let markerData = gon.tourist_spots;
+		<script>
+			let map;
+			let marker = [];
+			let infoWindow = [];
+			let markerData = gon.tourist_spots;
 
-	function initMap() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			function initMap() {
+				navigator.geolocation.getCurrentPosition(function (position) {
+					LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-		// 地図の作成
-		console.log(markerData[0]['latitude']);
-				// var mapLatLng = new google.maps.LatLng({lat: position.coords.latitude, lng: position.coords.longitude}); // 緯度経度のデータ作成
-			map = new google.maps.Map(document.getElementById('map'), { // #mapに地図を埋め込む
-				center: LatLng, // 地図の中心を指定
-					zoom: 15 // 地図のズームを指定
-			});
+					// 地図の作成
+					console.log(markerData[0]['latitude']);
+					// var mapLatLng = new google.maps.LatLng({lat: position.coords.latitude, lng: position.coords.longitude}); // 緯度経度のデータ作成
+					map = new google.maps.Map(document.getElementById('map'), { // #mapに地図を埋め込む
+						center: LatLng, // 地図の中心を指定
+						zoom: 15 // 地図のズームを指定
+					});
 
-		// マーカー毎の処理
-		for (var i = 0; i < markerData.length; i++) {
-			let id = markerData[i]['id']
+					// マーカー毎の処理
+					for (var i = 0; i < markerData.length; i++) {
+						let id = markerData[i]['id']
 
-			markerLatLng = new google.maps.LatLng({lat: markerData[i]['latitude'], lng: markerData[i]['longitude']}); // 緯度経度のデータ作成
-			marker[i] = new google.maps.Marker({ // マーカーの追加
-				position: markerLatLng, // マーカーを立てる位置を指定
-				map: map // マーカーを立てる地図を指定
-			});
+						markerLatLng = new google.maps.LatLng({
+							lat: markerData[i]['latitude'],
+							lng: markerData[i]['longitude']
+						}); // 緯度経度のデータ作成
+						marker[i] = new google.maps.Marker({ // マーカーの追加
+							position: markerLatLng, // マーカーを立てる位置を指定
+							map: map // マーカーを立てる地図を指定
+						});
 
-			infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-				content: `<a href='/user/tourist_spots/${id}'>詳細を見る</a>` + markerData[i]['name'] // 吹き出しに表示する内容
-			});
+						infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
+							content: `<a href='/user/tourist_spots/${id}'>詳細を見る</a>` + markerData[i]['name'] // 吹き出しに表示する内容
+						});
 
-				markerEvent(i); // マーカーにクリックイベントを追加
-		}
-	})}
+						markerEvent(i); // マーカーにクリックイベントを追加
+					}
+				})
+			}
 
-	// マーカーにクリックイベントを追加
-	function markerEvent(i) {
-			marker[i].addListener('click', function() { // マーカーをクリックしたとき
-				infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-		});
-	}
-</script>
+			// マーカーにクリックイベントを追加
+			function markerEvent(i) {
+				marker[i].addListener('click', function () { // マーカーをクリックしたとき
+					infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+				});
+			}
+		</script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap"
+			async defer></script>
 
-<!-- Google Map -->
+		<!-- Google Map -->
+
+	</div>
+</div>
