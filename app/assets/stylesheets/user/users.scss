@@ -3,7 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .devise {
-  text-align: center;
+
+  &__logo {
+    text-align: center;
+  }
 
   &__title,
   &__form,
@@ -11,10 +14,20 @@
     margin-bottom: 30px;
   }
 
-  &__label {
+  &__require-label {
     color: white;
     background-color: red;
+    margin-left: 5px;
     padding: 3px;
+    font-size: 12px;
+  }
+
+  &__any-label {
+    color: white;
+    background-color: gray;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 12px;
   }
 
   &__link {

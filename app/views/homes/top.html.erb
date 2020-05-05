@@ -1,15 +1,5 @@
 <div class="row">
 	<div class="col-xs-12 homes-top">
-		<%= form_with url: user_keyword_search_path, method: :get, local: true do %>
-		<div class="row">
-			<div class="col-xs-10">
-				<%= text_field_tag :search, '', placeholder: "キーワード検索", class: "form-control" %>
-			</div>
-			<div class="col-xs-2">
-				<%= submit_tag '検索', name: nil, class: "btn btn-info btn-block" %>
-			</div>
-		</div>
-		<% end %>
 
 		<h2>ランキング(いいね数)</h2>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
@@ -17,7 +7,7 @@
 		<h2>新着</h2>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
 
-
+		<%= link_to  "観光地新規登録", new_user_tourist_spot_path %>
 		<!-- Google Map -->
 
 		<div id='map'></div>

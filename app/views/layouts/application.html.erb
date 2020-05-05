@@ -43,7 +43,7 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation">
-                  <% @genres.each do |genre| %>
+                  <% Genre.all.each do |genre| %>
                   <%= link_to  genre.name, user_genre_search_path(search: genre.id), class: "genre-link" %><br>
                   <% end %>
                 </li>
@@ -57,7 +57,7 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation">
-                  <% @scenes.each do |scene| %>
+                  <% Scene.all.each do |scene| %>
                   <%= link_to  scene.name, user_scene_search_path(search: scene.id), class: "scene-link" %><br>
                   <% end %>
                 </li>
@@ -92,6 +92,16 @@
 
   <main>
     <div class="container">
+      <%= form_with url: user_keyword_search_path, method: :get, local: true do %>
+      <div class="row">
+        <div class="col-xs-10">
+          <%= text_field_tag :search, '', placeholder: "キーワード検索", class: "form-control" %>
+        </div>
+        <div class="col-xs-2">
+          <%= submit_tag '検索', name: nil, class: "btn btn-info btn-block" %>
+        </div>
+      </div>
+      <% end %>
       <%= yield %>
     </div>
   </main>

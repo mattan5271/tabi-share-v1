@@ -1,0 +1,52 @@
+<div class="row page-header tourist-spot__title">
+  <div class="col-xs-6">
+    <%= tourist_spot.name %>
+    <div class="tourist-spot__score">
+      <%= tourist_spot.average_score %>点
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+    <div class="tourist-spot__button-2">
+      <% if tourist_spot.favorited_by?(current_user) %>
+      <%= link_to user_tourist_spot_favorites_path(tourist_spot), method: :delete, class: "btn btn-default" do %>
+      <i class="fas fa-map-marker-alt"> 行きたい！から削除</i>
+      <% end %>
+      <% else %>
+      <%= link_to user_tourist_spot_favorites_path(tourist_spot), method: :post, class: "btn btn-warning" do %>
+      <i class="fas fa-star"> 行きたい！</i>
+      <% end %>
+      <% end %>
+
+      <% if tourist_spot.wented_by?(current_user) %>
+      <%= link_to user_tourist_spot_wents_path(tourist_spot), method: :delete, class: "btn btn-default" do %>
+      <i class="fas fa-check-circle"> 行った！から削除</i>
+      <% end %>
+      <% else %>
+      <%= link_to user_tourist_spot_wents_path(tourist_spot), method: :post, class: "btn btn-success" do %>
+      <i class="fas fa-check-circle"> 行った！</i>
+      <% end %>
+      <% end %>
+
+      <%= link_to "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter btn btn-info', data: { show_count: false }, title: 'Twitter', target: '_blank' do %>
+      <i class="fab fa-twitter"> Twitterでシェア</i>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class="tourist-spot__images-container">
+  <div id="theTarget">
+    <% tourist_spot.images.each do |image| %>
+      <%= image_tag image.to_s %>
+    <% end %>
+  </div>
+</div>
+
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation"><%= link_to "観光地トップ", user_tourist_spot_path(tourist_spot) %></li>
+  <li role="presentation"><%= link_to "レビュー一覧", user_tourist_spot_reviews_path(tourist_spot) %></li>
+  <li role="presentation"><%= link_to  "レビュー投稿", new_user_tourist_spot_review_path(tourist_spot) %></li>
+  <li role="presentation"><%= link_to  "地図", user_tourist_spot_map_path(tourist_spot) %></li>
+</ul>

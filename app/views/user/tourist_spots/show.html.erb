@@ -1,132 +1,54 @@
-<h1>観光スポット詳細画面</h1>
+<div class="row">
+  <div class="col-xs-12 tourist-spot">
 
-<% @tourist_spot.images.each do |image| %>
-<%= image_tag image.to_s %><br>
-<% end %>
+    <%= render 'detail', tourist_spot: @tourist_spot %>
 
-<%= label_tag :点数 %><br>
-<%= @tourist_spot.average_score %><br>
+    <div class="row">
+      <div class="col-xs-3">
+        <%= render 'weather', tourist_spot: @tourist_spot %>
+      </div>
 
-<%= label_tag :地名・施設名 %><br>
-<%= @tourist_spot.name %><br>
+      <div class="col-xs-9">
+        <table class="table table-bordered tourist-spot__table">
+          <tbody>
+              <tr>
+                <th class="success">説明文</th>
+                <td><%= @tourist_spot.introduction %></td>
+              </tr>
+              <tr>
+                <th>ジャンル</th>
+                <td><%= @tourist_spot.genre.name %></td>
+              </tr>
+              <tr>
+                <th>利用シーン</th>
+                <td><%= @tourist_spot.scene.name %></td>
+              </tr>
+              <tr>
+                <th>住所</th>
+                <td><%= @tourist_spot.full_address %></td>
+              </tr>
+              <tr>
+                <th>アクセス方法</th>
+                <td><%= @tourist_spot.access %></td>
+              </tr>
+              <tr>
+                <th>営業時間</th>
+                <td><%= @tourist_spot.business_hour %></td>
+              </tr>
+              <tr>
+                <th>駐車場</th>
+                <td><%= @tourist_spot.is_parking %></td>
+              </tr>
+          </tbody>
+        </table>
 
-<%= label_tag :紹介文 %><br>
-<%= @tourist_spot.introduction %><br>
-
-<%= label_tag :ジャンル %><br>
-<%= @tourist_spot.genre.name %><br>
-
-<%= label_tag :利用シーン %><br>
-<%= @tourist_spot.scene.name %><br>
-
-<%= label_tag :住所 %><br>
-<%= @tourist_spot.full_address %><br>
-
-<%= label_tag :アクセス %><br>
-<%= @tourist_spot.access %><br>
-
-<%= label_tag :営業時間 %><br>
-<%= @tourist_spot.business_hour %><br>
-
-<%= label_tag :駐車場 %><br>
-<%= @tourist_spot.is_parking %><br>
-
-<%= link_to  "レビュー投稿", new_user_tourist_spot_review_path(@tourist_spot) %><br>
-<%= link_to  "レビュー一覧", user_tourist_spot_reviews_path(@tourist_spot) %><br>
-
-<% if @tourist_spot.favorited_by?(current_user) %>
-<%= link_to "行きたい！から削除", user_tourist_spot_favorites_path(@tourist_spot), method: :delete %><br>
-<% else %>
-<%= link_to "行きたい！", user_tourist_spot_favorites_path(@tourist_spot), method: :post %><br>
-<% end %>
-
-<% if @tourist_spot.wented_by?(current_user) %>
-<%= link_to "行った！から削除", user_tourist_spot_wents_path(@tourist_spot), method: :delete %><br>
-<% else %>
-<%= link_to "行った！", user_tourist_spot_wents_path(@tourist_spot), method: :post %><br>
-<% end %>
-
-<% if @tourist_spot.user === current_user %>
-<%= link_to "編集", edit_user_tourist_spot_path(@tourist_spot) %><br>
-<%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-<% end %>
-
-<div id="cityname"></div>
-<div id="weather"></div>
-<script>
-  $(function () {
-    var API_KEY = 'b03aacee8b5a8be1b8a2d478042879c6'
-    var city = '<%= @tourist_spot.prefecture_name %>';
-    var url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY;
-    $.ajax({
-        url: url,
-        dataType: "json",
-        type: 'GET',
-      })
-      .done(function (data) {
-        var insertHTML = "";
-        var cityName = '<h2>' + data.city.name + '</h2>';
-        $('#city-name').html(cityName);
-        for (var i = 0; i <= 8; i = i + 2) {
-          insertHTML += buildHTML(data, i);
-        }
-        $('#weather').html(insertHTML);
-      })
-      .fail(function (data) {
-        console.log("失敗しました");
-      });
-  });
-
-  function buildHTML(data, i) {
-    var Week = new Array("（日）", "（月）", "（火）", "（水）", "（木）", "（金）", "（土）");
-    var date = new Date(data.list[i].dt_txt);
-    date.setHours(date.getHours() + 9);
-    var month = date.getMonth() + 1;
-    var day = month + "月" + date.getDate() + "日" + Week[date.getDay()] + date.getHours() + "：00";
-    var icon = data.list[i].weather[0].icon;
-    var html =
-      '<div class="weather-report">' +
-      '<img src="http://openweathermap.org/img/w/' + icon + '.png">' +
-      '<div class="weather-date">' + day + '</div>' +
-      '<div class="weather-main">' + data.list[i].weather[0].main + '</div>' +
-      '<div class="weather-temp">' + Math.round(data.list[i].main.temp) + '℃</div>' +
-      '</div>';
-    return html
-  }
-</script>
-
-<div id='map'></div>
-
-<style>
-  #map {
-    height: 600px;
-    width: 600px;
-  }
-</style>
-
-<script>
-  let map
-
-  function initMap() {
-    geocoder = new google.maps.Geocoder()
-
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: <%= @tourist_spot.latitude %> ,
-        lng: <%= @tourist_spot.longitude %>
-      },
-      zoom: 12,
-    });
-
-    marker = new google.maps.Marker({
-      position: {
-        lat: <%= @tourist_spot.latitude %> ,
-        lng: <%= @tourist_spot.longitude %>
-      },
-      map: map
-    });
-  }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCErCcqk6eIxWC2DG4pgYLGfgwnfpAjAVo&callback=initMap" asyncdefer></script>
-
-<%= link_to 'Twitterで共有', "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter', data: { show_count: false }, title: 'Twitter', target: '_blank' %>
+        <div class="tourist-spot__button-2">
+          <% if @tourist_spot.user === current_user %>
+            <%= link_to "編集", edit_user_tourist_spot_path(@tourist_spot), class: "btn btn-primary" %>
+            <%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

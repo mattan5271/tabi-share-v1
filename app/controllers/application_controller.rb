@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters,if: :devise_controller?
   # prepend_before_action :check_captcha
 
-  @genres = Genre.all
-  @scenes = Scene.all
-
   private
 
     def configure_permitted_parameters

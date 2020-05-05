@@ -49,6 +49,10 @@ class User::TouristSpotsController < ApplicationController
 		redirect_to user_tourist_spots_path
   end
 
+  def map
+    @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
+  end
+
   # キーワード検索
   def keyword_search
     @tourist_spots = TouristSpot.keyword_search(params[:search])

@@ -1,3 +1,61 @@
 // Place all the styles related to the user::tourist_spots controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tourist-spot {
+
+  &__logo {
+    text-align: center;
+  }
+
+  &__require-label {
+    color: white;
+    background-color: red;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  &__any-label {
+    color: white;
+    background-color: gray;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  &__label {
+    margin-right: 10px;
+  }
+
+  &__button-1 {
+    margin-top: 30px;
+  }
+
+  &__button-2 {
+    text-align: right;
+  }
+
+  &__images-container {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    font-size: 30px;
+  }
+
+  &__score {
+    display: inline-block;
+    padding: 7px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #FFF;
+    background-image: linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%);
+    transition: .4s;
+  }
+
+  &__table {
+    margin-top: 30px;
+  }
+}

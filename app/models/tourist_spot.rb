@@ -20,6 +20,11 @@ class TouristSpot < ApplicationRecord
     wents.where(user_id: user.id).exists?
   end
 
+  # 住所を結合
+  def full_address
+    "〒" + self.postcode.to_s + " " + prefecture_name + " " + self.address_city + " " + self.address_street + " " + self.address_building
+  end
+
   #住所自動入力
   include JpPrefecture
   jp_prefecture :prefecture_code

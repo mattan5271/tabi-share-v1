@@ -2,9 +2,11 @@
   <div class="col-xs-3"></div>
   <div class="col-xs-6 devise">
 
-    <%= link_to  root_path do %>
-    <%= image_tag 'logo.jpg' %><br>
-    <% end %>
+    <div class="devise__logo">
+      <%= link_to  root_path do %>
+      <%= image_tag 'logo.jpg' %><br>
+      <% end %>
+    </div>
 
     <div class="devise__link">
       <%= render "users/shared/links" %>
@@ -17,44 +19,49 @@
 
     <div class="field">
       <%= f.label :name, "ニックネーム" %>
-      <span class="devise__label">必須</span><br />
+      <span class="devise__require-label">必須</span><br />
       <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control devise__form" %>
     </div>
 
     <div class="field">
-      <%= f.label :postcode, "郵便番号" %><br />
+      <%= f.label :postcode, "郵便番号" %>
+      <span class="devise__any-label">任意</span><br />
       <%= f.text_field :postcode, placeholder: "ハイフン無し", autofocus: true, autocomplete: "postcode", class: "form-control devise__form"  %>
     </div>
 
     <div class="field">
-      <%= f.label :prefecture_name, '都道府県' %><br />
+      <%= f.label :prefecture_name, '都道府県' %>
+      <span class="devise__any-label">任意</span><br />
       <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: "選択してください"}, class: "form-control devise__form" %>
     </div>
 
     <div class="field">
-      <%= f.label :address_city, "市区町村" %><br />
+      <%= f.label :address_city, "市区町村" %>
+      <span class="devise__any-label">任意</span><br />
       <%= f.text_field :address_city, autofocus: true, autocomplete: "address_city", class: "form-control devise__form" %>
     </div>
 
     <div class="field">
-      <%= f.label :address_street, "番地" %><br />
+      <%= f.label :address_street, "番地" %>
+      <span class="devise__any-label">任意</span><br />
       <%= f.text_field :address_street, autofocus: true, autocomplete: "address_street", class: "form-control devise__form" %>
     </div>
 
     <div class="field">
-      <%= f.label :address_building, "建物" %><br />
+      <%= f.label :address_building, "建物" %>
+      <span class="devise__any-label">任意</span><br />
       <%= f.text_field :address_building, autofocus: true, autocomplete: "address_building", class: "form-control devise__form" %>
     </div>
 
     <div class="field">
       <%= f.label :email, "メールアドレス" %>
-      <span class="devise__label">必須</span><br />
+      <span class="devise__require-label">必須</span><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control devise__form" %>
     </div>
 
     <div class="field">
       <%= f.label :password, "パスワード" %>
-      <span class="devise__label">必須</span><br />
+      <span class="devise__require-label">必須</span><br />
       <%= f.password_field :password, placeholder: "#{@minimum_password_length}文字以上", autocomplete: "new-password", class: "form-control devise__form" %>
     </div>
 

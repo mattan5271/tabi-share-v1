@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 			resources :reviews do
 				resource :likes, only: [:index, :create, :destroy]
 			end
+			get 'map' => 'tourist_spots#map'
 		end
 		resources :comments, only: [:create, :edit, :update, :destroy]
     resources :messages, only: [:create]
