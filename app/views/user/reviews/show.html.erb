@@ -1,69 +1,109 @@
-<h1>レビュー詳細画面</h1>
-
-<%= label_tag :タイトル %><br>
-<%= @review.title %><br>
-
-<%= label_tag :本文 %><br>
-<%= @review.body %><br>
-
-<%= label_tag :点数 %><br>
-<%= @review.score %><br>
-
-<%= label_tag :ステータス %><br>
-<%= @review.is_value %><br>
-
-<% if @review.liked_by?(current_user) %>
-  <%= link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do %>
+<div class="row page-header">
+  <div class="page-header review__title">
+    <%= @review.title %>
+    <% if @review.liked_by?(current_user) %>
+    <%= link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do %>
     <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
     <%= @review.likes.count %>
-  <% end %>
-<% else %>
-  <%= link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do %>
+    <% end %>
+    <% else %>
+    <%= link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do %>
     <i class="fa fa-heart-o" aria-hidden="true"></i>
     <%= @review.likes.count %>
-  <% end %>
-<% end %>
+    <% end %>
+    <% end %>
+    <div class="review__score">
+      <%= @review.score %>点
+    </div>
+  </div>
 
-<% if @review.user === current_user %>
-  <%= link_to "編集", edit_user_tourist_spot_review_path(@review) %>
-  <%= link_to "削除", user_tourist_spot_review_path(@review), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-<% end %>
+  <ul class="bxslider">
+    <% @review.images.each do |image| %>
+    <li>
 
-<%= form_with model: @comment, url: user_comments_path, local: true do |f| %>
+      <%= image_tag image.to_s %>
+    </li>
+    <% end %>
+  </ul>
 
-<%= f.label :title, "タイトル" %><br>
-<%= f.text_field :title %><br>
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <%= attachment_image_tag @review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+            <%= link_to @review.user.name, user_user_path(@review.user) %>
+            (<%= @review.is_value %>)
+            <% @user = @review.user %>
+            <span id="followbutton_<%= @user.id %>">
+              <% unless @user == current_user %>
+              <%= render "user/users/followbutton", user: @user %>
+              <% end %>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td><%= @review.body %></td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @review.user === current_user %>
+    <%= link_to "編集", edit_user_tourist_spot_review_path(@review), class: "btn btn-primary" %>
+    <%= link_to "削除", user_tourist_spot_review_path(@review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+    <% end %>
 
-<%= f.label :body, "本文" %><br>
-<%= f.text_area :body %><br>
+  </div>
 
-<%= f.hidden_field :review_id, value: @review.id %>
+  <div class="col-xs-2"></div>
+</div>
 
-<%= f.submit "投稿" %>
+<div class="row review">
+  <div class="col-xs-3"></div>
+  <div class="col-xs-6">
+    <%= form_with model: @comment, url: user_comments_path, local: true do |f| %>
 
-<% end %>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title, class: "form-control" %><br>
 
-<table>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-			<th>本文</th>
-      <th></th>
-		</tr>
-	</thead>
+    <%= f.label :body, "本文" %><br>
+    <%= f.text_area :body, class: "form-control" %><br>
 
-	<tbody>
-		<% @comments.each do |comment| %>
-		<tr>
-			<td><%= comment.title %></td>
-			<td><%= comment.body %></td>
-      <td>
-        <% if comment.user === current_user %>
-          <%= link_to "編集", edit_user_comment_path(comment) %>
-          <%= link_to "削除", user_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <%= f.hidden_field :review_id, value: @review.id %>
+
+    <%= f.submit "投稿", class: "btn btn-success btn-block" %>
+
+    <% end %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>投稿者</th>
+          <th>タイトル</th>
+          <th>本文</th>
+          <th>投稿日時</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @comments.each do |comment| %>
+        <tr>
+          <td><%= link_to comment.user.name, user_user_path(comment.user) %></td>
+          <td><%= comment.title %></td>
+          <td><%= comment.body %></td>
+          <td><%= comment.created_at %></td>
+          <td>
+            <% if comment.user === current_user %>
+            <%= link_to "編集", edit_user_comment_path(comment), class: "btn btn-primary" %>
+            <%= link_to "削除", user_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+            <% end %>
+          </td>
+        </tr>
         <% end %>
-      </td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+      </tbody>
+    </table>
+
+    <div class="col-xs-3"></div>
+  </div>
+</div>

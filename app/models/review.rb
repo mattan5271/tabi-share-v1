@@ -15,6 +15,27 @@ class Review < ApplicationRecord
     likes.where(user_id: user.id).exists?
   end
 
+  # おすすめ順
+  def self.recommended_order
+    self.find(Like.group(:review_id).order('count(review_id) desc').limit(5).pluck(:review_id))
+  end
+
+  # 新着順
+  def self.new_order
+    self.order(:created_time)
+  end
+
+  # コメント数順
+  def self.comments_order
+    self.find(Comment.group(:review_id).order('count(review_id) desc').pluck(:review_id))
+  end
+
+  # 点数順
+  def self.score_order
+    p "おk"
+    self.order(score: "DESC")
+  end
+
   #ユーザーのポイントによってランク付け
   def user_rank_update(user)
     case user.point

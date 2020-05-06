@@ -13,7 +13,7 @@ class User::LikesController < ApplicationController
     review = Review.find(params[:review_id])
     like = current_user.likes.find_by(review_id: review.id)
     like.destroy
-    like.user_rank_update(review) # いいねを外したレビューを投稿したユーザーのランクをアップデート
+    review.user_rank_update(review.user) # いいねを外したレビューを投稿したユーザーのランクをアップデート
     redirect_to user_tourist_spot_reviews_path
   end
 end

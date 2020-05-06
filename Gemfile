@@ -72,6 +72,7 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'jp_prefecture'
 gem 'gon'
+gem 'bxslider-rails'
 
 gem 'carrierwave'
 gem 'mini_magick'

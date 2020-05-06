@@ -1,41 +1,39 @@
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>地名・施設名</th>
-			<th>紹介文</th>
-			<th>ジャンル</th>
-			<th>利用シーン</th>
-      <th>住所</th>
-      <th>点数</th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% tourist_spots.each do |tourist_spot| %>
-		<tr>
-			<td><%= link_to tourist_spot.name, user_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.introduction %></td>
-			<td><%= tourist_spot.genre.name %></td>
-			<td><%= tourist_spot.scene.name %></td>
-      <td><%= tourist_spot.full_address %></td>
-			<td><%= tourist_spot.average_score %></td>
-			<td>
-				<% if tourist_spot.favorited_by?(current_user) %>
-					<%= link_to "行きたい！から削除", user_tourist_spot_favorites_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行きたい！", user_tourist_spot_favorites_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-			<td>
-				<% if tourist_spot.wented_by?(current_user) %>
-					<%= link_to "行った！から削除", user_tourist_spot_wents_path(tourist_spot), method: :delete %>
-				<% else %>
-					<%= link_to "行った！", user_tourist_spot_wents_path(tourist_spot), method: :post %>
-				<% end %>
-			</td>
-		</tr>
+<% unless controller_name == 'homes' %>
+<div class="row tourist-spot__sort">
+	<div class="col-xs-8"></div>
+	<div class="col-xs-4">
+		<%= form_with url: user_tourist_spots_path, method: :get, local: true do %>
+		<div class="row">
+			<div class="col-xs-10">
+				<%= select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["レビュー数", "3"], ["点数順", "4"]]), include_blank: "-----", class: "form-control" %>
+			</div>
+			<div class="col-xs-2">
+				<%= submit_tag "並び替え", class: "btn btn-success" %>
+			</div>
+		</div>
 		<% end %>
-	</tbody>
-</table>
+	</div>
+</div>
+<% end %>
+
+<div class="row">
+	<% tourist_spots.each do |tourist_spot| %>
+	<div class="col-xs-3">
+		<%= link_to user_tourist_spot_path(tourist_spot) do %>
+		<div class="tourist-spot__container">
+			<%= image_tag tourist_spot.images[0].to_s, class: "tourist-spot__container--image" %>
+			<div class="tourist-spot__container--box">
+				<div class="col-xs-7 tourist-spot__container--image">
+					<%= tourist_spot.name %>
+				</div>
+				<div class="col-xs-5">
+					<div class="tourist-spot__score">
+						<%= tourist_spot.average_score %>点
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+</div>

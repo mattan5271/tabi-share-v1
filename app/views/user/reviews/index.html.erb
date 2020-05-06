@@ -1,41 +1,57 @@
-<h1>レビュー一覧画面</h1>
-
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>投稿者</th>
-			<th>タイトル</th>
-			<th>本文</th>
-			<th>点数</th>
-			<th>ステータス</th>
-      <th></th>
-			<th></th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @reviews.each do |review| %>
-		<tr>
-			<td><%= review.user.nickname %></td>
-			<td><%= review.title %></td>
-			<td><%= review.body %></td>
-			<td><%= review.score %></td>
-			<td><%= review.is_value %></td>
-      <td><%= link_to "コメント", user_tourist_spot_review_path(review.tourist_spot, review) %></td>
-			<td>
-				<% if review.liked_by?(current_user) %>
-					<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :delete do %>
-						<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-						<%= review.likes.count %>
-					<% end %>
-				<% else %>
-					<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :post do %>
-						<i class="fa fa-heart-o" aria-hidden="true"></i>
-						<%= review.likes.count %>
-					<% end %>
-				<% end %>
-			</td>
-		</tr>
+<div class="row tourist-spot__sort">
+	<div class="col-xs-8"></div>
+	<div class="col-xs-4">
+		<%= form_with url: user_tourist_spot_reviews_path, method: :get, local: true do %>
+		<div class="row">
+			<div class="col-xs-10">
+				<%= select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["コメント数", "3"], ["点数順", "4"]]), include_blank: "-----", class: "form-control" %>
+			</div>
+			<div class="col-xs-2">
+				<%= submit_tag "並び替え", class: "btn btn-success" %>
+			</div>
+		</div>
 		<% end %>
-	</tbody>
-</table>
+	</div>
+</div>
+
+<div class="row review">
+	<div class="col-xs-4"></div>
+	<div class="col-xs-4">
+		<% @reviews.each do |review| %>
+		<div class="thumbnail">
+			<%= image_tag review.images[0].to_s %>
+			<div class="caption">
+				<p>
+					<%= attachment_image_tag review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+					<%= link_to review.user.name, user_user_path(review.user) %>
+					(<%= review.is_value %>)
+					<span class="review__score">
+						<%= review.score %>点
+					</span>
+				</p>
+				<p>
+					<%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
+				</p>
+				<p><%= review.body %></p>
+
+				<% if review.liked_by?(current_user) %>
+				<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :delete do %>
+				<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+				<%= review.likes.count %>
+				<% end %>
+				<% else %>
+				<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :post do %>
+				<i class="fa fa-heart-o" aria-hidden="true"></i>
+				<%= review.likes.count %>
+
+				<%= link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do %>
+				<i class="fas fa-comment-dots">コメント</i>
+				<% end %>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+	</div>
+	<div class="col-xs-4"></div>
+</div>

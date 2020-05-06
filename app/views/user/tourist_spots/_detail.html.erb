@@ -35,14 +35,15 @@
   </div>
 </div>
 
+<ul class="bxslider">
+  <% tourist_spot.images.each do |image| %>
+  <li>
+    <%= image_tag image.to_s %>
+  </li>
+  <% end %>
+</ul>
 
-<div class="tourist-spot__images-container">
-  <div id="theTarget">
-    <% tourist_spot.images.each do |image| %>
-      <%= image_tag image.to_s %>
-    <% end %>
-  </div>
-</div>
+
 
 <ul class="nav nav-tabs nav-justified">
   <li role="presentation"><%= link_to "観光地トップ", user_tourist_spot_path(tourist_spot) %></li>

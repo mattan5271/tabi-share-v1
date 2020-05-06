@@ -1,42 +1,96 @@
-<h1>ユーザー詳細画面</h1>
+<div class="row user">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", class: "img-thumbnail user__image" %>
 
-<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+            <span class="user__name">
+              <%= @user.name %>
+            </span>
 
-<%= attachment_image_tag @user, :header_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+            <% if user_signed_in? %>
+            <%= link_to "プロフィールを編集", edit_user_user_path(@user) %>
+            <% end %>
 
-<%= label_tag :ユーザーID %>
-<%= @user.id %>
-<%= @user.is_valid %>ユーザー<br>
+            <div id="followbutton_<%= @user.id %>">
+              <% unless @user == current_user %>
+              <%= render "user/users/followbutton", user: @user %>
+              <% end %>
+            </div>
 
-<%= label_tag :ニックネーム %>
-<%= @user.nickname %><br>
+            <% unless @user.id == current_user.id %>
+            <% if @isRoom == true %>
+            <%= link_to "ダイレクトメッセージ", user_room_path(@roomId) %>
+            <% else %>
+            <%= form_with model: @room, url: user_rooms_path, local: true do |f| %>
+            <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit "チャットを始める", class: "btn btn-success user__button" %>
+            <% end %>
+            <% end %>
+            <% end %>
 
-<%= label_tag :住所 %>
-<%= @user.full_address %><br>
+            <p><%= @user.introduction %></p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
 
-<%= label_tag :メールアドレス %>
-<%= @user.email %><br>
-
-<%= link_to "編集する", edit_admin_user_path(@user) %><br>
-
-<%= link_to "フォロー数:#{@user.follower.count}", user_following_path(@user) %></td>
-<%= link_to "フォロワー数:#{@user.followed.count}", user_follower_path(@user) %>
-
-<div id="followbutton_<%= @user.id %>">
-  <% unless @user == current_user %>
-  <%= render "user/users/followbutton", user: @user %>
-  <% end %>
+    <ul class="nav nav-tabs nav-justified">
+      <li role="presentation"><%= link_to "ユーザートップ", user_user_path(@user) %></li>
+      <li role="presentation"><%= link_to "行った観光地", root_path %></li>
+      <li role="presentation"><%= link_to  "#{@user.follower.count}フォロー中", user_following_path(@user) %></li>
+      <li role="presentation"><%= link_to  "#{@user.followed.count}フォロワー", user_follower_path(@user) %></li>
+    </ul>
+  </div>
+  <div class="col-xs-2"></div>
 </div>
 
-<% unless @user.id == current_user.id %>
-<% if @isRoom == true %>
-<%= link_to "チャットへ", user_room_path(@roomId) %>
-<% else %>
-<%= form_with model: @room, url: user_rooms_path, local: true do |f| %>
-<%= fields_for @entry do |e| %>
-<%= e.hidden_field :user_id, value: @user.id %>
-<% end %>
-<%= f.submit "チャットを始める" %>
-<% end %>
-<% end %>
-<% end %>
+<div class="row user__reviews">
+  <div class="col-xs-4"></div>
+  <div class="col-xs-4">
+    <% @user.reviews.each do |review| %>
+    <div class="thumbnail">
+      <%= image_tag review.images[0].to_s %>
+      <div class="caption">
+        <p>
+          <%= attachment_image_tag review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+          <%= link_to review.user.name, user_user_path(review.user) %>
+          (<%= review.is_value %>)
+          <span class="review__score">
+            <%= review.score %>点
+          </span>
+        </p>
+        <p>
+          <%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
+        </p>
+        <p><%= review.body %></p>
+
+        <% if review.liked_by?(current_user) %>
+        <%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :delete do %>
+        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+        <%= review.likes.count %>
+        <% end %>
+        <% else %>
+        <%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :post do %>
+        <i class="fa fa-heart-o" aria-hidden="true"></i>
+        <%= review.likes.count %>
+
+        <%= link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do %>
+        <i class="fas fa-comment-dots">コメント</i>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <% end %>
+  </div>
+  <div class="col-xs-4"></div>
+</div>

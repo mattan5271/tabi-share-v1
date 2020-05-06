@@ -86,22 +86,22 @@ class TouristSpot < ApplicationRecord
   end
 
   # おすすめ順
-  def recommended_order
+  def self.recommended_order
     self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
   end
 
   # 新着順
-  def new_order
-    self.order(:created_time)
+  def self.new_order
+    self.order(id: 'DESC')
   end
 
   # レビュー数順
-  def reviews_order
+  def self.reviews_order
     self.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
   end
 
   # 点数順
-  def score_order
+  def self.score_order
     self.find(Review.group(:tourist_spot_id).order('avg(score) desc').pluck(:tourist_spot_id))
   end
 

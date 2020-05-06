@@ -1,3 +1,33 @@
+<div class="row">
+  <% @user.follower_user.each do |user| %>
+  <div class="col-xs-3">
+    <div class="thumbnail">
+      <div class="caption">
+        <p>
+          <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+          <%= link_to user.name, user_user_path(review.user) %>
+          <%= user.prefecture_name %>
+        </p>
+        <p>
+          <%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
+        </p>
+        <p><%= link_to  "#{@user.followed.count}フォロー中", user_following_path(@user) %></p>
+        <p><%= link_to  "#{@user.follower.count}フォロワー", user_follower_path(@user) %></p>
+
+        <p>
+          <div id="followbutton_<%= @user.id %>">
+            <% unless user == current_user %>
+            <%= render "user/users/followbutton", user: @user %>
+            <% end %>
+          </div>
+        </p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+
 <h1>フォロワー</h1>
 
 <table class="table">
@@ -16,7 +46,7 @@
       <td>
         <%= attachment_image_tag user, :profile_image, :size =>'30x30', class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
       </td>
-      <td><%= user.nickname %></td>
+      <td><%= user.name %></td>
       <td><%= user.introduction %></td>
       <td><%= link_to "Show", user_user_path(user) %></td>
       <td id="followbutton_<%= user.id %>">

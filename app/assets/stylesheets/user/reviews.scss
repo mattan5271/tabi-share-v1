@@ -1,3 +1,43 @@
 // Place all the styles related to the user::reviews controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.review {
+  width: 100%;
+  margin: 0 auto;
+
+  &__logo {
+    text-align: center;
+  }
+
+  &__require-label {
+    color: white;
+    background-color: red;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  &__score {
+    display: inline-block;
+    margin-left: 50px;
+    padding: 7px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #FFF;
+    background-image: linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%);
+    transition: .4s;
+  }
+
+  &__comment-title {
+    border-bottom: 1px dashed orange;
+  }
+
+  &__comment-link {
+    margin-left: 10px;
+  }
+
+  &__title {
+    font-size: 30px;
+  }
+}

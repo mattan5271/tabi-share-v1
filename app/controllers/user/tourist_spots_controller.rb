@@ -16,14 +16,15 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def index
-    if params[:sort] == "1"
+    case params[:sort]
+    when "1"
       @tourist_spots = TouristSpot.recommended_order #おすすめ順
-    elsif params[:sort] == "2"
+    when "2"
       @tourist_spots = TouristSpot.new_order #新着順
-    elsif params[:sort] == "3"
+    when "3"
       @tourist_spots = TouristSpot.reviews_order #レビュー数順
-    elsif params[:sort] == "4"
-      @tourist_spots = TouristSpot.score.order #点数順
+    when "4"
+      @tourist_spots = TouristSpot.score_order #点数順
     else
       @tourist_spots = TouristSpot.all
     end
