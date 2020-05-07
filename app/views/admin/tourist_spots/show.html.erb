@@ -1,29 +1,87 @@
-<h1>観光スポット詳細画面</h1>
+<div class="row">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
+    <table class="table table-bordered table-hove">
+      <tbody>
+        <tr>
+          <th class="active">id</th>
+          <td><%= @tourist_spot.id %></td>
+        </tr>
 
-<%= label_tag :地名・施設名 %><br>
-<%= @tourist_spot.name %><br>
+        <tr>
+          <th class="active">登録日</th>
+          <td><%= @tourist_spot.created_at %></td>
+        </tr>
 
-<%= label_tag :紹介文 %><br>
-<%= @tourist_spot.introduction %><br>
+        <tr>
+          <th class="active">最終更新日</th>
+          <td><%= @tourist_spot.updated_at %></td>
+        </tr>
 
-<%= label_tag :ジャンル %><br>
-<%= @tourist_spot.genre.name %><br>
+        <tr>
+          <th class="active">画像</th>
+          <td>
+            <%= image_tag @tourist_spot.images[0].to_s %>
+          </td>
+        </tr>
 
-<%= label_tag :利用シーン %><br>
-<%= @tourist_spot.scene.name %><br>
+        <tr>
+          <th class="active">地名・施設名</th>
+          <td><%= @tourist_spot.name %></td>
+        </tr>
 
-<%= label_tag :住所 %><br>
-<%= @tourist_spot.full_address %><br>
+        <tr>
+          <th class="active">ジャンル</th>
+          <td><%= @tourist_spot.genre.name %></td>
+        </tr>
 
-<%= label_tag :アクセス %><br>
-<%= @tourist_spot.access %><br>
+        <tr>
+          <th class="active">利用シーン</th>
+          <td><%= @tourist_spot.scene.name %></td>
+        </tr>
 
-<%= label_tag :営業時間 %><br>
-<%= @tourist_spot.business_hour %><br>
+        <tr>
+          <th class="active">紹介文</th>
+          <td><%= @tourist_spot.introduction %></td>
+        </tr>
 
-<%= label_tag :駐車場 %><br>
-<%= @tourist_spot.is_parking %><br>
+        <tr>
+          <th class="active">住所</th>
+          <td>
+            <% if @tourist_spot.postcode %>
+            <%= @tourist_spot.full_address %>
+            <% end %>
+          </td>
+        </tr>
 
-<%= link_to "編集", edit_user_tourist_spot_path(@tourist_spot) %>
-<%= link_to "削除", user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        <tr>
+          <th class="active">電話番号</th>
+          <td>
+            <%= @tourist_spot.phone_number %>
+          </td>
+        </tr>
 
+        <tr>
+          <th class="active">アクセス方法</th>
+          <td><%= @tourist_spot.access %></td>
+        </tr>
+
+        <tr>
+          <th class="active">営業時間</th>
+          <td><%= @tourist_spot.business_hour %></td>
+        </tr>
+
+        <tr>
+          <th class="active">駐車場</th>
+          <td><%= @tourist_spot.is_parking %></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <%= link_to "レビュー一覧", admin_tourist_spot_reviews_path(@tourist_spot), class: "btn btn-success btn-block" %>
+    <%= link_to "編集", edit_admin_tourist_spot_path(@tourist_spot), class: "btn btn-primary btn-block" %>
+    <%= link_to "削除", admin_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-block" %>
+
+  </div>
+  <div class="col-xs-2"></div>
+</div>

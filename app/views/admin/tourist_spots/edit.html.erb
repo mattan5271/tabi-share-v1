@@ -1,48 +1,60 @@
-<h1>観光スポット編集画面</h1>
+<div class="row">
+	<div class="col-xs-3"></div>
+	<div class="col-xs-6 tourist-spot">
 
-<%= form_with model: @tourist_spot, url: user_tourist_spots_path, local: true do |f| %>
+		<%= form_with model: @tourist_spot, url: admin_tourist_spot_path(@tourist_spot), local: true do |f| %>
 
-	<%= f.label :name, "地名・施設名" %><br>
-	<%= f.text_field :name %><br>
+		<%= f.label :images, "画像" %>
+		<p><%= f.file_field :images, multiple: true %></p>
 
-	<%= f.label :genre_id, "ジャンル" %><br>
-	<%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "-----" %><br>
+		<%= f.label :name, "地名・施設名" %>
+		<%= f.text_field :name, class: "form-control" %><br>
 
-	<%= f.label :scene_id, "利用シーン" %><br>
-	<%= f.collection_select :scene_id, Scene.all, :id, :name, include_blank: "-----" %><br>
+		<%= f.label :genre_id, "ジャンル" %>
+		<%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: "選択してください"}, class: "form-control" %><br>
 
-	<%= f.label :postcode, "郵便番号" %><br>
-	<%= f.text_field :postcode %><br>
+		<%= f.label :scene_id, "利用シーン" %>
+		<%= f.collection_select :scene_id, Scene.all, :id, :name, {prompt: "選択してください"}, class: "form-control" %><br>
 
-  <%= f.label :prefecture_name, '都道府県' %><br>
-  <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, include_blank: true %><br>
+		<%= f.label :postcode, "郵便番号" %>
+		<%= f.text_field :postcode, placeholder: "ハイフン無し", class: "form-control" %><br>
 
-  <%= f.label :address_city, "市区町村" %><br>
-  <%= f.text_field :address_city %><br>
+		<%= f.label :prefecture_name, '都道府県' %>
+		<%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: "選択してください"}, class: "form-control" %><br>
 
-  <%= f.label :address_street, "番地" %><br>
-  <%= f.text_field :address_street %><br>
+		<%= f.label :address_city, "市区町村" %>
+		<%= f.text_field :address_city, class: "form-control" %><br>
 
-  <%= f.label :address_building, "建物" %><br>
-  <%= f.text_field :address_building %><br>
+		<%= f.label :address_street, "番地" %>
+		<%= f.text_field :address_street, class: "form-control" %><br>
 
-	<%= f.label :introduction, "紹介文" %><br>
-	<%= f.text_area :introduction %><br>
+		<%= f.label :address_building, "建物" %>
+		<%= f.text_field :address_building, class: "form-control" %><br>
 
-	<%= f.label :access, "アクセス方法" %><br>
-	<%= f.text_area :access %><br>
+		<%= f.label :introduction, "紹介文" %>
+		<%= f.text_area :introduction, class: "form-control" %><br>
 
-	<%= f.label :business_hour, "営業時間" %><br>
-	<%= f.text_area :business_hour %><br>
+		<%= f.label :access, "アクセス方法" %>
+		<%= f.text_area :access, class: "form-control" %><br>
 
-	<%= f.label :phone_number, "電話番号" %><br>
-	<%= f.text_field :phone_number %><br>
+		<%= f.label :business_hour, "営業時間" %>
+		<%= f.text_area :business_hour, class: "form-control" %><br>
 
-  <%= f.radio_button :is_parking, "有", checked: true %>
-  <%= f.label :is_parking, "有" %>
-  <%= f.radio_button :is_parking, "無" %>
-  <%= f.label :is_parking, "無" %><br>
+		<%= f.label :phone_number, "電話番号" %>
+		<%= f.text_field :phone_number, placeholder: "ハイフン無し", class: "form-control" %><br>
 
-	<%= f.submit "保存" %>
+		<%= label_tag :駐車場 %><br>
+		<div class="admin-tourist-spot__radio">
+		</div>
+		<%= f.radio_button :is_parking, "有", checked: true %>
+		<%= f.label :is_parking, "有", class: "admin-tourist-spot__valid-label" %>
+		<%= f.radio_button :is_parking, "無" %>
+		<%= f.label :is_parking, "無" %><br>
 
-<% end %>
+		<%= f.submit "保存", class: "btn btn-primary btn-lg btn-block admin-tourist-spot__button" %>
+
+		<% end %>
+
+		<div class="col-xs-3"></div>
+	</div>
+</div>

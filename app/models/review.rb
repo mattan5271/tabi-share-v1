@@ -22,7 +22,7 @@ class Review < ApplicationRecord
 
   # 新着順
   def self.new_order
-    self.order(:created_time)
+    self.order(id: 'DESC')
   end
 
   # コメント数順

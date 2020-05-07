@@ -18,11 +18,12 @@ Rails.application.routes.draw do
 	namespace :admin do
 		get 'top' => 'homes#top'
 		resources :users, only: [:index, :show, :edit, :update]
-		resources :tourist_spots, only: [:index, :show, :edit, :update, :destroy]
+		resources :tourist_spots, only: [:index, :show, :edit, :update, :destroy] do
+			resources :reviews, only: [:index, :show, :edit, :update, :destroy]
+		end
 		resources :genres, only: [:new, :create, :index, :edit, :update, :destroy]
 		resources :scenes, only: [:new, :create, :index, :edit, :update, :destroy]
-		resources :reviews, only: [:index, :show, :destroy]
-		resources :comments, only: [:destroy]
+		resources :comments, only: [:edit, :update, :destroy]
   end
 
 	namespace :user do

@@ -1,10 +1,10 @@
-<h1>利用シーン編集画面</h1>
-
-<%= form_with model: @scene, url: admin_scene_path(@scene), local: true do |f| %>
-
-<%= f.label :name, "利用シーン" %>
-<%= f.text_field :name %>
-
-<%= f.submit "保存" %>
-
-<% end %>
+<div class="row">
+  <div class="col-xs-3"></div>
+  <div class="col-xs-6">
+    <%= form_with model: @scene, url: admin_scenes_path, local: true do |f| %>
+    <%= f.text_field :name, placeholder: "利用シーン名", class: "form-control scene__form" %>
+    <%= f.submit "保存", class: "btn btn-primary btn-block scene__button" %>
+    <% end %>
+  </div>
+  <div class="col-xs-3"></div>
+</div>

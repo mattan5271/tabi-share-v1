@@ -1,18 +1,23 @@
-<h1>利用シーン新規登録・一覧画面</h1>
-
 <%= form_with model: @scene, url: admin_scenes_path, local: true do |f| %>
+<div class="row">
+	<div class="col-xs-3">
+		<%= f.text_field :name, placeholder: "利用シーン名", class: "form-control" %>
+	</div>
+	<div>
+		<div class="col-xs-2">
+			<%= f.submit "新規登録", class: "btn btn-success" %>
+		</div>
+	</div>
+</div>
 
-<%= f.label :name, "利用シーン" %>
-<%= f.text_field :name %>
-
-<%= f.submit "新規登録" %>
 
 <% end %>
 
-<table class="table table-hover">
+<table class="table table-bordered table-hover scene__table">
 	<thead>
-		<tr>
-			<th>利用シーン</th>
+		<tr class="active">
+			<th>ID</th>
+			<th>利用シーン名</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -21,9 +26,12 @@
 	<tbody>
 		<% @scenes.each do |scene| %>
 		<tr>
+			<td><%= scene.id %></td>
 			<td><%= scene.name %></td>
-			<td><%= link_to "編集", edit_admin_scene_path(scene) %></td>
-			<td><%= link_to "削除", admin_scene_path(scene), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+			<td><%= link_to "編集", edit_admin_scene_path(scene), class: "btn btn-primary btn-block" %></td>
+			<td>
+				<%= link_to "削除", admin_scene_path(scene), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-block" %>
+			</td>
 		</tr>
 		<% end %>
 	</tbody>

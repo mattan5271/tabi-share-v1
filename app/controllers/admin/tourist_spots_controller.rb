@@ -13,7 +13,7 @@ class Admin::TouristSpotsController < ApplicationController
 
   def update
 		if @tourist_spot.update(tourist_spot_params)
-			redirect_to user_tourist_spot_path(@tourist_spot)
+			redirect_to admin_tourist_spot_path(@tourist_spot)
     else
 			render "edit"
 		end
@@ -21,7 +21,7 @@ class Admin::TouristSpotsController < ApplicationController
 
 	def destroy
 		@tourist_spot.destroy
-		redirect_to user_tourist_spots_path
+		redirect_to admin_tourist_spots_path
   end
 
   private

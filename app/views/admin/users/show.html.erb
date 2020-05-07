@@ -1,20 +1,74 @@
-<h1>ユーザー詳細画面</h1>
+<div class="row">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
+    <table class="table table-bordered table-hove">
+      <tbody>
+        <tr>
+          <th class="active">id</th>
+          <td><%= @user.id %></td>
+        </tr>
 
-<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+        <tr>
+          <th class="active">登録日</th>
+          <td><%= @user.created_at %></td>
+        </tr>
 
-<%= attachment_image_tag @user, :header_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %><br>
+        <tr>
+          <th class="active">最終更新日</th>
+          <td><%= @user.updated_at %></td>
+        </tr>
 
-<%= label_tag :ユーザーID %>
-<%= @user.id %>
-<%= @user.is_valid %>ユーザー<br>
+        <tr>
+          <th class="active">プロフィール画像</th>
+          <td>
+            <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+          </td>
+        </tr>
 
-<%= label_tag :ニックネーム %>
-<%= @user.nickname %><br>
+        <tr>
+          <th class="active">氏名</th>
+          <td><%= @user.name %></td>
+        </tr>
 
-<%= label_tag :住所 %>
-<%= @user.full_address %><br>
+        <tr>
+          <th class="active">自己紹介文</th>
+          <td><%= @user.introduction %></td>
+        </tr>
 
-<%= label_tag :メールアドレス %>
-<%= @user.email %><br>
+        <tr>
+          <th class="active">住所</th>
+          <td>
+            <% if @user.postcode %>
+            <%= @user.full_address %>
+            <% end %>
+          </td>
+        </tr>
 
-<%= link_to "編集する", edit_admin_user_path(@user) %><br>
+        <tr>
+          <th class="active">メールアドレス</th>
+          <td><%= @user.email %></td>
+        </tr>
+
+        <tr>
+          <th class="active">ポイント数</th>
+          <td><%= @user.point %></td>
+        </tr>
+
+        <tr>
+          <th class="active">会員ランク</th>
+          <td><%= @user.rank %></td>
+        </tr>
+
+        <tr>
+          <th class="active">会員ステータス</th>
+          <td><%= @user.is_valid %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= link_to "編集", edit_admin_user_path(@user), class: "btn btn-primary btn-block" %>
+    <%= link_to "退会", admin_user_path(@user), method: :delete, data: { confirm: "本当に退会させますか？" }, class: "btn btn-danger btn-block" %>
+
+  </div>
+  <div class="col-xs-2"></div>
+</div>
