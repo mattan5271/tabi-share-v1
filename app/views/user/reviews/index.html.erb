@@ -1,4 +1,6 @@
-<div class="row tourist-spot__sort">
+<%= render 'user/tourist_spots/detail', tourist_spot: @tourist_spot %>
+
+<div class="row review">
 	<div class="col-xs-8"></div>
 	<div class="col-xs-4">
 		<%= form_with url: user_tourist_spot_reviews_path, method: :get, local: true do %>

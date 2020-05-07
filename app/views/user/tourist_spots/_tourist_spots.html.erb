@@ -1,22 +1,5 @@
-<% unless controller_name == 'homes' %>
-<div class="row tourist-spot__sort">
-	<div class="col-xs-8"></div>
-	<div class="col-xs-4">
-		<%= form_with url: user_tourist_spots_path, method: :get, local: true do %>
-		<div class="row">
-			<div class="col-xs-10">
-				<%= select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["レビュー数", "3"], ["点数順", "4"]]), include_blank: "-----", class: "form-control" %>
-			</div>
-			<div class="col-xs-2">
-				<%= submit_tag "並び替え", class: "btn btn-success" %>
-			</div>
-		</div>
-		<% end %>
-	</div>
-</div>
-<% end %>
-
 <div class="row">
+	<% if tourist_spots %>
 	<% tourist_spots.each do |tourist_spot| %>
 	<div class="col-xs-3">
 		<%= link_to user_tourist_spot_path(tourist_spot) do %>
@@ -35,5 +18,8 @@
 		</div>
 		<% end %>
 	</div>
+	<% end %>
+	<% else %>
+	<p class="tourist-spot__text">観光スポットがありません</p>
 	<% end %>
 </div>

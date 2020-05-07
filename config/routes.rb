@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
 	namespace :user do
 		resources :users, only: [:show, :edit, :update]
-		resources :tourist_spots do
+		resources :tourist_spots, only: [:new, :create, :show, :edit, :update, :destroy] do
 			resource :favorites, only: [:create, :destroy]
 			resource :wents, only: [:create, :destroy]
 			resources :reviews do
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 		get 'keyword/search' => 'tourist_spots#keyword_search'
 		get 'genre/search' => 'tourist_spots#genre_search'
 		get 'scene/search' => 'tourist_spots#scene_search'
+		get 'prefecture/search' => 'tourist_spots#prefecture_search'
     post 'follow/:id' => 'relationships#follow', as: 'follow'
     post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
     get 'users/following/:user_id' => 'users#following', as:'following'

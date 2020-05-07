@@ -27,21 +27,19 @@ class User::ReviewsController < ApplicationController
   end
 
   def index
+    @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     case params[:sort]
     when "1"
-      @reviews = Review.recommended_order #おすすめ順
+      @reviews = @tourist_spot.reviews.recommended_order #おすすめ順
     when "2"
-      @reviews = Review.new_order #新着順
+      @reviews = @tourist_spot.reviews.new_order #新着順
     when "3"
-      @reviews = Review.comments_order #コメント数順
+      @reviews = @tourist_spot.reviews.comments_order #コメント数順
     when "4"
-      p "成功"
-      @reviews = Review.score_order #点数順
+      @reviews = @tourist_spot.reviews.score_order #点数順
     else
-      @reviews = Review.all
+      @reviews = @tourist_spot.reviews
     end
-    tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    @reviews = tourist_spot.reviews
   end
 
   def show

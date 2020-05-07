@@ -32,7 +32,6 @@ class Review < ApplicationRecord
 
   # 点数順
   def self.score_order
-    p "おk"
     self.order(score: "DESC")
   end
 

@@ -15,22 +15,6 @@ class User::TouristSpotsController < ApplicationController
 		end
   end
 
-  def index
-    case params[:sort]
-    when "1"
-      @tourist_spots = TouristSpot.recommended_order #おすすめ順
-    when "2"
-      @tourist_spots = TouristSpot.new_order #新着順
-    when "3"
-      @tourist_spots = TouristSpot.reviews_order #レビュー数順
-    when "4"
-      @tourist_spots = TouristSpot.score_order #点数順
-    else
-      @tourist_spots = TouristSpot.all
-    end
-      gon.tourist_spots = TouristSpot.all
-  end
-
   def show
   end
 
@@ -56,17 +40,36 @@ class User::TouristSpotsController < ApplicationController
 
   # キーワード検索
   def keyword_search
-    @tourist_spots = TouristSpot.keyword_search(params[:search])
+    tourist_spots_keyword = TouristSpot.keyword_search(params[:search])
+    @search = params[:search]
+    @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword)
   end
 
   # ジャンル検索
   def genre_search
-    @tourist_spots = TouristSpot.genre_search(params[:search])
+    tourist_spots_genre = TouristSpot.genre_search(params[:search])
+    @search = params[:search]
+    if tourist_spots_genre.present?
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_genre)
+    end
   end
 
   # 利用シーン検索
   def scene_search
-    @tourist_spots = TouristSpot.scene_search(params[:search])
+    tourist_spots_scene = TouristSpot.scene_search(params[:search])
+    @search = params[:search]
+    if tourist_spots_scene.present?
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_scene)
+    end
+  end
+
+  # 都道府県検索
+  def prefecture_search
+    tourist_spots_prefecture = TouristSpot.prefecture_search(params[:search])
+    @search = params[:search]
+    if tourist_spots_prefecture.present?
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_prefecture)
+    end
   end
 
   private

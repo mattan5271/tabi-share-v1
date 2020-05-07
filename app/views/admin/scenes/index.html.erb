@@ -17,6 +17,7 @@
 	<thead>
 		<tr class="active">
 			<th>ID</th>
+			<th>写真</th>
 			<th>利用シーン名</th>
 			<th></th>
 			<th></th>
@@ -26,7 +27,10 @@
 	<tbody>
 		<% @scenes.each do |scene| %>
 		<tr>
-			<td><%= scene.id %></td>
+			<td><%= link_to scene.id, admin_scene_path(scene) %></td>
+			<td>
+				<%= attachment_image_tag scene, :image, size: "100x100", fallback: "no_image.png", class: "img_prev img-thumbnail" %>
+			</td>
 			<td><%= scene.name %></td>
 			<td><%= link_to "編集", edit_admin_scene_path(scene), class: "btn btn-primary btn-block" %></td>
 			<td>

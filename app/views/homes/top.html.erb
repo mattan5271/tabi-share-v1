@@ -1,21 +1,81 @@
 <div class="row">
 	<div class="col-xs-12 homes-top">
 
-		<h2>ランキング(いいね数)</h2>
+		<div class="page-header">
+			<h3>ジャンルから探す</h3>
+		</div>
+		<div class="row">
+			<% @genre.each do |genre| %>
+			<div class="col-xs-3 top__search-container">
+				<%= link_to user_genre_search_path(search: genre.id) do %>
+				<div class="img-thumbnail">
+					<%= attachment_image_tag genre, :image, :fill, 200, 200, fallback: "no_image.png", size: '200x200' %>
+					<div class="caption">
+						<p class="top__search-text"><%= genre.name %></p>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+
+		<div class="page-header">
+			<h3>利用シーンから探す</h3>
+		</div>
+		<div class="row">
+			<% @scene.each do |scene| %>
+			<div class="col-xs-3 top__search-container">
+				<%= link_to user_scene_search_path(search: scene.id) do %>
+				<div class="img-thumbnail">
+					<%= attachment_image_tag scene, :image, :fill, 200, 200, fallback: "no_image.png", size: '200x200' %>
+					<div class="caption">
+						<p class="top__search-text"><%= scene.name %></p>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+
+		<div class="page-header">
+			<h3>都道府県から探す</h3>
+		</div>
+		<div class="row">
+			<% JpPrefecture::Prefecture.all.each do |prefecture| %>
+			<div class="col-xs-2 top__search-container">
+				<%= link_to user_prefecture_search_path(search: prefecture.code) do %>
+				<div class="img-thumbnail">
+					<div class="caption">
+						<p class="top__search-text"><%= prefecture.name %></p>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+
+		<div class="page-header">
+			<h3>おすすめ観光地</h3>
+		</div>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
 
-		<h2>新着</h2>
+		<div class="page-header">
+			<h3>新着</h3>
+		</div>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
 
-		<%= link_to  "観光地新規登録", new_user_tourist_spot_path %>
+		<div class="page-header">
+			<h3>周辺の観光地</h3>
+		</div>
+
 		<!-- Google Map -->
 
 		<div id='map'></div>
 
 		<style>
 			#map {
-				height: 600px;
-				width: 600px;
+				height: 800px;
+				width: 100%;
 			}
 		</style>
 

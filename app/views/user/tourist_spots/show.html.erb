@@ -12,31 +12,31 @@
         <table class="table table-bordered tourist-spot__table">
           <tbody>
             <tr>
-              <th class="success">説明文</th>
+              <th class="active">説明文</th>
               <td><%= @tourist_spot.introduction %></td>
             </tr>
             <tr>
-              <th>ジャンル</th>
+              <th class="active">ジャンル</th>
               <td><%= @tourist_spot.genre.name %></td>
             </tr>
             <tr>
-              <th class="success">利用シーン</th>
+              <th class="active">利用シーン</th>
               <td><%= @tourist_spot.scene.name %></td>
             </tr>
             <tr>
-              <th>住所</th>
+              <th class="active">住所</th>
               <td><%= @tourist_spot.full_address %></td>
             </tr>
-            <tr class="success">
-              <th class="success">アクセス方法</th>
+            <tr>
+              <th class="active">アクセス方法</th>
               <td><%= @tourist_spot.access %></td>
             </tr>
             <tr>
-              <th>営業時間</th>
+              <th class="active">営業時間</th>
               <td><%= @tourist_spot.business_hour %></td>
             </tr>
             <tr>
-              <th class="success">駐車場</th>
+              <th class="active">駐車場</th>
               <td><%= @tourist_spot.is_parking %></td>
             </tr>
           </tbody>

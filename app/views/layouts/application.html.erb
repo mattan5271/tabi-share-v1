@@ -32,9 +32,6 @@
           <% end %>
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-            <li><%= link_to "観光地一覧", user_tourist_spots_path %></li>
-            <li>
-            </li>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <i class="fas fa-list-ul"></i>
@@ -65,7 +62,7 @@
             </li>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                <%= attachment_image_tag current_user, :profile_image, :fill, 25, 25, format: 'jpeg', fallback: "no_image.jpg", size:'25x25', class: "img-circle" %>
+                <%= attachment_image_tag current_user, :profile_image, :fill, 25, 25, fallback: "no_image.jpg", size:'25x25', class: "img-circle" %>
                 <span>アカウント</span>
                 <span class="caret"></span>
               </a>
@@ -76,7 +73,6 @@
                 <li><%= link_to "行きたい観光スポット", user_favorite_tourist_spots_path %></li>
                 <li role="presentation"><%= link_to  "プロフィール編集", edit_user_user_path(current_user) %></li>
                 <li role="presentation"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-                <li><%= link_to "お問い合わせ", new_user_contact_path %></li>
               </ul>
             </li>
             <% else %>
@@ -105,9 +101,69 @@
       <%= yield %>
     </div>
   </main>
-
   <footer>
+    <div class="container">
+      <div class="row">
 
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <span class="logo">TaBi Share</span>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="menu">
+            <span>Menu</span>
+            <li>
+              <%= link_to root_path do %>
+              <i class="fas fa-home"></i> Home
+              <% end %>
+            </li>
+            <li>
+              <%= link_to about_path do %>
+              <i class="fas fa-info-circle"></i> About
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_tourist_spot_path do %>
+              <i class="fas fa-pen-square"></i> 観光地登録
+              <% end %>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fas fa-file-alt"></i> 利用規約
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="address">
+            <span>Contact</span>
+            <li>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fab fa-instagram-square" aria-hidden="true"></i> Instagram
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fab fa-facebook-square" aria-hidden="true"></i> Facebook
+              </a>
+            </li>
+            <li>
+              <%= link_to new_user_contact_path do %>
+              <i class="fa fa-envelope" aria-hidden="true"></i> お問い合わせ
+              <% end %>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
   </footer>
 </body>
 

@@ -1,10 +1,17 @@
 <div class="row">
   <div class="col-xs-3"></div>
   <div class="col-xs-6">
-    <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-    <%= f.text_field :name, placeholder: "ジャンル名", class: "form-control genre__form" %>
+    <%= form_with model: @genre, url: admin_genre_path(@genre), local: true, class: "genre__form" do |f| %>
+    <div class="image-container">
+      <%= f.file_field :profile_image, id: "img_field", style: 'display:none;' %>
+      <%= attachment_image_tag @genre, :image, size: "400x200", fallback: "no_image.png", onClick: "$('#img_field').click()", class: "img_prev img-thumbnail" %><br>
+    </div>
+
+    <%= f.text_field :name, placeholder: "ジャンル名", class: "form-control" %>
+
     <%= f.submit "保存", class: "btn btn-primary btn-block genre__button" %>
     <% end %>
+
   </div>
   <div class="col-xs-3"></div>
 </div>

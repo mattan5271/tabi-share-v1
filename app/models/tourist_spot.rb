@@ -75,19 +75,28 @@ class TouristSpot < ApplicationRecord
     end
   end
 
+  # 都道府県検索
+  def self.prefecture_search(search)
+    if search
+      TouristSpot.where(prefecture_code: search.to_i)
+    else
+      TouristSpot.all
+    end
+  end
+
   # ランキング(行きたい！数)
   def self.top_ranking
-    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
+    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(4).pluck(:tourist_spot_id))
   end
 
   # 新着
   def self.top_new
-    self.order(:created_time).limit(5)
+    self.order(:created_time).limit(4)
   end
 
   # おすすめ順
   def self.recommended_order
-    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(5).pluck(:tourist_spot_id))
+    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
   end
 
   # 新着順
@@ -103,6 +112,29 @@ class TouristSpot < ApplicationRecord
   # 点数順
   def self.score_order
     self.find(Review.group(:tourist_spot_id).order('avg(score) desc').pluck(:tourist_spot_id))
+  end
+
+  # ランダム表示
+  def self.random_order
+    self.order("RANDOM()").limit(1)
+  end
+
+  # 並び替え
+  def self.sort(sort, tourist_spots)
+    case sort
+    when "1"
+      tourist_spots.recommended_order #おすすめa順
+    when "2"
+      tourist_spots.new_order #新着順
+    when "3"
+      tourist_spots.reviews_order #レビュー数順
+    when "4"
+      tourist_spots.score_order #点数順
+    when "5"
+      tourist_spots.random_order #ランダム表示
+    else
+      tourist_spots
+    end
   end
 
   # レビューの平均点
