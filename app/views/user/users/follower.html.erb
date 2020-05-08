@@ -1,60 +1,23 @@
 <div class="row">
-  <% @user.follower_user.each do |user| %>
+  <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
   <div class="col-xs-3">
     <div class="thumbnail">
       <div class="caption">
         <p>
           <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
-          <%= link_to user.name, user_user_path(review.user) %>
-          <%= user.prefecture_name %>
+          <%= link_to user.name, user_user_path(user) %>
         </p>
-        <p>
-          <%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
-        </p>
-        <p><%= link_to  "#{@user.followed.count}フォロー中", user_following_path(@user) %></p>
-        <p><%= link_to  "#{@user.follower.count}フォロワー", user_follower_path(@user) %></p>
 
-        <p>
-          <div id="followbutton_<%= @user.id %>">
-            <% unless user == current_user %>
-            <%= render "user/users/followbutton", user: @user %>
-            <% end %>
-          </div>
-        </p>
+        <%= link_to "#{user.follower.count}フォロー中", user_following_path(user) %><br>
+        <div class="follower"><%= link_to "#{user.followed.count}フォロワー", user_follower_path(user) %></div>
+
+        <span class="user__followbutton" id="followbutton_<%= user.id %>">
+          <% unless user == current_user %>
+          <%= render "user/users/followbutton", user: user %>
+          <% end %>
+        </span>
       </div>
     </div>
   </div>
   <% end %>
 </div>
-
-
-<h1>フォロワー</h1>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Introduction</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.follower_user.each do |user| %>
-    <tr>
-      <td>
-        <%= attachment_image_tag user, :profile_image, :size =>'30x30', class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
-      </td>
-      <td><%= user.name %></td>
-      <td><%= user.introduction %></td>
-      <td><%= link_to "Show", user_user_path(user) %></td>
-      <td id="followbutton_<%= user.id %>">
-        <% unless user == current_user %>
-        <%= render "user/users/followbutton", user: user %>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>

@@ -22,6 +22,7 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
+  enum sex: { "男性": 0, "女性": 1, "ニューハーフ": 2 }
   enum is_valid: { "有効": true, "退会済": false }
   enum rank: { "レギュラー": 0, "シルバー": 1, "ゴールド": 2, "プラチナ": 3, "ダイヤモンド": 4 }
 

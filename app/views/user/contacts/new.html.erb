@@ -2,12 +2,6 @@
   <div class="col-xs-3"></div>
   <div class="col-xs-6 contact">
 
-    <div class="contact__logo">
-      <%= link_to  root_path do %>
-      <%= image_tag 'logo.jpg' %><br>
-      <% end %>
-    </div>
-
     <%= form_with model: @contact, url: user_contacts_path, local: true do |f| %>
 
     <%= f.label :name, "氏名" %>

@@ -10,12 +10,12 @@
 
         <tr>
           <th class="active">登録日</th>
-          <td><%= @tourist_spot.created_at %></td>
+          <td><%= @tourist_spot.created_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>
           <th class="active">最終更新日</th>
-          <td><%= @tourist_spot.updated_at %></td>
+          <td><%= @tourist_spot.updated_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>

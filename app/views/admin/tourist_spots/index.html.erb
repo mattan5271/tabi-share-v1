@@ -12,7 +12,7 @@
 		<% @tourist_spots.each do |tourist_spot| %>
 		<tr>
 			<td><%= link_to tourist_spot.id, admin_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.created_at %></td>
+			<td><%= tourist_spot.created_at.to_s(:datetime_jp) %></td>
 			<td><%= tourist_spot.name %></td>
 			<td><%= tourist_spot.phone_number %></td>
 		</tr>

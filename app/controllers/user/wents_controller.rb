@@ -6,8 +6,10 @@ class User::WentsController < ApplicationController
 
   def create
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    went = current_user.wents.new(tourist_spot_id: @tourist_spot.id)
-    went.save
+    unless @tourist_spot.wented_by?(current_user)
+      went = current_user.wents.new(tourist_spot_id: @tourist_spot.id)
+      went.save
+    end
   end
 
   def destroy

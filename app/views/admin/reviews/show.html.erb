@@ -74,7 +74,7 @@
           <td><%= link_to comment.user.name, admin_user_path(comment.user) %></td>
           <td><%= comment.title %></td>
           <td><%= comment.body %></td>
-          <td><%= comment.created_at %></td>
+          <td><%= comment.created_at.to_s(:datetime_jp) %></td>
           <td>
             <%= link_to "編集", edit_admin_comment_path(comment), class: "btn btn-primary" %>
             <%= link_to "削除", admin_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>

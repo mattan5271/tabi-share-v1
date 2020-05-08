@@ -2,12 +2,6 @@
   <div class="col-xs-3"></div>
   <div class="col-xs-6 devise">
 
-    <div class="devise__logo">
-      <%= link_to  root_path do %>
-      <%= image_tag 'logo.jpg' %><br>
-      <% end %>
-    </div>
-
     <div class="devise__link">
       <%= render "users/shared/links" %>
     </div>
@@ -21,6 +15,12 @@
       <%= f.label :name, "ニックネーム" %>
       <span class="devise__require-label">必須</span><br />
       <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control devise__form" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :sex, "性別" %>
+      <span class="devise__require-label">必須</span><br />
+      <%= f.select :sex, User.sexes.keys, {prompt: "選択してください"}, class: "form-control devise__form" %>
     </div>
 
     <div class="field">

@@ -6,8 +6,10 @@ class User::FavoritesController < ApplicationController
 
   def create
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    favorite = current_user.favorites.new(tourist_spot_id: @tourist_spot.id)
-    favorite.save
+    unless @tourist_spot.favorited_by?(current_user)
+      favorite = current_user.favorites.new(tourist_spot_id: @tourist_spot.id)
+      favorite.save
+    end
   end
 
   def destroy

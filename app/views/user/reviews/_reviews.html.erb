@@ -10,8 +10,8 @@
   <div class="caption">
     <p>
       <%= attachment_image_tag review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
-      <%= link_to review.user.name, user_user_path(review.user) %>
-      (<%= review.is_value %>)
+      <%= link_to review.user.name, user_user_path(review.user), class: "review__name" %>
+      (<%= review.user.sex %>・<%= review.is_value %>)
       <span class="review__score">
         <%= review.score %>点
       </span>

@@ -10,12 +10,12 @@
 
         <tr>
           <th class="active">登録日</th>
-          <td><%= @user.created_at %></td>
+          <td><%= @user.created_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>
           <th class="active">最終更新日</th>
-          <td><%= @user.updated_at %></td>
+          <td><%= @user.updated_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>

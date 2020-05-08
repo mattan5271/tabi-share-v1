@@ -12,7 +12,7 @@
     <% @reviews.each do |review| %>
     <tr>
       <td><%= link_to review.id, admin_tourist_spot_review_path(review.tourist_spot, review) %></td>
-      <td><%= review.created_at %></td>
+      <td><%= review.created_at.to_s(:datetime_jp) %></td>
       <td><%= review.user.name %></td>
       <td><%= review.title %></td>
     </tr>

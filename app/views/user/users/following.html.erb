@@ -1,5 +1,5 @@
 <div class="row">
-  <% @user.following_user.each do |user| %>
+  <% @user.following_user.where.not(id: current_user.id).each do |user| %>
   <div class="col-xs-3">
     <div class="thumbnail">
       <div class="caption">
@@ -8,12 +8,12 @@
           <%= link_to user.name, user_user_path(user) %>
         </p>
 
-        <%= link_to  "#{@user.follower.count}フォロー中", user_following_path(@user) %><br>
-        <%= link_to  "#{@user.followed.count}フォロワー", user_follower_path(@user) %>
+        <%= link_to  "#{user.follower.count}フォロー中", user_following_path(user) %><br>
+        <%= link_to  "#{user.followed.count}フォロワー", user_follower_path(user) %>
 
-        <span class="user__followbutton" id="followbutton_<%= @user.id %>">
+        <span class="user__followbutton" id="followbutton_<%= user.id %>">
           <% unless user == current_user %>
-          <%= render "user/users/followbutton", user: @user %>
+          <%= render "user/users/followbutton", user: user %>
           <% end %>
         </span>
       </div>

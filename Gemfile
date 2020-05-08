@@ -73,6 +73,7 @@ gem 'bootstrap-sass'
 gem 'jp_prefecture'
 gem 'gon'
 gem 'bxslider-rails'
+gem 'lazy_high_charts'
 
 gem 'carrierwave'
 gem 'mini_magick'

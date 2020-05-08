@@ -5,13 +5,15 @@
       <tbody>
         <tr>
           <td>
-            <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", class: "img-thumbnail user__image" %>
+            <h3><span class="label label-warning"><%= @user.rank %></span></h3>
 
+            <%= attachment_image_tag @user, :profile_image, size: "100x100", format: 'jpeg', fallback: "no_image.png", class: "img-thumbnail user__image" %>
             <span class="user__name">
               <%= @user.name %>
             </span>
+            (<%= @user.sex %>)
 
-            <% if user_signed_in? %>
+            <% if @user == current_user %>
             <%= link_to "プロフィールを編集", edit_user_user_path(@user) %>
             <% end %>
             <% if user_signed_in? %>
@@ -50,8 +52,12 @@
       <li role="presentation"><%= link_to "ユーザートップ", user_user_path(@user) %></li>
       <li role="presentation"><%= link_to "行った観光地", user_user_went_tourist_spots_path(@user) %></li>
       <li role="presentation"><%= link_to "行きたい観光地", user_user_favorite_tourist_spots_path(@user) %></li>
-      <li role="presentation"><%= link_to  "#{@user.follower.count}フォロー中", user_following_path(@user) %></li>
-      <li role="presentation"><%= link_to  "#{@user.followed.count}フォロワー", user_follower_path(@user) %></li>
+      <li role="presentation">
+        <%= link_to "#{@user.follower.count}フォロー中", user_following_path(@user) %>
+      </li>
+      <li class="follower" role="presentation">
+        <%= link_to "#{@user.followed.count}フォロワー", user_follower_path(@user) %>
+      </li>
     </ul>
   </div>
   <div class="col-xs-2"></div>

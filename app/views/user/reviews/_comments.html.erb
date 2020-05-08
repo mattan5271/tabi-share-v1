@@ -2,7 +2,7 @@
   <td><%= link_to comment.user.name, user_user_path(comment.user) %></td>
   <td><%= comment.title %></td>
   <td><%= comment.body %></td>
-  <td><%= comment.created_at %></td>
+  <td><%= comment.created_at.to_s(:datetime_jp) %></td>
   <td>
     <% if comment.user === current_user %>
     <%= link_to "編集", edit_user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), class: "btn btn-primary" %>
