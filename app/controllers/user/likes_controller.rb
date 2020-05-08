@@ -14,6 +14,7 @@ class User::LikesController < ApplicationController
     @review = Review.find(params[:review_id])
     like = current_user.likes.find_by(review_id: @review.id)
     like.destroy
+    @review.user.point -= 1
     @review.user_rank_update(@review.user) # いいねを外したレビューを投稿したユーザーのランクをアップデート
   end
 end

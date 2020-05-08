@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace :user do
-    get 'rooms/show'
-  end
 	root 'homes#top'
 	get 'about' => 'homes#about'
 
@@ -46,6 +43,7 @@ Rails.application.routes.draw do
     resources :rooms, only: [:create, :show, :index]
 		resources :contacts, only: [:new, :create]
 		resources :notifications, only: [:index, :destroy]
+		resources :coupons, only: [:create, :index]
 		get 'keyword/search' => 'tourist_spots#keyword_search'
 		get 'genre/search' => 'tourist_spots#genre_search'
 		get 'scene/search' => 'tourist_spots#scene_search'

@@ -2,12 +2,13 @@
   <div class="col-xs-2"></div>
   <div class="col-xs-8">
     <table class="table">
+      <%= @user.point %>
       <tbody>
         <tr>
           <td>
             <h3><span class="label label-warning"><%= @user.rank %></span></h3>
 
-            <%= attachment_image_tag @user, :profile_image, size: "100x100", format: 'jpeg', fallback: "no_image.png", class: "img-thumbnail user__image" %>
+            <%= attachment_image_tag @user, :profile_image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail user__image" %>
             <span class="user__name">
               <%= @user.name %>
             </span>

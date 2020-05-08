@@ -4,11 +4,17 @@
 
     <%= form_with model: @user, url: edit_admin_user_path(@user), local: true do |f| %>
 
-    <%= f.label :profile_image, "プロフィール画像" %>
-    <%= f.attachment_field :profile_image %><br>
+    <div class="image-container">
+      <%= f.file_field :profile_image, id: "img_field", style: 'display:none;' %>
+      <%= attachment_image_tag @user, :profile_image, size: "400x200", fallback: "no_image.png", onClick: "$('#img_field').click()", class: "img_prev img-thumbnail" %><br>
+    </div>
 
     <%= f.label :name, "氏名" %><br>
     <%= f.text_field :name, class: "form-control" %><br>
+
+    <%= f.label :sex, "性別" %>
+    <span class="devise__require-label">必須</span><br />
+    <%= f.select :sex, User.sexes.keys, {prompt: "選択してください"}, class: "form-control devise__form" %>
 
     <%= f.label :introduction, "自己紹介" %><br>
     <%= f.text_area :introduction, class: "form-control" %><br>

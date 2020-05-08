@@ -87,4 +87,6 @@ gem "geocoder"
 
 gem 'dotenv-rails'
 
+gem 'whenever', require: false
+
 gem 'pry-byebug'

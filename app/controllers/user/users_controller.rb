@@ -31,7 +31,7 @@ class User::UsersController < ApplicationController
 
 	def update
 		if @user.update(user_params)
-			redirect_to admin_user_path(@user)
+			redirect_to user_user_path(@user)
 		else
 			render "edit"
 		end
@@ -56,14 +56,15 @@ class User::UsersController < ApplicationController
 		def user_params
       params.require(:user).permit(
         :name,
+        :sex,
+        :email,
         :postcode,
         :prefecture_code,
         :address_city,
         :address_street,
         :address_building,
         :introduction,
-        :profile_image_id,
-        :header_image_id,
+        :profile_image,
         :point,
         :rank,
         :is_valid

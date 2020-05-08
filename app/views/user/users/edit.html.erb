@@ -2,7 +2,7 @@
   <div class="col-xs-3"></div>
   <div class="col-xs-6 devise">
 
-    <%= form_with model: @user, url: edit_admin_user_path(@user), local: true do |f| %>
+    <%= form_with model: @user, url: user_user_path(@user), local: true do |f| %>
 
     <div class="image-container">
       <%= f.file_field :profile_image, id: "img_field", style: 'display:none;' %>
@@ -10,9 +10,13 @@
     </div>
 
 
-    <%= f.label :name, "ニックネーム" %>
+    <%= f.label :name, "氏名" %>
     <span class="devise__require-label">必須</span><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control devise__form" %>
+
+    <%= f.label :sex, "性別" %>
+    <span class="devise__require-label">必須</span><br />
+    <%= f.select :sex, User.sexes.keys, {prompt: "選択してください"}, class: "form-control devise__form" %>
 
     <%= f.label :postcode, "郵便番号" %>
     <span class="devise__any-label">任意</span><br />
@@ -37,13 +41,6 @@
     <%= f.label :email, "メールアドレス" %>
     <span class="devise__require-label">必須</span><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control devise__form" %>
-
-    <%= f.label :password, "パスワード" %>
-    <span class="devise__require-label">必須</span><br />
-    <%= f.password_field :password, placeholder: "#{@minimum_password_length}文字以上", autocomplete: "new-password", class: "form-control devise__form" %>
-
-    <%= f.label :password_confirmation, "パスワード(再確認)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control devise__form" %>
 
     <%= f.submit "保存", class: "btn btn-primary btn-lg btn-block" %>
 

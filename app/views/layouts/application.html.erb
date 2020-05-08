@@ -69,6 +69,8 @@
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation"><%= link_to  "マイページ", user_user_path(current_user) %></li>
                 <li><%= link_to "通知", user_notifications_path %></li>
+                <li><%= link_to "メッセージ", user_rooms_path %></li>
+                <li><%= link_to "クーポン", user_coupons_path %></li>
                 <li><%= link_to "行きたい観光スポット", user_user_favorite_tourist_spots_path(current_user) %></li>
                 <li><%= link_to "行った観光スポット", user_user_went_tourist_spots_path(current_user) %></li>
                 <li role="presentation"><%= link_to  "プロフィール編集", edit_user_user_path(current_user) %></li>

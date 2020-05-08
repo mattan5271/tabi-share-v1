@@ -11,10 +11,19 @@ class User::RoomsController < ApplicationController
     if Entry.where(user_id: current_user.id, room_id: @room.id).present? #ルームが存在するか確認
       @messages = @room.messages
       @message = Message.new
-      @entries = @room.entries
+      @entries = @room.entries.where.not(user_id: current_user.id)
     else
       redirect_to user_users_path
     end
+  end
+
+  def index
+    currentEntries = current_user.entries
+    myRoomIds = []
+    currentEntries.each do |entry|
+      myRoomIds << entry.room.id
+    end
+    @anotherEntries = Entry.where(room_id: myRoomIds).where('user_id != ?', current_user.id)
   end
 
   private
