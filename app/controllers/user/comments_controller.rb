@@ -2,18 +2,18 @@ class User::CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
-    comment = Comment.new(comment_params)
-    comment.user_id = current_user.id
-    review = comment.review
-    if comment.save
-      review.create_notification_comment!(current_user, comment.id)
-      redirect_to user_tourist_spot_review_path(comment.review.tourist_spot, comment.review)
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @review = @comment.review
+    if @comment.save
+      @review.create_notification_comment!(current_user, @comment.id)
     else
       render 'new'
     end
   end
 
   def edit
+    @comment = Comment.find(params[:id])
   end
 
   def update
@@ -25,8 +25,8 @@ class User::CommentsController < ApplicationController
   end
 
   def destroy
+    @review = @comment.review
     @comment.destroy
-    redirect_to user_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review)
   end
 
   private

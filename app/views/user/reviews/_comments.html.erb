@@ -1,0 +1,12 @@
+<tr id="comment_<%= comment.id %>">
+  <td><%= link_to comment.user.name, user_user_path(comment.user) %></td>
+  <td><%= comment.title %></td>
+  <td><%= comment.body %></td>
+  <td><%= comment.created_at %></td>
+  <td>
+    <% if comment.user === current_user %>
+    <%= link_to "編集", edit_user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), class: "btn btn-primary" %>
+    <%= link_to "削除", user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, remote: true, class: "btn btn-danger" %>
+    <% end %>
+  </td>
+</tr>

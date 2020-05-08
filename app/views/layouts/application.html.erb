@@ -69,8 +69,8 @@
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation"><%= link_to  "マイページ", user_user_path(current_user) %></li>
                 <li><%= link_to "通知", user_notifications_path %></li>
-                <li><%= link_to "行った観光スポット", user_went_tourist_spots_path %></li>
-                <li><%= link_to "行きたい観光スポット", user_favorite_tourist_spots_path %></li>
+                <li><%= link_to "行った観光スポット", user_user_went_tourist_spots_path(current_user) %></li>
+                <li><%= link_to "行きたい観光スポット", user_user_favorite_tourist_spots_path(current_user) %></li>
                 <li role="presentation"><%= link_to  "プロフィール編集", edit_user_user_path(current_user) %></li>
                 <li role="presentation"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               </ul>

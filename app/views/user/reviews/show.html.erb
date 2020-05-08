@@ -61,13 +61,13 @@
 <div class="row review">
   <div class="col-xs-3"></div>
   <div class="col-xs-6">
-    <%= form_with model: @comment, url: user_comments_path, local: true do |f| %>
+    <%= form_with model: @comment, url: user_tourist_spot_review_comments_path(@review.tourist_spot, @review), remote: true do |f| %>
 
     <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title, class: "form-control" %><br>
+    <%= f.text_field :title, class: "form-control comment_title" %><br>
 
     <%= f.label :body, "本文" %><br>
-    <%= f.text_area :body, class: "form-control" %><br>
+    <%= f.text_area :body, class: "form-control comment_body" %><br>
 
     <%= f.hidden_field :review_id, value: @review.id %>
 
@@ -75,7 +75,7 @@
 
     <% end %>
 
-    <table class="table">
+    <table class="table review__comment-table">
       <thead>
         <tr>
           <th>投稿者</th>
@@ -86,20 +86,9 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody id="new_comment">
         <% @comments.each do |comment| %>
-        <tr>
-          <td><%= link_to comment.user.name, user_user_path(comment.user) %></td>
-          <td><%= comment.title %></td>
-          <td><%= comment.body %></td>
-          <td><%= comment.created_at %></td>
-          <td>
-            <% if comment.user === current_user %>
-            <%= link_to "編集", edit_user_comment_path(comment), class: "btn btn-primary" %>
-            <%= link_to "削除", user_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-            <% end %>
-          </td>
-        </tr>
+        <%= render 'comments', comment: comment %>
         <% end %>
       </tbody>
     </table>

@@ -19,41 +19,7 @@
 <div class="row review">
 	<div class="col-xs-4"></div>
 	<div class="col-xs-4">
-		<% @reviews.each do |review| %>
-		<div class="thumbnail">
-			<%= image_tag review.images[0].to_s %>
-			<div class="caption">
-				<p>
-					<%= attachment_image_tag review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
-					<%= link_to review.user.name, user_user_path(review.user) %>
-					(<%= review.is_value %>)
-					<span class="review__score">
-						<%= review.score %>点
-					</span>
-				</p>
-				<p>
-					<%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
-				</p>
-				<p><%= review.body %></p>
-
-				<% if review.liked_by?(current_user) %>
-				<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :delete do %>
-				<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-				<%= review.likes.count %>
-				<% end %>
-				<% else %>
-				<%= link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :post do %>
-				<i class="fa fa-heart-o" aria-hidden="true"></i>
-				<%= review.likes.count %>
-
-				<%= link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do %>
-				<i class="fas fa-comment-dots">コメント</i>
-				<% end %>
-			</div>
-		</div>
-		<% end %>
-		<% end %>
-		<% end %>
+		<%= render "reviews", reviews: @reviews %>
 	</div>
 	<div class="col-xs-4"></div>
 </div>

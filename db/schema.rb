@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_043023) do
+ActiveRecord::Schema.define(version: 2020_05_07_145712) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -160,7 +160,6 @@ ActiveRecord::Schema.define(version: 2020_05_07_043023) do
     t.string "address_building"
     t.string "introduction"
     t.string "profile_image_id"
-    t.string "header_image_id"
     t.integer "point", default: 0, null: false
     t.integer "rank", default: 0, null: false
     t.boolean "is_valid", default: true, null: false

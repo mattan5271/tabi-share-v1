@@ -8,26 +8,15 @@
 
   <div class="col-xs-6">
     <div class="tourist-spot__button-2">
-      <% if tourist_spot.favorited_by?(current_user) %>
-      <%= link_to user_tourist_spot_favorites_path(tourist_spot), method: :delete, class: "btn btn-default" do %>
-      <i class="fas fa-map-marker-alt"> 行きたい！から削除</i>
-      <% end %>
-      <% else %>
-      <%= link_to user_tourist_spot_favorites_path(tourist_spot), method: :post, class: "btn btn-warning" do %>
-      <i class="fas fa-star"> 行きたい！</i>
-      <% end %>
-      <% end %>
+      <% if user_signed_in? %>
+      <span id="favoritebutton_<%= tourist_spot.id %>">
+        <%= render 'user/tourist_spots/favoritebutton', tourist_spot: tourist_spot %>
+      </span>
 
-      <% if tourist_spot.wented_by?(current_user) %>
-      <%= link_to user_tourist_spot_wents_path(tourist_spot), method: :delete, class: "btn btn-default" do %>
-      <i class="fas fa-check-circle"> 行った！から削除</i>
+      <span id="wentbutton_<%= tourist_spot.id %>">
+        <%= render 'user/tourist_spots/wentbutton', tourist_spot: tourist_spot %>
+      </span>
       <% end %>
-      <% else %>
-      <%= link_to user_tourist_spot_wents_path(tourist_spot), method: :post, class: "btn btn-success" do %>
-      <i class="fas fa-check-circle"> 行った！</i>
-      <% end %>
-      <% end %>
-
       <%= link_to "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter btn btn-info', data: { show_count: false }, title: 'Twitter', target: '_blank' do %>
       <i class="fab fa-twitter"> Twitterでシェア</i>
       <% end %>

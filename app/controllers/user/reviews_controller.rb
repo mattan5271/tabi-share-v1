@@ -44,7 +44,7 @@ class User::ReviewsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @review.comments
+    @comments = @review.comments.order(id: "desc")
   end
 
   def edit

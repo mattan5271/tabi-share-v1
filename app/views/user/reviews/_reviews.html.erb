@@ -1,0 +1,33 @@
+<% reviews.each do |review| %>
+<div class="thumbnail">
+  <%= link_to user_tourist_spot_review_path(review.tourist_spot, review) do %>
+  <% if review.images.present? %>
+  <%= image_tag review.images[0].to_s, class: "review__image" %>
+  <% else %>
+  <%= image_tag "no_image.png", class: "review__image" %>
+  <% end %>
+  <% end %>
+  <div class="caption">
+    <p>
+      <%= attachment_image_tag review.user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+      <%= link_to review.user.name, user_user_path(review.user) %>
+      (<%= review.is_value %>)
+      <span class="review__score">
+        <%= review.score %>点
+      </span>
+    </p>
+    <p>
+      <%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
+    </p>
+    <p><%= review.body %></p>
+    <% if user_signed_in? %>
+    <span id="likebutton_<%= review.id %>">
+      <%= render "user/reviews/likebutton", review: review %>
+    </span>
+    <%= link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do %>
+    <i class="fas fa-comment-dots">コメント</i>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+<% end %>
