@@ -1,15 +1,17 @@
 <div class="row">
-  <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+  <% @followers.each do |user| %>
   <div class="col-xs-3">
     <div class="thumbnail">
       <div class="caption">
         <p>
-          <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", class: "img-circle", size: '40x40' %>
+          <%= attachment_image_tag user, :profile_image, fallback: "no_image.jpg", size: "50x50", class: "img-circle" %>
           <%= link_to user.name, user_user_path(user) %>
         </p>
 
         <%= link_to "#{user.follower.count}フォロー中", user_following_path(user) %><br>
-        <div class="follower"><%= link_to "#{user.followed.count}フォロワー", user_follower_path(user) %></div>
+        <span id="follower-link_<%= user.id %>">
+          <%= link_to "#{user.followed.count}フォロワー", user_follower_path(user) %>
+        </span>
 
         <span class="user__followbutton" id="followbutton_<%= user.id %>">
           <% unless user == current_user %>
@@ -21,3 +23,5 @@
   </div>
   <% end %>
 </div>
+
+<%= paginate @followers %>

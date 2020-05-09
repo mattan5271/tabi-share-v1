@@ -1,7 +1,9 @@
 class User::WentsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     user = User.find(params[:user_id])
-    @tourist_spots = user.went_tourist_spots
+    @tourist_spots = user.went_tourist_spots.page(params[:page]).per(40)
   end
 
   def create

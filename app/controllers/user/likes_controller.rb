@@ -1,4 +1,6 @@
 class User::LikesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @review = Review.find(params[:review_id])
     unless @review.liked_by?(current_user)

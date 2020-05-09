@@ -1,8 +1,9 @@
 class Admin::TouristSpotsController < ApplicationController
+  before_action :authenticate_admin!
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tourist_spots = TouristSpot.all
+    @tourist_spots = TouristSpot.all.page(params[:page]).per(10)
   end
 
   def show

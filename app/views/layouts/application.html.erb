@@ -77,6 +77,12 @@
                 <li role="presentation"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
+            <% elsif admin_signed_in? %>
+            <li><%= link_to "会員一覧", admin_users_path %></li>
+            <li><%= link_to "観光スポット一覧", admin_tourist_spots_path %></li>
+            <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
+            <li><%= link_to "利用シーン一覧", admin_scenes_path %></li>
+            <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
             <% else %>
             <li><%= link_to "新規登録", new_user_registration_path %></li>
             <li><%= link_to "ログイン", new_user_session_path %></li>
@@ -90,6 +96,7 @@
 
   <main>
     <div class="container">
+      <% unless request.path.include?("sign_in") || ("sign_up") %>
       <%= form_with url: user_keyword_search_path, method: :get, local: true do %>
       <div class="row">
         <div class="col-xs-10 keyword-search">
@@ -99,6 +106,7 @@
           <%= submit_tag '検索', name: nil, class: "btn btn-info btn-block" %>
         </div>
       </div>
+      <% end %>
       <% end %>
       <%= yield %>
     </div>

@@ -7,6 +7,7 @@
     </div>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
     <div class="field">
       <%= f.label :email, "メールアドレス" %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control devise__form" %>
@@ -23,10 +24,6 @@
       <%= f.label :remember_me, "記憶する" %>
     </div>
     <% end %>
-
-    <div class="devise__recapcha">
-      <%= recaptcha_tags %>
-    </div>
 
     <div class="actions devise__button">
       <%= f.submit "ログイン", class: "btn btn-danger btn-lg btn-block" %>

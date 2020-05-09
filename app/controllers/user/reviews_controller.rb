@@ -1,4 +1,5 @@
 class User::ReviewsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_review, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -30,21 +31,21 @@ class User::ReviewsController < ApplicationController
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     case params[:sort]
     when "1"
-      @reviews = @tourist_spot.reviews.recommended_order #おすすめ順
+      @reviews = @tourist_spot.reviews.recommended_order.page(params[:page]).per(10) #おすすめ順
     when "2"
-      @reviews = @tourist_spot.reviews.new_order #新着順
+      @reviews = @tourist_spot.reviews.new_order.page(params[:page]).per(10) #新着順
     when "3"
-      @reviews = @tourist_spot.reviews.comments_order #コメント数順
+      @reviews = @tourist_spot.reviews.comments_order.page(params[:page]).per(10) #コメント数順
     when "4"
-      @reviews = @tourist_spot.reviews.score_order #点数順
+      @reviews = @tourist_spot.reviews.score_order.page(params[:page]).per(10) #点数順
     else
-      @reviews = @tourist_spot.reviews
+      @reviews = @tourist_spot.reviews.order(id: "desc").page(params[:page]).per(10)
     end
   end
 
   def show
     @comment = Comment.new
-    @comments = @review.comments.order(id: "desc")
+    @comments = @review.comments.order(id: "desc").page(params[:page]).per(10)
   end
 
   def edit

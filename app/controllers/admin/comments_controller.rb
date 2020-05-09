@@ -1,4 +1,5 @@
 class Admin::CommentsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def edit

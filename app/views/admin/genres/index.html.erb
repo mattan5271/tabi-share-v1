@@ -29,7 +29,7 @@
 		<tr>
 			<td><%= link_to genre.id, admin_genre_path(genre) %></td>
 			<td>
-				<%= attachment_image_tag genre, :image, size: "100x100", fallback: "no_image.png", class: "img_prev img-thumbnail" %>
+				<%= attachment_image_tag genre, :image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail" %>
 			</td>
 			<td><%= genre.name %></td>
 			<td><%= link_to "編集", edit_admin_genre_path(genre), class: "btn btn-primary btn-block" %></td>
@@ -40,3 +40,5 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= paginate @genres %>

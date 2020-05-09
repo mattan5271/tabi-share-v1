@@ -59,6 +59,18 @@ class User < ApplicationRecord
     "〒" + self.postcode.to_s + " " + prefecture_name + " " + self.address_city + " " + self.address_street + " " + self.address_building
   end
 
+  # フォロー通知
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
+  end
+
   # Facebookログイン用
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first

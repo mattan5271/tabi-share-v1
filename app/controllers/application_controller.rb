@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters,if: :devise_controller?
-  # prepend_before_action :check_captcha
+
+  def after_sign_in_path_for(resourse)
+    case resource
+    when User
+      root_path
+    when Admin
+      admin_top_path
+    end
+  end
 
   private
 
@@ -17,12 +25,4 @@ class ApplicationController < ActionController::Base
         ]
       )
     end
-
-  # def check_captcha
-  #   self.resource = resource_class.new sign_up_params
-  #   resource.validate
-  #   unless verify_recaptcha(model: resource)
-  #     respond_with_navigational(resource) { render :new }
-  #   end
-  # end
 end

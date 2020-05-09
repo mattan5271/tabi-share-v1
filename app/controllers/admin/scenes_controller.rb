@@ -1,9 +1,10 @@
 class Admin::ScenesController < ApplicationController
+	before_action :authenticate_admin!
 	before_action :set_scene, only: [:edit, :update, :destroy]
 
 	def index
 		@scene = Scene.new
-		@scenes = Scene.all
+		@scenes = Scene.all.page(params[:page]).per(10)
 	end
 
 	def create

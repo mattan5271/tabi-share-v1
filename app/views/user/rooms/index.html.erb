@@ -10,7 +10,7 @@
           <td>
             <div class="col-xs-2">
               <%= link_to user_user_path(entry.user) do %>
-              <%= attachment_image_tag entry.user, :profile_image, :fill, 50, 50, fallback: "no_image.png", size: "50x50", class: "img-circle" %>
+              <%= attachment_image_tag entry.user, :profile_image, fallback: "no_image.png", size: "50x50", class: "img-circle" %>
               <% end %>
             </div>
             <div class="col-xs-7">
@@ -33,3 +33,5 @@
   </div>
   <div class="col-xs-3"></div>
 </div>
+
+<%= paginate @anotherEntries %>

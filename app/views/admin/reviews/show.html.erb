@@ -10,12 +10,12 @@
 
         <tr>
           <th class="active">登録日</th>
-          <td><%= @review.created_at %></td>
+          <td><%= @review.created_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>
           <th class="active">最終更新日</th>
-          <td><%= @review.updated_at %></td>
+          <td><%= @review.updated_at.to_s(:datetime_jp) %></td>
         </tr>
 
         <tr>
@@ -57,7 +57,7 @@
 <div class="row">
   <div class="col-xs-2"></div>
   <div class="col-xs-8">
-    <table class="table">
+    <table class="table admin-review__table">
       <thead>
         <tr>
           <th>投稿者</th>

@@ -1,11 +1,9 @@
 class User::UsersController < ApplicationController
+  before_action :authenticate_user!
 	before_action :set_user, only: [:show, :edit, :update]
 
-	def index
-		@users = User.all
-  end
-
   def show
+    @reviews = @user.reviews.page(params[:page]).per(10)
     if user_signed_in?
       @currentUserEntry = Entry.where(user_id: current_user.id) # ログインしているユーザーを検索
       @userEntry = Entry.where(user_id: @user.id) # メッセージ相手のユーザーを検索
@@ -40,11 +38,13 @@ class User::UsersController < ApplicationController
   # 自分がフォローしているユーザー一覧
   def following
     @user = User.find(params[:user_id])
+    @followings = @user.following_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
   # 自分をフォローしているユーザー一覧
   def follower
     @user = User.find(params[:user_id])
+    @followers = @user.follower_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
 	private

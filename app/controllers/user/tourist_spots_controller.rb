@@ -1,4 +1,5 @@
 class User::TouristSpotsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -42,7 +43,7 @@ class User::TouristSpotsController < ApplicationController
   def keyword_search
     tourist_spots_keyword = TouristSpot.keyword_search(params[:search])
     @search = params[:search]
-    @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword)
+    @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword).page(params[:page]).per(40)
   end
 
   # ジャンル検索
@@ -50,7 +51,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_genre = TouristSpot.genre_search(params[:search])
     @search = params[:search]
     if tourist_spots_genre.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_genre)
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_genre).page(params[:page]).per(40)
     end
   end
 
@@ -59,7 +60,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_scene = TouristSpot.scene_search(params[:search])
     @search = params[:search]
     if tourist_spots_scene.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_scene)
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_scene).page(params[:page]).per(40)
     end
   end
 
@@ -68,7 +69,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_prefecture = TouristSpot.prefecture_search(params[:search])
     @search = params[:search]
     if tourist_spots_prefecture.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_prefecture)
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_prefecture).page(params[:page]).per(40)
     end
   end
 

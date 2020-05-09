@@ -4,8 +4,11 @@
 
     <%= form_with model: @review, url: admin_tourist_spot_review_path(@review.tourist_spot, @review), local: true do |f| %>
 
-    <%= f.label :images, "画像" %>
-    <p><%= f.file_field :images, multiple: true %></p>
+    <%= f.label :images, "写真(複数選択可)" %>
+    <p>
+      <%= f.file_field :images, multiple: true, id: "img_field", style: "display:none;" %>
+      <div class="btn btn-warning" onClick="$('#img_field').click()">写真アップロード</div>
+    </p>
 
     <%= f.label :title, "タイトル" %>
     <%= f.text_field :title, class: "form-control" %><br>

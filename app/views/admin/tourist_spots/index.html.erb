@@ -2,9 +2,9 @@
 	<thead>
 		<tr class="active">
 			<th>ID</th>
-			<th>投稿日</th>
 			<th>地名・施設名</th>
 			<th>電話番号</th>
+			<th>投稿日</th>
 		</tr>
 	</thead>
 
@@ -12,10 +12,12 @@
 		<% @tourist_spots.each do |tourist_spot| %>
 		<tr>
 			<td><%= link_to tourist_spot.id, admin_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.created_at.to_s(:datetime_jp) %></td>
 			<td><%= tourist_spot.name %></td>
 			<td><%= tourist_spot.phone_number %></td>
+			<td><%= tourist_spot.created_at.to_s(:datetime_jp) %></td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
+
+<%= paginate @tourist_spots %>
