@@ -15,6 +15,7 @@
 
             <% if @user == current_user %>
             <%= link_to "プロフィールを編集", edit_user_user_path(@user), class: "btn btn-primary user__button" %>
+            <%= link_to "退会", user_user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
             <% end %>
             <% if user_signed_in? %>
             <span id="followbutton_<%= @user.id %>" class="user__button">

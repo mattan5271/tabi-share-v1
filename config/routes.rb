@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
 	namespace :user do
-		resources :users, only: [:show, :edit, :update] do
+		resources :users, only: [:show, :edit, :update, :destroy] do
 			get 'favorite_tourist_spots' => 'favorites#index'
 			get 'went_tourist_spots' => 'wents#index'
 		end

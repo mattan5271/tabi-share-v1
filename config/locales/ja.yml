@@ -10,3 +10,53 @@ ja:
       previous: <i class="fas fa-angle-left"></i>
       next: <i class="fas fa-angle-right"></i>
       truncate: "..."
+
+ja:
+  activerecord:
+    attributes:
+      comment:
+        title: タイトル
+        body: コメント内容
+      contact:
+        name: 氏名
+        email: メールアドレス
+        title: タイトル
+        body: お問い合わせ内容
+      genre:
+        name: ジャンル名
+      message:
+        body: メッセージ内容
+      review:
+        title: タイトル
+        body: レビュー内容
+        score: 点数
+      scene:
+        name: 利用シーン名
+      tourist_spot:
+        name: 観光スポット名
+        images: 写真
+        postcode: 郵便番号
+        prefecture_code: 都道府県
+        address_city: 市区町村
+        address_street: 番地
+        address_building: 建物名
+        introduction: 紹介文
+        access: アクセス方法
+        phone_number: 電話番号
+        business_hour: 営業時間
+        latitude: 緯度
+        longitude: 経度
+      user:
+        email: メールアドレス
+        encrypted_password: パスワード
+        name: 氏名
+        sex: 性別
+        postcode: 郵便番号
+        prefecture_code: 都道府県
+        address_city: 市区町村
+        address_street: 番地
+        address_building: 建物名
+        introduction: 自己紹介文
+        profile_image_id: プロフィール写真
+        point: ポイント
+        rank: ランク

@@ -7,10 +7,10 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def create
-    tourist_spot = TouristSpot.new(tourist_spot_params)
-    tourist_spot.user_id = current_user.id
-		if tourist_spot.save
-			redirect_to user_tourist_spot_path(tourist_spot)
+    @tourist_spot = TouristSpot.new(tourist_spot_params)
+    @tourist_spot.user_id = current_user.id
+		if @tourist_spot.save
+			redirect_to user_tourist_spot_path(@tourist_spot)
     else
 			render "new"
 		end

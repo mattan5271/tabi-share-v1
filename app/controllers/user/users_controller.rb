@@ -1,6 +1,6 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!
-	before_action :set_user, only: [:show, :edit, :update]
+	before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
     @reviews = @user.reviews.page(params[:page]).per(10)
@@ -33,6 +33,14 @@ class User::UsersController < ApplicationController
 		else
 			render "edit"
 		end
+  end
+
+  # 論理削除
+  def destroy
+    @user.is_valid = "退会済"
+    @user.save
+    reset_session
+    redirect_to root_path
   end
 
   # 自分がフォローしているユーザー一覧

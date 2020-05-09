@@ -10,6 +10,8 @@ class Review < ApplicationRecord
 
   enum is_value: { "本名": true, "仮名": false }
 
+  validates :title, presence: true
+
   # すでにいいねしているかを確認
   def liked_by?(user)
     likes.where(user_id: user.id).exists?

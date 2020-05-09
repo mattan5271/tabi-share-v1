@@ -8,6 +8,16 @@
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
+    <% if flash[:error].present? %>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">×</span>
+      </button>
+      <%= flash[:error] %>
+      <p><a href="#" data-dismiss="alert">閉じる</a></p>
+    </div>
+    <% end %>
+
     <div class="field">
       <%= f.label :email, "メールアドレス" %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control devise__form" %>

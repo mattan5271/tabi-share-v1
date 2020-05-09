@@ -31,7 +31,6 @@
           </p>
           <% end %>
           <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <i class="fas fa-list-ul"></i>
@@ -60,6 +59,7 @@
                 </li>
               </ul>
             </li>
+            <% if user_signed_in? %>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <%= attachment_image_tag current_user, :profile_image, :fill, 25, 25, fallback: "no_image.jpg", size:'25x25', class: "img-circle" %>

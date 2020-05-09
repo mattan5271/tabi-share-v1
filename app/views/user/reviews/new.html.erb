@@ -4,6 +4,15 @@
 
     <%= form_with model: @review, url: user_tourist_spot_reviews_path, local: true do |f| %>
 
+    <% if @review.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
     <%= f.label :images, "写真(複数選択可)" %>
     <span class="review__require-label">必須</span><br>
     <p>

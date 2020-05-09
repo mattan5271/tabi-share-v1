@@ -4,6 +4,16 @@
 
 		<%= form_with model: @tourist_spot, url: user_tourist_spots_path, local: true do |f| %>
 
+		<% if @tourist_spot.errors.any? %>
+		<div id="error_explanation" class="alert alert-danger">
+			<ul>
+				<% @tourist_spot.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+
 		<%= f.label :images, "写真(複数選択可)" %>
 		<span class="tourist-spot__require-label">必須</span><br>
 		<p>

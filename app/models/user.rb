@@ -26,6 +26,14 @@ class User < ApplicationRecord
   enum is_valid: { "有効": true, "退会済": false }
   enum rank: { "レギュラー": 0, "シルバー": 1, "ゴールド": 2, "プラチナ": 3, "ダイヤモンド": 4 }
 
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :sex, presence: true
+  validates :postcode, allow_blank: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+  validates :address_city, length: { maximum: 50 }
+  validates :address_street, uniqueness: true, allow_blank: true, length: { maximum: 50 }
+  validates :address_building, uniqueness: true, allow_blank: true, length: { maximum: 50 }
+  validates :introduction, length: { maximum: 200 }
+
   include JpPrefecture
   jp_prefecture :prefecture_code
 
@@ -69,6 +77,11 @@ class User < ApplicationRecord
       )
       notification.save if notification.valid?
     end
+  end
+
+  # 退会済みユーザーをログインできなくする
+  def active_for_authentication?
+    super && self.is_valid == "有効"
   end
 
   # Facebookログイン用

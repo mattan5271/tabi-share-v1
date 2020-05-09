@@ -7,7 +7,7 @@
 <div id="weather"></div>
 <script>
   $(function () {
-    var API_KEY = 'b03aacee8b5a8be1b8a2d478042879c6'
+    var API_KEY = '<%= ENV['OPEN_WEATHER_MAP_API'] %>';
     var city = '<%= tourist_spot.prefecture_name %>';
     var url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY;
     $.ajax({

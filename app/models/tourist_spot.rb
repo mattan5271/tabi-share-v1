@@ -10,6 +10,8 @@ class TouristSpot < ApplicationRecord
 
   enum is_parking: { "有": true, "無": false }
 
+  validates :name, presence: true
+
   # 「行きたい！」に追加しているかを確認
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
