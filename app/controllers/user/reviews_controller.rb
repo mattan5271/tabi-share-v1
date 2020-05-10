@@ -8,20 +8,19 @@ class User::ReviewsController < ApplicationController
 
   def create
     tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    review = Review.new(review_params)
-    review.user_id = current_user.id
-    review.tourist_spot_id = tourist_spot.id
-    review
-    if review.save
+    @review = Review.new(review_params)
+    @review.user_id = current_user.id
+    @review.tourist_spot_id = tourist_spot.id
+    if @review.save
       if current_user.provider.present?
         current_user.point += 1 # 本名でレビューを投稿していれば、ポイントを与える
-        review.user_rank_update(current_user) # レビューを投稿したユーザーのランクをアップデート
-        review.is_value = "本名" # レビューが本名で投稿された事を定義する
+        @review.user_rank_update(current_user) # レビューを投稿したユーザーのランクをアップデート
+        @review.is_value = "本名" # レビューが本名で投稿された事を定義する
       else
-        review.is_value = "仮名" # レビューが仮名で投稿された事を定義する
+        @review.is_value = "仮名" # レビューが仮名で投稿された事を定義する
       end
-      review.save
-      redirect_to user_tourist_spot_reviews_path(review.tourist_spot, review)
+      @review.save
+      redirect_to user_tourist_spot_reviews_path(@review.tourist_spot, @review)
     else
       render 'new'
     end
@@ -55,7 +54,7 @@ class User::ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to user_tourist_spot_review_path(@review.tourist_spot, @review)
     else
-      rendef 'edit'
+      render 'edit'
     end
   end
 

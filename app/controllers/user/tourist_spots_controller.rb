@@ -43,7 +43,9 @@ class User::TouristSpotsController < ApplicationController
   def keyword_search
     tourist_spots_keyword = TouristSpot.keyword_search(params[:search])
     @search = params[:search]
-    @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword).page(params[:page]).per(40)
+    if tourist_spots_keyword.present?
+      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword).page(params[:page]).per(40)
+    end
   end
 
   # ジャンル検索

@@ -10,7 +10,10 @@ class Review < ApplicationRecord
 
   enum is_value: { "本名": true, "仮名": false }
 
-  validates :title, presence: true
+  validates :images, presence: true
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :body, presence: true, length: { maximum: 200 }
+  validates :score, presence: true
 
   # すでにいいねしているかを確認
   def liked_by?(user)

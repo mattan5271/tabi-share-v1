@@ -10,7 +10,19 @@ class TouristSpot < ApplicationRecord
 
   enum is_parking: { "有": true, "無": false }
 
-  validates :name, presence: true
+  validates :images, presence: true
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :genre_id, presence: true
+  validates :scene_id, presence: true
+  validates :postcode, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+  validates :prefecture_code, presence: true
+  validates :address_city, presence: true, length: { maximum: 50 }
+  validates :address_street, presence: true, length: { maximum: 50 }
+  validates :address_building, length: { maximum: 50 }
+  validates :introduction, presence: true, length: { maximum: 200 }
+  validates :access, presence: true, length: { maximum: 200 }
+  validates :business_hour, presence: true, length: { maximum: 100 }
+  validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{1,4}-[0-9]{1,4}-[0-9]{4}\z/ }
 
   # 「行きたい！」に追加しているかを確認
   def favorited_by?(user)
@@ -52,37 +64,29 @@ class TouristSpot < ApplicationRecord
 
   #キーワード検索
   def self.keyword_search(search)
-    if search
+    if search.present?
       TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
-    else
-      TouristSpot.all
     end
   end
 
   # ジャンル検索
   def self.genre_search(search)
-    if search
+    if search.present?
       TouristSpot.where(genre_id: search.to_i)
-    else
-      TouristSpot.all
     end
   end
 
   # 利用シーン検索
   def self.scene_search(search)
-    if search
+    if search.present?
       TouristSpot.where(scene_id: search.to_i)
-    else
-      TouristSpot.all
     end
   end
 
   # 都道府県検索
   def self.prefecture_search(search)
-    if search
+    if search.present?
       TouristSpot.where(prefecture_code: search.to_i)
-    else
-      TouristSpot.all
     end
   end
 

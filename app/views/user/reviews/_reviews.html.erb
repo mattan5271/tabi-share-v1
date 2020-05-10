@@ -9,7 +9,7 @@
   <% end %>
   <div class="caption">
     <p>
-      <%= attachment_image_tag review.user, :profile_image, :fill, 40, 40, fallback: "no_image.png", size: "40x40", class: "img-circle" %>
+      <%= attachment_image_tag review.user, :profile_image, fallback: "no_image.png", size: "50x50", class: "img-circle" %>
       <%= link_to review.user.name, user_user_path(review.user), class: "review__name" %>
       (<%= review.user.sex %>・<%= review.is_value %>)
       <span class="review__score">

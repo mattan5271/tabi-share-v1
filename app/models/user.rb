@@ -26,12 +26,13 @@ class User < ApplicationRecord
   enum is_valid: { "有効": true, "退会済": false }
   enum rank: { "レギュラー": 0, "シルバー": 1, "ゴールド": 2, "プラチナ": 3, "ダイヤモンド": 4 }
 
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
-  validates :postcode, allow_blank: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+  validates :postcode, allow_blank: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :address_city, length: { maximum: 50 }
-  validates :address_street, uniqueness: true, allow_blank: true, length: { maximum: 50 }
-  validates :address_building, uniqueness: true, allow_blank: true, length: { maximum: 50 }
+  validates :address_street, allow_blank: true, length: { maximum: 50 }
+  validates :address_building, allow_blank: true, length: { maximum: 50 }
   validates :introduction, length: { maximum: 200 }
 
   include JpPrefecture

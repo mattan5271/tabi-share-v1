@@ -23,6 +23,7 @@
             <span class="icon-bar"></span>
           </button>
         </div>
+
         <%= link_to  "TaBi Share", root_path, class: "navbar-brand" %>
         <div class="collapse navbar-collapse" id="navbarEexample7">
           <% if user_signed_in? %>
@@ -30,7 +31,9 @@
             <%= link_to current_user.name, user_user_path(current_user) %> さん！
           </p>
           <% end %>
+
           <ul class="nav navbar-nav navbar-right">
+            <% unless admin_signed_in? %>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <i class="fas fa-list-ul"></i>
@@ -45,6 +48,7 @@
                 </li>
               </ul>
             </li>
+
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <i class="fas fa-bullseye"></i>
@@ -59,6 +63,8 @@
                 </li>
               </ul>
             </li>
+            <% end %>
+
             <% if user_signed_in? %>
             <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
@@ -66,6 +72,7 @@
                 <span>アカウント</span>
                 <span class="caret"></span>
               </a>
+
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation"><%= link_to  "マイページ", user_user_path(current_user) %></li>
                 <li><%= link_to "通知", user_notifications_path %></li>
@@ -77,12 +84,14 @@
                 <li role="presentation"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
+
             <% elsif admin_signed_in? %>
             <li><%= link_to "会員一覧", admin_users_path %></li>
             <li><%= link_to "観光スポット一覧", admin_tourist_spots_path %></li>
             <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
             <li><%= link_to "利用シーン一覧", admin_scenes_path %></li>
             <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+
             <% else %>
             <li><%= link_to "新規登録", new_user_registration_path %></li>
             <li><%= link_to "ログイン", new_user_session_path %></li>
@@ -96,7 +105,6 @@
 
   <main>
     <div class="container">
-      <% unless request.path.include?("sign_in") || ("sign_up") %>
       <%= form_with url: user_keyword_search_path, method: :get, local: true do %>
       <div class="row">
         <div class="col-xs-10 keyword-search">
@@ -107,7 +115,7 @@
         </div>
       </div>
       <% end %>
-      <% end %>
+
       <%= yield %>
     </div>
   </main>

@@ -8,10 +8,11 @@ class Admin::GenresController < ApplicationController
 	end
 
 	def create
-		genre = Genre.new(genre_params)
-		if genre.save
-			redirect_to admin_genres_path(genre)
+		@genre = Genre.new(genre_params)
+		if @genre.save
+			redirect_to admin_genres_path(@genre)
 		else
+			@genres = Genre.all.page(params[:page]).per(10)
 			render "index"
 		end
 	end

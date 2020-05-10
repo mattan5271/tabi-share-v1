@@ -27,12 +27,15 @@ ja:
       message:
         body: メッセージ内容
       review:
+        images: 写真
         title: タイトル
         body: レビュー内容
         score: 点数
       scene:
         name: 利用シーン名
       tourist_spot:
+        genre_id: ジャンル
+        scene_id: 利用シーン
         name: 観光スポット名
         images: 写真
         postcode: 郵便番号

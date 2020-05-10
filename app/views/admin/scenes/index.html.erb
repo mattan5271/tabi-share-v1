@@ -1,4 +1,4 @@
-<%= form_with model: @scene, url: admin_scenes_path, local: true do |f| %>
+<%= form_with model: @scene, url: admin_scenes_path, local: true, builder: CustomFormBuilder do |f| %>
 <div class="row">
 	<div class="col-xs-3">
 		<%= f.text_field :name, placeholder: "利用シーン名", class: "form-control" %>

@@ -4,12 +4,12 @@ class User::ContactsController < ApplicationController
   end
 
   def create
-    contact = Contact.new(contact_params)
-    if contact.save
-      User::ContactMailer.contact_mail(contact).deliver
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      User::ContactMailer.contact_mail(@contact).deliver
       redirect_to root_path
     else
-      render 'new'
+      render "new"
     end
   end
 

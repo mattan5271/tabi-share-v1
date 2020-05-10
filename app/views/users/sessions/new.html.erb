@@ -6,7 +6,17 @@
       <%= render "users/shared/links" %>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f| %>
+
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">×</span>
+      </button>
+      <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+      <%- end -%>
+      <p><a href="#" data-dismiss="alert">閉じる</a></p>
+    </div>
 
     <% if flash[:error].present? %>
     <div class="alert alert-danger alert-dismissible fade in" role="alert">

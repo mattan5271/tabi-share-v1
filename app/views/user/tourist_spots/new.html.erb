@@ -2,17 +2,9 @@
 	<div class="col-xs-3"></div>
 	<div class="col-xs-6 tourist-spot">
 
-		<%= form_with model: @tourist_spot, url: user_tourist_spots_path, local: true do |f| %>
+		<%= form_with model: @tourist_spot, url: user_tourist_spots_path, local: true, builder: CustomFormBuilder do |f| %>
 
-		<% if @tourist_spot.errors.any? %>
-		<div id="error_explanation" class="alert alert-danger">
-			<ul>
-				<% @tourist_spot.errors.full_messages.each do |message| %>
-				<li><%= message %></li>
-				<% end %>
-			</ul>
-		</div>
-		<% end %>
+
 
 		<%= f.label :images, "写真(複数選択可)" %>
 		<span class="tourist-spot__require-label">必須</span><br>
@@ -23,7 +15,7 @@
 
 		<%= f.label :name, "地名・施設名" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_field :name, class: "form-control" %><br>
+		<%= f.text_field :name, placeholder: "例) 梅田スカイビル・空中庭園展望台", autofocus: true, class: "form-control" %><br>
 
 		<%= f.label :genre_id, "ジャンル" %>
 		<span class="tourist-spot__require-label">必須</span><br>
@@ -35,7 +27,7 @@
 
 		<%= f.label :postcode, "郵便番号" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_field :postcode, placeholder: "ハイフン無し", class: "form-control" %><br>
+		<%= f.text_field :postcode, placeholder: "例) 531-6023", class: "form-control" %><br>
 
 		<%= f.label :prefecture_name, '都道府県' %>
 		<span class="tourist-spot__require-label">必須</span><br>
@@ -43,31 +35,31 @@
 
 		<%= f.label :address_city, "市区町村" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_field :address_city, class: "form-control" %><br>
+		<%= f.text_field :address_city, placeholder: "例) 大阪市北区", class: "form-control" %><br>
 
 		<%= f.label :address_street, "番地" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_field :address_street, class: "form-control" %><br>
+		<%= f.text_field :address_street, placeholder: "例) 大淀中1-1-88", class: "form-control" %><br>
 
 		<%= f.label :address_building, "建物" %>
 		<span class="tourist-spot__any-label">任意</span><br>
-		<%= f.text_field :address_building, class: "form-control" %><br>
+		<%= f.text_field :address_building, placeholder: "例) 梅田スカイビル39・40F・屋上", class: "form-control" %><br>
 
 		<%= f.label :introduction, "紹介文" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_area :introduction, class: "form-control" %><br>
+		<%= f.text_area :introduction, placeholder: "例) 晴れた日には、淡路島や明石海峡大橋まで見える空中庭園展望台。\n屋上展望台の他に40階の展望フロアや39階のレストランなど、夜景を楽しめるスペースがある。", class: "form-control" %><br>
 
 		<%= f.label :access, "アクセス方法" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_area :access, class: "form-control" %><br>
+		<%= f.text_area :access, placeholder: "例) JR大阪駅から徒歩7分", class: "form-control" %><br>
 
 		<%= f.label :business_hour, "営業時間" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_area :business_hour, class: "form-control" %><br>
+		<%= f.text_area :business_hour, placeholder: "例) 10:00～22:30（最終入場22:00）\n ※季節による変動、特別営業日あり", class: "form-control" %><br>
 
 		<%= f.label :phone_number, "電話番号" %>
 		<span class="tourist-spot__require-label">必須</span><br>
-		<%= f.text_field :phone_number, placeholder: "ハイフン無し", class: "form-control" %><br>
+		<%= f.text_field :phone_number, placeholder: "例) 06-6440-3855", class: "form-control" %><br>
 
 		<%= label_tag :駐車場 %>
 		<span class="tourist-spot__require-label">必須</span><br>

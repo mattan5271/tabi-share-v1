@@ -8,10 +8,11 @@ class Admin::ScenesController < ApplicationController
 	end
 
 	def create
-		scene = Scene.new(scene_params)
-		if scene.save
-			redirect_to admin_scenes_path(scene)
+		@scene = Scene.new(scene_params)
+		if @scene.save
+			redirect_to admin_scenes_path(@scene)
 		else
+			@scenes = Scene.all.page(params[:page]).per(10)
 			render "index"
 		end
 	end

@@ -1,5 +1,5 @@
 <div class="row">
-	<% if tourist_spots %>
+	<% if tourist_spots.present? %>
 	<% tourist_spots.each do |tourist_spot| %>
 	<div class="col-xs-3">
 		<%= link_to user_tourist_spot_path(tourist_spot) do %>

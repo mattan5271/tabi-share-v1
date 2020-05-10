@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_113939) do
+ActiveRecord::Schema.define(version: 2020_05_10_043631) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_113939) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false　
+    t.integer "user_id", null: false
     t.integer "review_id", null: false
     t.string "title", null: false
     t.text "body", null: false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_113939) do
     t.integer "scene_id", null: false
     t.string "name", null: false
     t.json "images", null: false
-    t.integer "postcode", null: false
+    t.string "postcode", null: false
     t.integer "prefecture_code", null: false
     t.string "address_city", null: false
     t.string "address_street", null: false
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_113939) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.integer "postcode"
+    t.string "postcode"
     t.integer "prefecture_code"
     t.string "address_city"
     t.string "address_street"

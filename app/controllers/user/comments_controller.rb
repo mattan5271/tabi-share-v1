@@ -8,8 +8,10 @@ class User::CommentsController < ApplicationController
     @review = @comment.review
     if @comment.save
       @review.create_notification_comment!(current_user, @comment.id)
+      redirect_to user_tourist_spot_review_path(@review.tourist_spot, @review)
     else
-      render 'new'
+      @comments = @review.comments.order(id: "desc").page(params[:page]).per(10)
+      render "/user/reviews/show"
     end
   end
 
@@ -21,13 +23,14 @@ class User::CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to user_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review)
     else
-      rendef 'edit'
+      render "edit"
     end
   end
 
   def destroy
     @review = @comment.review
     @comment.destroy
+    redirect_to user_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review)
   end
 
   private

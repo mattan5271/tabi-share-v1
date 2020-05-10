@@ -24,4 +24,6 @@
 	<%= render 'tourist_spots', tourist_spots: @tourist_spots %>
 </div>
 
+<% if @tourist_spot %>
 <%= paginate @tourist_spots %>
+<% end %>
