@@ -36,7 +36,7 @@
           <td>
             <%= attachment_image_tag @review.user, :profile_image, fallback: "no_image.jpg",size: "50x50", class: "img-circle" %>
             <%= link_to @review.user.name, user_user_path(@review.user) %>
-            (<%= @review.user.sex %>・<%= @review.is_value %>)
+            ( <%= @review.user.age %>歳<%= @review.user.sex %>・<%= @review.is_value %> )
             <% @user = @review.user %>
             <% if user_signed_in? %>
             <span id="followbutton_<%= @user.id %>">

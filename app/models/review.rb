@@ -22,7 +22,7 @@ class Review < ApplicationRecord
 
   # おすすめ順
   def self.recommended_order
-    self.find(Like.group(:review_id).order('count(review_id) desc').limit(5).pluck(:review_id))
+    self.where(id: Like.group(:review_id).order('count(review_id) desc').limit(5).pluck(:review_id))
   end
 
   # 新着順
@@ -32,12 +32,42 @@ class Review < ApplicationRecord
 
   # コメント数順
   def self.comments_order
-    self.find(Comment.group(:review_id).order('count(review_id) desc').pluck(:review_id))
+    self.where(id: Comment.group(:review_id).order('count(review_id) desc').pluck(:review_id))
   end
 
   # 点数順
   def self.score_order
     self.order(score: "DESC")
+  end
+
+  # 男性のみ
+  def self.man_only
+    self.includes(:user).where(users: {sex:"男性"})
+  end
+
+  # 女性のみ
+  def self.woman_only
+    self.includes(:user).where(users: {sex:"女性"})
+  end
+
+  # 並び替え
+  def self.sort(sort, reviews)
+    case sort
+    when "1"
+      reviews.recommended_order #おすすめ順
+    when "2"
+      reviews.new_order #新着順
+    when "3"
+      reviews.comments_order #レビュー数順
+    when "4"
+      reviews.score_order #点数順
+    when "5"
+      reviews.man_only #男性のみ
+    when "6"
+      reviews.woman_only #女性のみ
+    else
+      reviews
+    end
   end
 
   #ユーザーのポイントによってランク付け

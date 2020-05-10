@@ -14,9 +14,12 @@
     font-size: 12px;
   }
 
+  &__score-container {
+    text-align: left;
+  }
+
   &__score {
     display: inline-block;
-    margin-left: 50px;
     padding: 7px 20px;
     border-radius: 25px;
     text-decoration: none;

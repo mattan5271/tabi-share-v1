@@ -11,7 +11,7 @@
             <span class="user__name">
               <%= @user.name %>
             </span>
-            (<%= @user.sex %>)
+            ( <%= @user.age %>歳<%= @user.sex %> )
 
             <% if @user == current_user %>
             <%= link_to "プロフィールを編集", edit_user_user_path(@user), class: "btn btn-primary user__button" %>

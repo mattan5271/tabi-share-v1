@@ -28,18 +28,22 @@ class User::ReviewsController < ApplicationController
 
   def index
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    case params[:sort]
-    when "1"
-      @reviews = @tourist_spot.reviews.recommended_order.page(params[:page]).per(10) #おすすめ順
-    when "2"
-      @reviews = @tourist_spot.reviews.new_order.page(params[:page]).per(10) #新着順
-    when "3"
-      @reviews = @tourist_spot.reviews.comments_order.page(params[:page]).per(10) #コメント数順
-    when "4"
-      @reviews = @tourist_spot.reviews.score_order.page(params[:page]).per(10) #点数順
-    else
-      @reviews = @tourist_spot.reviews.order(id: "desc").page(params[:page]).per(10)
+    reviews_sort = Review.sort(params[:sort], @tourist_spot.reviews)
+    if reviews_sort
+      @reviews = Kaminari.paginate_array(reviews_sort).page(params[:page]).per(40)
     end
+    # case params[:sort]
+    # when "1"
+    #   @reviews = @tourist_spot.reviews.recommended_order.page(params[:page]).per(10) #おすすめ順
+    # when "2"
+    #   @reviews = @tourist_spot.reviews.new_order.page(params[:page]).per(10) #新着順
+    # when "3"
+    #   @reviews = @tourist_spot.reviews.comments_order.page(params[:page]).per(10) #コメント数順
+    # when "4"
+    #   @reviews = @tourist_spot.reviews.score_order.page(params[:page]).per(10) #点数順
+    # else
+    #   @reviews = @tourist_spot.reviews.order(id: "desc").page(params[:page]).per(10)
+    # end
   end
 
   def show

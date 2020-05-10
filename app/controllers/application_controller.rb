@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
         :sign_up,keys:[
         :name,
         :sex,
+        :age,
         :postcode,
         :prefecture_code,
         :address_city,

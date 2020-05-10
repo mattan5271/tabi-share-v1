@@ -29,6 +29,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
+  validates :age, presence: true
   validates :postcode, allow_blank: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :address_city, length: { maximum: 50 }
   validates :address_street, allow_blank: true, length: { maximum: 50 }

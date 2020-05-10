@@ -9,13 +9,15 @@
   <% end %>
   <% end %>
   <div class="caption">
-    <p>
-      <%= attachment_image_tag review.user, :profile_image, fallback: "no_image.png", size: "50x50", class: "img-circle" %>
-      <%= link_to review.user.name, user_user_path(review.user), class: "review__name" %>
-      (<%= review.user.sex %>・<%= review.is_value %>)
+    <div review__score-container>
       <span class="review__score">
         <%= review.score %>点
       </span>
+      <p>
+    </div>
+    <%= attachment_image_tag review.user, :profile_image, fallback: "no_image.png", size: "40x40", class: "img-circle" %>
+    <%= link_to review.user.name, user_user_path(review.user), class: "review__name" %>
+    ( <%= review.user.age %>歳<%= review.user.sex %>・<%= review.is_value %> )
     </p>
     <p>
       <%= link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title" %>
