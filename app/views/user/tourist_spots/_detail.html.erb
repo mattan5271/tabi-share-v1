@@ -17,7 +17,7 @@
         <%= render 'user/tourist_spots/wentbutton', tourist_spot: tourist_spot %>
       </span>
       <% end %>
-      <%= link_to "https://twitter.com/share?url=#{request.url}&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter btn btn-info', data: { show_count: false }, title: 'Twitter', target: '_blank' do %>
+      <%= link_to "https://twitter.com/share?url=#{ request.url }&text=#{ @tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter btn btn-info', data: { show_count: false }, title: 'Twitter', target: '_blank' do %>
       <i class="fab fa-twitter"> Twitterでシェア</i>
       <% end %>
     </div>
@@ -36,7 +36,9 @@
 
 <ul class="nav nav-tabs nav-justified">
   <li role="presentation"><%= link_to "観光地トップ", user_tourist_spot_path(tourist_spot) %></li>
-  <li role="presentation"><%= link_to "レビュー一覧", user_tourist_spot_reviews_path(tourist_spot) %></li>
+  <li role="presentation">
+    <%= link_to "レビュー一覧( #{ tourist_spot.reviews.count } )", user_tourist_spot_reviews_path(tourist_spot) %>
+  </li>
   <li role="presentation"><%= link_to  "レビュー投稿", new_user_tourist_spot_review_path(tourist_spot) %></li>
   <li role="presentation"><%= link_to  "地図", user_tourist_spot_map_path(tourist_spot) %></li>
 </ul>

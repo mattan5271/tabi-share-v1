@@ -1,3 +1,4 @@
+<% if reviews.present? %>
 <% reviews.each do |review| %>
 <div class="thumbnail">
   <%= link_to user_tourist_spot_review_path(review.tourist_spot, review) do %>
@@ -25,9 +26,12 @@
       <%= render "user/reviews/likebutton", review: review %>
     </span>
     <%= link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do %>
-    <i class="fas fa-comment-dots">コメント</i>
+    <i class="fas fa-comment-dots">コメント<%= review.comments.count %></i>
     <% end %>
     <% end %>
   </div>
 </div>
+<% end %>
+<% else %>
+<p class="review__text">レビューはありません。</p>
 <% end %>

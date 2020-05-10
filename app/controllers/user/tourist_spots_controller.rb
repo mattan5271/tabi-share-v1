@@ -44,7 +44,11 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_keyword = TouristSpot.keyword_search(params[:search])
     @search = params[:search]
     if tourist_spots_keyword.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_keyword).page(params[:page]).per(40)
+      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_keyword)
+      if tourist_spots_sort.present?
+        @tourist_sepots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
+      end
     end
   end
 
@@ -53,7 +57,11 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_genre = TouristSpot.genre_search(params[:search])
     @search = params[:search]
     if tourist_spots_genre.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_genre).page(params[:page]).per(40)
+      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_genre)
+      if tourist_spots_sort.present?
+        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
+      end
     end
   end
 
@@ -62,7 +70,11 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_scene = TouristSpot.scene_search(params[:search])
     @search = params[:search]
     if tourist_spots_scene.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_scene).page(params[:page]).per(40)
+      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_scene)
+      if tourist_spots_sort.present?
+        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
+      end
     end
   end
 
@@ -71,7 +83,11 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots_prefecture = TouristSpot.prefecture_search(params[:search])
     @search = params[:search]
     if tourist_spots_prefecture.present?
-      @tourist_spots = TouristSpot.sort(params[:sort], tourist_spots_prefecture).page(params[:page]).per(40)
+      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_prefecture)
+      if tourist_spots_sort.present?
+        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
+      end
     end
   end
 

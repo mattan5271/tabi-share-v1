@@ -8,6 +8,7 @@
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f| %>
 
+    <% if flash.present? %>
     <div class="alert alert-danger alert-dismissible fade in" role="alert">
       <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">×</span>
@@ -17,6 +18,7 @@
       <%- end -%>
       <p><a href="#" data-dismiss="alert">閉じる</a></p>
     </div>
+    <% end %>
 
     <% if flash[:error].present? %>
     <div class="alert alert-danger alert-dismissible fade in" role="alert">

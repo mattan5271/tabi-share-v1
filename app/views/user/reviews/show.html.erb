@@ -81,6 +81,7 @@
     <% end %>
     <% end %>
 
+    <% if @comments.present? %>
     <table class="table review__comment-table">
       <thead>
         <tr>
@@ -111,6 +112,9 @@
         </tr>
         <% end %>
     </table>
+    <% else %>
+    <p class="review__text">コメントはありません。</p>
+    <% end %>
 
     <div class="col-xs-3"></div>
   </div>

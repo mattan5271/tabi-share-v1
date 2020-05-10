@@ -92,7 +92,7 @@ class TouristSpot < ApplicationRecord
 
   # ランキング(行きたい！数)
   def self.top_ranking
-    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(4).pluck(:tourist_spot_id))
+    self.find(Favorite.group(tourist_spot_id).order('count(tourist_spot_id) desc').limit(4).pluck(:tourist_spot_id))
   end
 
   # 新着
@@ -102,7 +102,7 @@ class TouristSpot < ApplicationRecord
 
   # おすすめ順
   def self.recommended_order
-    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+    self.where(id: Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
   end
 
   # 新着順
@@ -112,12 +112,12 @@ class TouristSpot < ApplicationRecord
 
   # レビュー数順
   def self.reviews_order
-    self.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
+    self.where(id: Review.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
   end
 
   # 点数順
   def self.score_order
-    self.find(Review.group(:tourist_spot_id).order('avg(score) desc').pluck(:tourist_spot_id))
+    self.where(id: Review.group(:tourist_spot_id).order('avg(score) desc').pluck(:tourist_spot_id))
   end
 
   # ランダム表示
@@ -129,7 +129,7 @@ class TouristSpot < ApplicationRecord
   def self.sort(sort, tourist_spots)
     case sort
     when "1"
-      tourist_spots.recommended_order #おすすめa順
+      tourist_spots.recommended_order #おすすめ順
     when "2"
       tourist_spots.new_order #新着順
     when "3"
