@@ -1,4 +1,7 @@
-<% unless controller_name == 'homes' %>
+<div class="page-header">
+	<h3>ジャンル別</h3>
+</div>
+
 <div class="row tourist-spot__sort">
 	<div class="col-xs-6"></div>
 	<div class="col-xs-6">
@@ -18,7 +21,7 @@
 		</div>
 	</div>
 </div>
-<% end %>
+
 
 <div class="row tourist-spot">
 	<%= render 'tourist_spots', tourist_spots: @tourist_spots %>

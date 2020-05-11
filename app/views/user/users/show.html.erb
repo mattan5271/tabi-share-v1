@@ -5,7 +5,29 @@
       <tbody>
         <tr>
           <td>
-            <h3><span class="label label-warning"><%= @user.rank %></span></h3>
+            <h3>
+              <% case @user.rank when "レギュラー" %>
+              <span class="label label-default">
+                <%= @user.rank %>
+              </span>
+              <% when "シルバー" %>
+              <span class="label label-primary">
+                <%= @user.rank %>
+              </span>
+              <% when "ゴールド" %>
+              <span class="label label-warning">
+                <%= @user.rank %>
+              </span>
+              <% when "プラチナ" %>
+              <span class="label label-info">
+                <%= @user.rank %>
+              </span>
+              <% when "ダイヤモンド" %>
+              <span class="label label-danger">
+                <%= @user.rank %>
+              </span>
+              <% end %>
+            </h3>
             <% if @user == current_user %>
             <p>( 次のランクまであと<%= @user.next_rank(@user) %>ポイント )</p>
             <% end %>
@@ -14,7 +36,7 @@
             <span class="user__name">
               <%= @user.name %>
             </span>
-            ( <%= @user.age %>歳<%= @user.sex %> )
+            ( <%= @user.age %>歳 <%= @user.sex %> )
 
             <% if @user == current_user %>
             <%= link_to "プロフィールを編集", edit_user_user_path(@user), class: "btn btn-primary user__button" %>

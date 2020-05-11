@@ -18,6 +18,14 @@
     <span class="devise__require-label">必須</span><br />
     <%= f.select :sex, User.sexes.keys, {prompt: "選択してください"}, class: "form-control devise__form" %>
 
+    <%= f.label :age, "年齢" %>
+    <span class="devise__require-label">必須</span><br />
+    <%= f.number_field :age, autocomplete: "age", class: "form-control devise__form" %>
+
+    <%= f.label :introduction, "自己紹介文" %>
+    <span class="devise__any-label">任意</span><br />
+    <%= f.text_area :introduction, autocomplete: "introduction", class: "form-control devise__form" %>
+
     <%= f.label :postcode, "郵便番号" %>
     <span class="devise__any-label">任意</span><br />
     <%= f.text_field :postcode, placeholder: "ハイフン無し", autofocus: true, autocomplete: "postcode", class: "form-control devise__form"  %>
