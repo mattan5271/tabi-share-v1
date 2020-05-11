@@ -62,9 +62,9 @@ class Review < ApplicationRecord
     when "4"
       reviews.score_order #点数順
     when "5"
-      reviews.man_only #男性のみ
+      reviews.man_only # 男性のみ
     when "6"
-      reviews.woman_only #女性のみ
+      reviews.woman_only # 女性のみ
     else
       reviews
     end

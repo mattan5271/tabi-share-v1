@@ -55,6 +55,20 @@ class User::UsersController < ApplicationController
     @followers = @user.follower_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
+  # ランキング
+  def ranking
+    if params[:prev].present?
+      @month = Date.parse(params[:pre_preview])
+    elsif params[:next].present?
+      @month = Date.parse(params[:next_preview])
+    else
+      @month = Time.current.to_date
+      # binding.pry
+    end
+
+    @users = User.where(created_at: @month.all_month).order(point: "DESC")
+  end
+
 	private
 
 		def set_user

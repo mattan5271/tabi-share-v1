@@ -6,6 +6,9 @@
         <tr>
           <td>
             <h3><span class="label label-warning"><%= @user.rank %></span></h3>
+            <% if @user == current_user %>
+            <p>( 次のランクまであと<%= @user.next_rank(@user) %>ポイント )</p>
+            <% end %>
 
             <%= attachment_image_tag @user, :profile_image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail user__image" %>
             <span class="user__name">

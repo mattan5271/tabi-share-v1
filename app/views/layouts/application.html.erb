@@ -67,7 +67,10 @@
 
             <% if user_signed_in? %>
             <li role="presentation" class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+              <% if unchecked_notifications(current_user).present? %>
+              <i class="fa fa-circle icon" style="color: gold;"></i>
+              <% end %>
+              <a class="dropdown-toggle link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 <%= attachment_image_tag current_user, :profile_image, :fill, 25, 25, fallback: "no_image.jpg", size:'25x25', class: "img-circle" %>
                 <span>アカウント</span>
                 <span class="caret"></span>
@@ -75,7 +78,12 @@
 
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation"><%= link_to  "マイページ", user_user_path(current_user) %></li>
-                <li><%= link_to "通知", user_notifications_path %></li>
+                <li>
+                  <% if unchecked_notifications(current_user).present? %>
+                  <i class="fa fa-circle notification-icon" style="color: gold;"></i>
+                  <% end %>
+                  <%= link_to "通知", user_notifications_path, class: "notification-link" %>
+                </li>
                 <li><%= link_to "メッセージ", user_rooms_path %></li>
                 <li><%= link_to "クーポン", user_coupons_path %></li>
                 <li><%= link_to "行きたい観光スポット", user_user_favorite_tourist_spots_path(current_user) %></li>
@@ -117,6 +125,12 @@
       <% end %>
 
       <%= yield %>
+
+      <span id="back">
+        <a href="#">
+          <%= image_tag "arrow.png" %>
+        </a>
+      </span>
     </div>
   </main>
   <footer>

@@ -86,6 +86,20 @@ class User < ApplicationRecord
     super && self.is_valid == "有効"
   end
 
+  # 次のランクまでのポイント数を計算
+  def next_rank(user)
+    case user.rank
+    when "レギュラー"
+      10 - user.point
+    when "シルバー"
+      50 - user.point
+    when "ゴールド"
+      100 - user.point
+    when "プラチナ"
+      300 - user.point
+    end
+  end
+
   # Facebookログイン用
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
