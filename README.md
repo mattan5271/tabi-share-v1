@@ -1,24 +1,41 @@
-# README
+# <TaBi Share>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
+集客を目的とした各名所のオーナーや自治体が観光地を登録する事ができる。
+全国の観光スポットを様々なジャンルで検索する事ができ、その観光スポットを訪れたエンドユーザーの評価や感想といった口コミ情報を共有できる。
+また、優良なレビューをしたユーザーに対してはインセンティブを与える。
 
-* Ruby version
+### サイトテーマ
 
-* System dependencies
+観光地のレビューサイト
 
-* Configuration
+### テーマを選んだ理由
 
-* Database creation
+宿泊予約が出来るサイト(じゃらん等)は多くあるのに対して、観光地に対してのレビューを共有出来るサイトが少ないと感じた為。
+また、それらのサイトは見辛く、利用しにくいと感じた為。
 
-* Database initialization
+### ターゲットユーザー
 
-* How to run the test suite
+集客に悩んでいる、観光スポット(テーマパーク、レジャーランド、絶景スポット、パワースポット、自然スポット、神社、寺 etc..)のオーナーや自治体。
+国内旅行に行きたいが、場所を決めきれないエンドユーザー全般。
 
-* Services (job queues, cache servers, search engines, etc.)
+### 主な利用シーン
 
-* Deployment instructions
+国内旅行に行きたいが、これといって場所が決まらない時。
 
-* ...
+## 設計書
+
+【ER 図】
+※フォロー機能、DM 機能、通知機能等も実装予定だが、全てを ER 図に書くと見にくくなるので省略。
+https://drive.google.com/open?id=1Dt2-hz_iSJ4zSrwFd4DbjbAPbuTwGYh4
+
+【テーブル定義書】
+https://drive.google.com/open?id=1qK4HcBEMAUzZuRwDFdTruriybsArPsJV
+
+【アプリケーション詳細設計書】
+https://drive.google.com/open?id=1HzddMECZW4shA8_XI5gOyI_PErbmc-Ki
+
+### 機能一覧
+
+https://drive.google.com/open?id=1OIST9SIT46ZLQo1P9ic4a5WoXBwvbCre9uBqSU8tN6A
