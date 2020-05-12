@@ -35,8 +35,15 @@ class User::TouristSpotsController < ApplicationController
 		redirect_to user_tourist_spots_path
   end
 
+  # 地図
   def map
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
+  end
+
+  # 写真一覧
+  def images
+    @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
+    @reviews = @tourist_spot.reviews
   end
 
   # ランキング

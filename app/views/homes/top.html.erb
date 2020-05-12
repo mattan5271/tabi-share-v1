@@ -59,7 +59,43 @@
 		<div class="page-header">
 			<h3>おすすめ観光地</h3>
 		</div>
-		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
+		<div class="row">
+			<% if @tourist_spots_rank.present? %>
+			<% @tourist_spots_rank.each.with_index(1) do |tourist_spot, index| %>
+			<div class="col-xs-4">
+				<%= link_to user_tourist_spot_path(tourist_spot) do %>
+				<div class="tourist-spot__container ribbon-wrapper">
+					<span class="ribbon">
+						<td class="text-center">
+							<% case index when 1 %>
+							<i class="fas fa-crown" style="color: gold;"></i>
+							<% when 2 %>
+							<i class="fas fa-crown" style="color: silver;"></i>
+							<% when 3 %>
+							<i class="fas fa-crown" style="color: #B08A1C;"></i>
+							<% else %>
+							<%= index %>
+							<% end %>
+					</span>
+					<%= image_tag tourist_spot.images[0].to_s, class: "tourist-spot__container--image" %>
+					<div class="tourist-spot__container--box">
+						<div class="col-xs-7 tourist-spot__container--image">
+							<%= tourist_spot.name %>
+						</div>
+						<div class="col-xs-5">
+							<div class="tourist-spot__score">
+								<%= tourist_spot.average_score %>点
+							</div>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<% end %>
+			<% else %>
+			<p class="tourist-spot__text">観光スポットがありません</p>
+			<% end %>
+		</div>
 
 		<div class="top__ranking-link">
 			<%= link_to user_tourist_spot_ranking_path do %>

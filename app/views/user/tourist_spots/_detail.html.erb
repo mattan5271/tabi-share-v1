@@ -40,5 +40,6 @@
     <%= link_to "レビュー一覧( #{ tourist_spot.reviews.count } )", user_tourist_spot_reviews_path(tourist_spot) %>
   </li>
   <li role="presentation"><%= link_to  "レビュー投稿", new_user_tourist_spot_review_path(tourist_spot) %></li>
+  <li role="presentation"><%= link_to  "写真", user_tourist_spot_images_path(tourist_spot) %></li>
   <li role="presentation"><%= link_to  "地図", user_tourist_spot_map_path(tourist_spot) %></li>
 </ul>

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 				resources :comments, only: [:create, :edit, :update, :destroy]
 			end
 			get 'map' => 'tourist_spots#map'
+			get 'images' => 'tourist_spots#images'
 		end
 
     resources :messages, only: [:create]

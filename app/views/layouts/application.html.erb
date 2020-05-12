@@ -9,6 +9,8 @@
   <%= include_gon %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <script src="https://kit.fontawesome.com/c51513dd6c.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript">
+  </script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
@@ -80,19 +82,49 @@
               </a>
 
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><%= link_to  "マイページ", user_user_path(current_user) %></li>
+                <li role="presentation">
+                  <%= link_to user_user_path(current_user) do %>
+                  <i class="fas fa-user"></i> マイページ
+                  <% end %>
+                </li>
                 <li>
                   <% if unchecked_notifications(current_user).present? %>
                   <i class="fa fa-circle notification-icon" style="color: gold;"></i>
                   <% end %>
-                  <%= link_to "通知", user_notifications_path, class: "notification-link" %>
+                  <%= link_to user_notifications_path, class: "notification-link" do %>
+                  <i class="fas fa-bell"></i> 通知
+                  <% end %>
                 </li>
-                <li><%= link_to "メッセージ", user_rooms_path %></li>
-                <li><%= link_to "クーポン", user_coupons_path %></li>
-                <li><%= link_to "行きたい観光スポット", user_user_favorite_tourist_spots_path(current_user) %></li>
-                <li><%= link_to "行った観光スポット", user_user_went_tourist_spots_path(current_user) %></li>
-                <li role="presentation"><%= link_to  "プロフィール編集", edit_user_user_path(current_user) %></li>
-                <li role="presentation"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                <li>
+                  <%= link_to user_rooms_path do %>
+                  <i class="fas fa-envelope"></i> メッセージ
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to user_coupons_path do %>
+                  <i class="fas fa-gift"></i> クーポン
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to user_user_favorite_tourist_spots_path(current_user) do %>
+                  <i class="fas fa-star"></i> 行きたい観光スポット
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to user_user_went_tourist_spots_path(current_user) do %>
+                  <i class="fas fa-check-circle"></i> 行った観光スポット
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to edit_user_user_path(current_user) do %>
+                  <i class="fas fa-user-cog"></i> プロフィール編集
+                  <% end %>
+                </li>
+                <li role="presentation">
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                  <i class="fas fa-sign-out-alt"></i> ログアウト
+                  <% end %>
+                </li>
               </ul>
             </li>
 
