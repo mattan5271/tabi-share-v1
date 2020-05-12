@@ -1,4 +1,13 @@
 module ApplicationHelper
+  def full_title(page_title = '')
+    base_title = "TaBi Share"
+    if page_title.empty?
+      base_title
+    else
+      "#{page_title} | #{base_title}"
+    end
+  end
+
   def unchecked_notifications(user)
     user.passive_notifications.where(checked: false)
   end

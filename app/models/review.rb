@@ -75,16 +75,16 @@ class Review < ApplicationRecord
     case user.point
     when 0..9
       user.rank = "レギュラー"
-    when 10..49
+    when 10..29
       user.rank = "シルバー"
       Coupon.coupon_create(user)
-    when 50..99
+    when 30..49
       user.rank = "ゴールド"
       Coupon.coupon_create(user)
-    when 100..299
+    when 50..99
       user.rank = "プラチナ"
       Coupon.coupon_create(user)
-    when 300..9999
+    when 100..9999
       user.rank = "ダイヤモンド"
       Coupon.coupon_create(user)
     end

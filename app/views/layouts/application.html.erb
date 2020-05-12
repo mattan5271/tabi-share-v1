@@ -3,7 +3,7 @@
 
 <head>
   <%= favicon_link_tag('favicon.ico') %>
-  <title>TaBiShare</title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= include_gon %>
@@ -119,7 +119,7 @@
       <%= form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do %>
       <div class="row">
         <div class="col-xs-10 keyword-search">
-          <%= text_field_tag :search, '', placeholder: "観光地キーワード検索", class: "form-control" %>
+          <%= text_field_tag :search, '', placeholder: "観光スポットキーワード検索", class: "form-control" %>
         </div>
         <div class="col-xs-2">
           <%= submit_tag '検索', name: nil, class: "btn btn-info btn-block" %>
@@ -149,12 +149,12 @@
             <span>Menu</span>
             <li>
               <%= link_to root_path do %>
-              <i class="fas fa-home"></i> Home
+              <i class="fas fa-home"></i> トップ
               <% end %>
             </li>
             <li>
               <%= link_to about_path do %>
-              <i class="fas fa-info-circle"></i> About
+              <i class="fas fa-info-circle"></i> サイト説明
               <% end %>
             </li>
             <li>
