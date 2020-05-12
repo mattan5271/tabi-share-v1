@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable, :omniauthable
+          :recoverable, :rememberable, :validatable, :confirmable, :omniauthable
 
   has_many :tourist_spots, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -78,6 +78,13 @@ class User < ApplicationRecord
         action: 'follow'
       )
       notification.save if notification.valid?
+    end
+  end
+
+  #キーワード検索
+  def self.keyword_search(search)
+    if search.present?
+      User.where(['name LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
     end
   end
 

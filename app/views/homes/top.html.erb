@@ -59,10 +59,27 @@
 		</div>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_rank %>
 
+		<div class="top__ranking-link">
+			<%= link_to user_tourist_spot_ranking_path do %>
+			<i class="fas fa-caret-right" style="color: #FFCC33;"></i> 観光地ランキングへ
+			<% end %>
+		</div>
+
 		<div class="page-header">
 			<h3>新着</h3>
 		</div>
 		<%= render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new %>
+
+		<div class="page-header">
+			<h3>ユーザーを探す</h3>
+		</div>
+		<%= render 'user/users/users', users: @users_rank %>
+
+		<div class="top__ranking-link">
+			<%= link_to user_user_ranking_path do %>
+			<i class="fas fa-caret-right" style="color: #FFCC33;"></i> ユーザーランキングへ
+			<% end %>
+		</div>
 
 		<div class="page-header">
 			<h3>周辺の観光地</h3>
@@ -127,8 +144,8 @@
 			}
 		</script>
 
-		<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap"
-			async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async defer>
+		</script>
 
 		<!-- Google Map -->
 

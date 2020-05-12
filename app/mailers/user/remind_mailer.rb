@@ -1,7 +1,7 @@
 class User::RemindMailer < ApplicationMailer
     def remind_mail(user)
         @user = user
-        mail from: "matsubishi5@gmail.com", to: @user.email, subject: "リマインドメール"
+        mail from: ENV['GMAIL_ADDRESS'], to: @user.email, subject: "リマインドメール"
     end
 
     def self.send_when_unchecked_notification

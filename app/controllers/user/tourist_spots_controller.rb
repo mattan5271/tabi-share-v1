@@ -39,6 +39,11 @@ class User::TouristSpotsController < ApplicationController
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
   end
 
+  # ランキング
+  def ranking
+    @tourist_spots = TouristSpot.top_ranking.limit(10)
+  end
+
   # キーワード検索
   def keyword_search
     tourist_spots_keyword = TouristSpot.keyword_search(params[:search])

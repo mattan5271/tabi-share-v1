@@ -92,12 +92,12 @@ class TouristSpot < ApplicationRecord
 
   # ランキング(行きたい！数)
   def self.top_ranking
-    self.where(id: Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(4).pluck(:tourist_spot_id))
+    self.where(id: Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').pluck(:tourist_spot_id))
   end
 
   # 新着
   def self.top_new
-    self.order(:created_time).limit(4)
+    self.order(:created_time)
   end
 
   # おすすめ順
