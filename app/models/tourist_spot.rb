@@ -97,7 +97,7 @@ class TouristSpot < ApplicationRecord
 
   # 新着
   def self.top_new
-    self.order(:created_time)
+    self.order(:created_at)
   end
 
   # おすすめ順
