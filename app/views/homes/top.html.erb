@@ -46,11 +46,8 @@
 			<% JpPrefecture::Prefecture.all.each do |prefecture| %>
 			<div class="col-xs-2 top__search-container">
 				<%= link_to user_prefecture_search_path(search: prefecture.code) do %>
-				<div class="img-thumbnail">
-					<div class="caption">
-						<p class="top__search-text"><%= prefecture.name %></p>
-					</div>
-				</div>
+				<%= image_tag "prefectures/#{ prefecture.name }.jpg", size: "150x100" %>
+				<p class="top__search-text"><%= prefecture.name %></p>
 				<% end %>
 			</div>
 			<% end %>

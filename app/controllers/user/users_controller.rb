@@ -61,10 +61,13 @@ class User::UsersController < ApplicationController
     @users = User.all.order(point: "DESC")
     @users_rank = @users.limit(10)
     @my_rank = 0
-    @users.each do |user|
-      @my_rank += 1
-      if user.id == current_user.id
-        break
+
+    if user_signed_in?
+      @users.each do |user|
+        @my_rank += 1
+        if user.id == current_user.id
+          break
+        end
       end
     end
   end

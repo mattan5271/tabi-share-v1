@@ -8,7 +8,10 @@
       <h3>会員ポイント数ランキング TOP10</h3>
     </div>
 
+    <% if user_signed_in? %>
     あなたの順位は <%= @users.count %>人中 <strong><%= @my_rank %> 位</strong>です
+    <% end %>
+
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
         <thead>
