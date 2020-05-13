@@ -85,10 +85,13 @@ gem 'kaminari'
 gem "gmaps4rails"
 gem "geocoder"
 
-gem 'dotenv-rails'
-
 gem 'rails-i18n'
 
 gem 'whenever', require: false
 
 gem 'pry-byebug'
+
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
