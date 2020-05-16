@@ -12,7 +12,7 @@ class User::TouristSpotsController < ApplicationController
 		if @tourist_spot.save
 			redirect_to user_tourist_spot_path(@tourist_spot)
     else
-			render "new"
+			render 'new'
 		end
   end
 
@@ -26,7 +26,7 @@ class User::TouristSpotsController < ApplicationController
 		if @tourist_spot.update(tourist_spot_params)
 			redirect_to user_tourist_spot_path(@tourist_spot)
     else
-			render "edit"
+			render 'edit'
 		end
   end
 

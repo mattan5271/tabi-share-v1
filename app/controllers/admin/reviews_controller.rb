@@ -19,7 +19,7 @@ class Admin::ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to admin_tourist_spot_review_path(@review.tourist_spot, @review)
     else
-      render "edit"
+      render 'edit'
     end
   end
 

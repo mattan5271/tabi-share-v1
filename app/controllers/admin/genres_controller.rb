@@ -13,7 +13,7 @@ class Admin::GenresController < ApplicationController
 			redirect_to admin_genres_path(@genre)
 		else
 			@genres = Genre.all.page(params[:page]).per(10)
-			render "index"
+			render 'index'
 		end
 	end
 
@@ -24,7 +24,7 @@ class Admin::GenresController < ApplicationController
 		if @genre.update(genre_params)
 			redirect_to admin_genres_path
 		else
-			render "edit"
+			render 'edit'
 		end
   end
 
@@ -42,5 +42,4 @@ class Admin::GenresController < ApplicationController
 		def genre_params
 			params.require(:genre).permit(:name, :image)
 		end
-
 end

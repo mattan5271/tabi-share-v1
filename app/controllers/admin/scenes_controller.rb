@@ -13,7 +13,7 @@ class Admin::ScenesController < ApplicationController
 			redirect_to admin_scenes_path(@scene)
 		else
 			@scenes = Scene.all.page(params[:page]).per(10)
-			render "index"
+			render 'index'
 		end
 	end
 
@@ -24,7 +24,7 @@ class Admin::ScenesController < ApplicationController
 		if @scene.update(scene_params)
 			redirect_to admin_scenes_path
 		else
-			render "edit"
+			render 'edit'
 		end
   end
 
@@ -42,5 +42,4 @@ class Admin::ScenesController < ApplicationController
 		def scene_params
 			params.require(:scene).permit(:name)
 		end
-
 end

@@ -11,7 +11,7 @@ class User::UsersController < ApplicationController
       unless @user.id == current_user.id
         @currentUserEntry.each do |cu|
           @userEntry.each do |u|
-            if cu.room_id == u.room_id then #room_idが一致するユーザー同士を探す
+            if cu.room_id == u.room_id then # room_idが一致するユーザー同士を探す
               @isRoom = true
               @roomId = cu.room_id
             end
@@ -32,13 +32,13 @@ class User::UsersController < ApplicationController
 		if @user.update(user_params)
 			redirect_to user_user_path(@user)
 		else
-			render "edit"
+			render 'edit'
 		end
   end
 
   # 論理削除
   def destroy
-    @user.is_valid = "退会済"
+    @user.is_valid = '退会済'
     @user.save
     reset_session
     redirect_to root_path
@@ -58,7 +58,7 @@ class User::UsersController < ApplicationController
 
   # ランキング
   def ranking
-    @users = User.all.order(point: "DESC")
+    @users = User.all.order(point: 'DESC')
     @users_rank = @users.limit(10)
     @my_rank = 0
 

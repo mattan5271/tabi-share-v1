@@ -15,9 +15,9 @@ class User::ReviewsController < ApplicationController
       if current_user.provider.present?
         current_user.point += 1 # 本名でレビューを投稿していれば、ポイントを与える
         @review.user_rank_update(current_user) # レビューを投稿したユーザーのランクをアップデート
-        @review.is_value = "本名" # レビューが本名で投稿された事を定義する
+        @review.is_value = '本名' # レビューが本名で投稿された事を定義する
       else
-        @review.is_value = "仮名" # レビューが仮名で投稿された事を定義する
+        @review.is_value = '仮名' # レビューが仮名で投稿された事を定義する
       end
       @review.save
       redirect_to user_tourist_spot_reviews_path(@review.tourist_spot, @review)
@@ -32,23 +32,11 @@ class User::ReviewsController < ApplicationController
     if reviews_sort
       @reviews = Kaminari.paginate_array(reviews_sort).page(params[:page]).per(40)
     end
-    # case params[:sort]
-    # when "1"
-    #   @reviews = @tourist_spot.reviews.recommended_order.page(params[:page]).per(10) #おすすめ順
-    # when "2"
-    #   @reviews = @tourist_spot.reviews.new_order.page(params[:page]).per(10) #新着順
-    # when "3"
-    #   @reviews = @tourist_spot.reviews.comments_order.page(params[:page]).per(10) #コメント数順
-    # when "4"
-    #   @reviews = @tourist_spot.reviews.score_order.page(params[:page]).per(10) #点数順
-    # else
-    #   @reviews = @tourist_spot.reviews.order(id: "desc").page(params[:page]).per(10)
-    # end
   end
 
   def show
     @comment = Comment.new
-    @comments = @review.comments.order(id: "desc").page(params[:page]).per(10)
+    @comments = @review.comments.order(id: 'desc').page(params[:page]).per(10)
   end
 
   def edit

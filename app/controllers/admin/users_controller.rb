@@ -5,13 +5,27 @@ class Admin::UsersController < ApplicationController
 	before_action :set_user, only: [:show, :edit, :update]
 
 	def index
-    @users = User.all.order(created_at: "DESC").page(params[:page]).per(10)
+    @users = User.all.order(created_at: 'DESC').page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.csv do |csv|
         send_users_csv(@users)
       end
     end
+  end
+
+  def show
+  end
+
+  def edit
+  end
+
+	def update
+		if @user.update(user_params)
+			redirect_to admin_user_path(@user)
+		else
+			render 'edit'
+		end
   end
 
   # CSVエクスポート
@@ -26,22 +40,8 @@ class Admin::UsersController < ApplicationController
       end
 
     end
-    send_data(csv_data, filename: "ユーザー一覧情報")
+    send_data(csv_data, filename: 'ユーザー一覧情報')
   end
-
-  def show
-  end
-
-  def edit
-  end
-
-	def update
-		if @user.update(user_params)
-			redirect_to admin_user_path(@user)
-		else
-			render "edit"
-		end
-	end
 
 	private
 

@@ -9,7 +9,7 @@ class User::ContactsController < ApplicationController
       User::ContactMailer.contact_mail(@contact).deliver
       redirect_to root_path
     else
-      render "new"
+      render 'new'
     end
   end
 

@@ -16,7 +16,7 @@ class Admin::TouristSpotsController < ApplicationController
 		if @tourist_spot.update(tourist_spot_params)
 			redirect_to admin_tourist_spot_path(@tourist_spot)
     else
-			render "edit"
+			render 'edit'
 		end
   end
 
