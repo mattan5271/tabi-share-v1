@@ -87,6 +87,7 @@ class User::UsersController < ApplicationController
       params.require(:user).permit(
         :name,
         :sex,
+        :age,
         :email,
         :postcode,
         :prefecture_code,
