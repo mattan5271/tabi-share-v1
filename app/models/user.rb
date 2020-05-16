@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable, :omniauthable # , :confirmable
+          :recoverable, :rememberable, :validatable, :omniauthable
 
   has_many :tourist_spots, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -111,7 +111,7 @@ class User < ApplicationRecord
     user = User.where(uid: auth.uid, provider: auth.provider).first
 
     unless user
-      user = User.create(
+      user = User.new(
         uid:      auth.uid,
         provider: auth.provider,
         email:    auth.info.email,
@@ -119,6 +119,7 @@ class User < ApplicationRecord
         password: Devise.friendly_token[0, 20],
         profile_image:  auth.info.image
       )
+      user.save(validate: false)
     end
 
     user
