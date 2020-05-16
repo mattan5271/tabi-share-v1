@@ -117,7 +117,7 @@ class User < ApplicationRecord
         email:    auth.info.email,
         name:  auth.info.name,
         password: Devise.friendly_token[0, 20],
-        image:  auth.info.image
+        profile_image:  auth.info.image
       )
     end
 
