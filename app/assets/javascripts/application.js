@@ -18,6 +18,9 @@
 //= require bxslider
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
+//= require jquery_ujs
+//= require jquery-ui
+//= require tag-it
 //= require_tree .
 
 // スライドショー

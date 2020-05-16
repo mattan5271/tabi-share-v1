@@ -4,6 +4,11 @@
     <div class="tourist-spot__score">
       <%= tourist_spot.average_score %>点
     </div>
+    <% tourist_spot.tag_list.each do |tag| %>
+    <div class="badge">
+      <%= link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: "tourist-spot__tag-link" %>
+    </div>
+    <% end %>
   </div>
 
   <div class="col-xs-6">

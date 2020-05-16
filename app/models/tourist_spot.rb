@@ -3,12 +3,15 @@ class TouristSpot < ApplicationRecord
   belongs_to :genre
   belongs_to :scene
 
-  mount_uploaders :images, ImageUploader
   has_many :favorites, dependent: :destroy
   has_many :wents, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
   enum is_parking: { "有": true, "無": false }
+
+  mount_uploaders :images, ImageUploader # Carrierwave画像アップロード
+
+  acts_as_taggable # タグ付け
 
   validates :images, presence: true
   validates :name, presence: true, length: { maximum: 50 }

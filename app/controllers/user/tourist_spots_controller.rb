@@ -103,6 +103,12 @@ class User::TouristSpotsController < ApplicationController
     end
   end
 
+  # タグ検索
+  def tag_search
+    @tourist_spots_tag = TouristSpot.tagged_with(params[:tag_name])
+    @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
+  end
+
   private
 
     def set_tourist_spot
@@ -126,6 +132,7 @@ class User::TouristSpotsController < ApplicationController
         :phone_number,
         :business_hour,
         :is_parking,
+        :tag_list,
         {images: []}
       )
     end

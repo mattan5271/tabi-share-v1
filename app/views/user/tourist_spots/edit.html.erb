@@ -25,6 +25,9 @@
 		<span class="tourist-spot__require-label">必須</span><br>
 		<%= f.collection_select :scene_id, Scene.all, :id, :name, {prompt: "選択してください"}, class: "form-control" %><br>
 
+		<%= f.label :tag_list, "タグ" %>
+		<%= f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: "tags", class: "form-control" %><br>
+
 		<%= f.label :postcode, "郵便番号" %>
 		<span class="tourist-spot__require-label">必須</span><br>
 		<%= f.text_field :postcode, placeholder: "例) 531-6023", class: "form-control" %><br>

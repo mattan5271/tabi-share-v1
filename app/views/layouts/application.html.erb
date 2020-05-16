@@ -48,7 +48,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation">
                   <% Genre.all.each do |genre| %>
-                  <%= link_to  genre.name, user_genre_search_path(search: genre.id), class: "genre-link" %><br>
+                  <%= link_to  genre.name, user_tourist_spot_genre_search_path(search: genre.id), class: "genre-link" %><br>
                   <% end %>
                 </li>
               </ul>
@@ -63,7 +63,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation">
                   <% Scene.all.each do |scene| %>
-                  <%= link_to  scene.name, user_scene_search_path(search: scene.id), class: "scene-link" %><br>
+                  <%= link_to  scene.name, user_tourist_spot_scene_search_path(search: scene.id), class: "scene-link" %><br>
                   <% end %>
                 </li>
               </ul>

@@ -76,6 +76,7 @@ gem 'omniauth-facebook'
 gem 'recaptcha', require: "recaptcha/rails"
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'jp_prefecture'
 gem 'gon'
@@ -87,10 +88,13 @@ gem 'mini_magick'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 
-gem 'kaminari'
-
 gem "gmaps4rails"
 gem "geocoder"
+
+gem 'acts-as-taggable-on'
+
+gem 'kaminari'
+
 
 gem 'rails-i18n'
 

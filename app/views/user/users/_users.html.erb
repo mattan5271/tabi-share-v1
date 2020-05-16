@@ -30,8 +30,8 @@
           <%= index %>
           <% end %>
         </span>
-        <%= link_to user_user_path(user), class: "user__image" do %>
-        <%= attachment_image_tag user, :profile_image, size: "350x350", fallback: "no_image.png" %>
+        <%= link_to user_user_path(user) do %>
+        <%= attachment_image_tag user, :profile_image, fallback: "no_image.png" %>
         <% end %>
         <div class="caption">
           <p>

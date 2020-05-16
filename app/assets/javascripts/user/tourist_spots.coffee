@@ -11,3 +11,6 @@ $ ->
                   "#tourist_spot_address_street"          : "%5%6%7"
                 }
   })
+
+$(document).on 'ready page:load', ->
+  $('#tags').tagit()

@@ -45,16 +45,19 @@ Rails.application.routes.draw do
 		resources :contacts, only: [:new, :create]
 		resources :notifications, only: [:index, :destroy]
 		resources :coupons, only: [:create, :index]
-		get 'tourist_spot_keyword/search' => 'tourist_spots#keyword_search'
+
+		get 'user/ranking' => 'users#ranking'
 		get 'user_keyword/search' => 'users#keyword_search'
-		get 'genre/search' => 'tourist_spots#genre_search'
-		get 'scene/search' => 'tourist_spots#scene_search'
-		get 'prefecture/search' => 'tourist_spots#prefecture_search'
     post 'follow/:id' => 'relationships#follow', as: 'follow'
     post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
     get 'users/following/:user_id' => 'users#following', as:'following'
 		get 'users/follower/:user_id' => 'users#follower', as:'follower'
-		get 'user/ranking' => 'users#ranking'
+
 		get 'tourist_spot/ranking' => 'tourist_spots#ranking'
+		get 'tourist_spot/keyword/search' => 'tourist_spots#keyword_search'
+		get 'tourist_spot/genre/search' => 'tourist_spots#genre_search'
+		get 'tourist_spot/scene/search' => 'tourist_spots#scene_search'
+		get 'tourist_spot/prefecture/search' => 'tourist_spots#prefecture_search'
+		get 'tourist_spot/tag/search' => 'tourist_spots#tag_search'
 	end
 end
