@@ -1,44 +1,48 @@
-<%= form_with model: @scene, url: admin_scenes_path, local: true, builder: CustomFormBuilder do |f| %>
 <div class="row">
-	<div class="col-xs-3">
-		<%= f.text_field :name, placeholder: "利用シーン名", class: "form-control" %>
-	</div>
-	<div>
-		<div class="col-xs-2">
-			<%= f.submit "新規登録", class: "btn btn-success" %>
+	<div class="col-xs-4"></div>
+	<div class="col-xs-4">
+		<%= form_with model: @scene, url: admin_scenes_path, local: true, builder: CustomFormBuilder do |f| %>
+		<div class="image-container">
+			<%= f.file_field :image, id: "img_field", style: 'display:none;' %>
+			<%= attachment_image_tag @scene, :image, size: "200x200", fallback: "no_image.png", onClick: "$('#img_field').click()", class: "img_prev img-thumbnail" %><br>
 		</div>
+		<%= f.text_field :name, placeholder: "ジャンル名", class: "form-control" %>
+		<%= f.submit "新規登録", class: "btn btn-success btn-block scene__button" %>
+		<div class="col-xs-4"></div>
+		<% end %>
 	</div>
 </div>
 
+<div class="row scene__table">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr class="active">
+					<th>ID</th>
+					<th>写真</th>
+					<th>利用シーン名</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
 
-<% end %>
-
-<table class="table table-bordered table-hover scene__table">
-	<thead>
-		<tr class="active">
-			<th>ID</th>
-			<th>写真</th>
-			<th>利用シーン名</th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @scenes.each do |scene| %>
-		<tr>
-			<td><%= link_to scene.id, admin_scene_path(scene) %></td>
-			<td>
-				<%= attachment_image_tag scene, :image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail" %>
-			</td>
-			<td><%= scene.name %></td>
-			<td><%= link_to "編集", edit_admin_scene_path(scene), class: "btn btn-primary btn-block" %></td>
-			<td>
-				<%= link_to "削除", admin_scene_path(scene), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-block" %>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+			<tbody>
+				<% @scenes.each do |scene| %>
+				<tr>
+					<td><%= link_to scene.id, admin_scene_path(scene) %></td>
+					<td>
+						<%= attachment_image_tag scene, :image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail" %>
+					</td>
+					<td><%= scene.name %></td>
+					<td><%= link_to "編集", edit_admin_scene_path(scene), class: "btn btn-primary btn-block" %></td>
+					<td>
+						<%= link_to "削除", admin_scene_path(scene), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-block" %>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
 
 <%= paginate @scenes %>

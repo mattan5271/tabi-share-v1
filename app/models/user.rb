@@ -24,7 +24,6 @@ class User < ApplicationRecord
   enum is_valid: { "有効": true, "退会済": false }
   enum rank: { "レギュラー": 0, "シルバー": 1, "ゴールド": 2, "プラチナ": 3, "ダイヤモンド": 4 }
 
-  validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
   validates :age, presence: true

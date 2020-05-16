@@ -1,23 +1,25 @@
-<table class="table table-bordered table-hover">
-	<thead>
-		<tr class="active">
-			<th>ID</th>
-			<th>地名・施設名</th>
-			<th>電話番号</th>
-			<th>投稿日</th>
-		</tr>
-	</thead>
+<div class="table-responsive">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr class="active">
+				<th>ID</th>
+				<th>地名・施設名</th>
+				<th>電話番号</th>
+				<th>投稿日</th>
+			</tr>
+		</thead>
 
-	<tbody>
-		<% @tourist_spots.each do |tourist_spot| %>
-		<tr>
-			<td><%= link_to tourist_spot.id, admin_tourist_spot_path(tourist_spot) %></td>
-			<td><%= tourist_spot.name %></td>
-			<td><%= tourist_spot.phone_number %></td>
-			<td><%= tourist_spot.created_at.to_s(:datetime_jp) %></td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+		<tbody>
+			<% @tourist_spots.each do |tourist_spot| %>
+			<tr>
+				<td><%= link_to tourist_spot.id, admin_tourist_spot_path(tourist_spot) %></td>
+				<td><%= tourist_spot.name %></td>
+				<td><%= tourist_spot.phone_number %></td>
+				<td><%= tourist_spot.created_at.to_s(:datetime_jp) %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
 
 <%= paginate @tourist_spots %>

@@ -4,12 +4,9 @@
 
 .scene {
 
-  &__table,
-  &__button {
-    margin-top: 30px;
-  }
-
-  &__form {
+  &__form,
+  &__button,
+  &__table {
     margin-top: 30px;
   }
 

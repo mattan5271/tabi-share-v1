@@ -5,12 +5,10 @@
 
 .genre {
 
-  &__table,
-  &__button {
+  &__form,
+  &__button,
+  &__table {
     margin-top: 30px;
   }
 
-  &__form {
-    margin-top: 30px;
-  }
 }
