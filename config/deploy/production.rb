@@ -60,4 +60,4 @@
 #     # password: "please use keys"
 #   }
 
-server 'tabi-share.work', user: 'ec2-user', roles: %w{app web db}
+server '3.113.54.195', user: 'ec2-user', roles: %w{app web db}
