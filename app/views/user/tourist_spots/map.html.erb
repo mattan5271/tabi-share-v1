@@ -28,8 +28,8 @@
 
             map = new google.maps.Map(document.getElementById('map'), {
               center: {
-                lat: < %= @tourist_spot.latitude % > ,
-                lng: < %= @tourist_spot.longitude % >
+                lat: <%= @tourist_spot.latitude %> ,
+                lng: <%= @tourist_spot.longitude %>
               },
               zoom: 12,
             });
