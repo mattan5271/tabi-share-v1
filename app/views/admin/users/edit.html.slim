@@ -1,0 +1,85 @@
+.row
+  .col-xs-3
+
+  .col-xs-6
+    = form_with model: @user, url: admin_user_path(@user), local: true, builder: CustomFormBuilder do |f|
+
+      = f.file_field :image, class: 'img_field', style: 'display:none;'
+      = attachment_image_tag @user, :profile_image, fallback: 'no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
+      br
+
+      = f.label :name, '氏名'
+      br
+      = f.text_field :name, class: 'form-control'
+      br
+
+      = f.label :age, '年齢'
+      br
+      = f.number_field :age, autocomplete: 'age', class: 'form-control'
+      br
+
+      = f.label :sex, '性別'
+      br
+      = f.select :sex, User.sexes.keys, {prompt: '選択してください'}, class: 'form-control'
+      br
+
+      = f.label :introduction, '自己紹介'
+      br
+      = f.text_area :introduction, class: 'form-control'
+      br
+
+      = f.label :postcode, '郵便番号'
+      br
+      = f.text_field :postcode, class: 'form-control'
+      br
+
+      = f.label :prefecture_name, '都道府県'
+      br
+      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: '選択してください'}, class: 'form-control'
+      br
+
+      = f.label :address_city, '市区町村'
+      br
+      = f.text_field :address_city, class: 'form-control'
+      br
+
+      = f.label :address_street, '番地'
+      br
+      = f.text_field :address_street, class: 'form-control'
+      br
+
+      = f.label :address_building, '建物'
+      br
+      = f.text_field :address_building, class: 'form-control'
+      br
+
+      = f.label :email, 'メールアドレス'
+      br
+      = f.email_field :email, class: 'form-control'
+      br
+
+      = f.label :point, 'ポイント'
+      br
+      = f.number_field :point, class: 'form-control'
+      br
+
+      = f.label :rank, '会員ランク'
+      br
+      = f.select :rank, User.ranks.keys, {prompt: '選択してください'}, class: 'form-control'
+      br
+
+      = label_tag :会員ステータス
+      br
+      form
+      .admin-user__radio
+        = f.label :is_valid, class: 'radio-inline'
+          = f.radio_button :is_valid, '有効'
+          | 有効
+        = f.label :is_valid, class: 'radio-inline'
+          = f.radio_button :is_valid, '退会済'
+          | 退会済
+      br
+
+      = f.submit '保存', class: 'btn btn-primary btn-block'
+
+  .col-xs-3

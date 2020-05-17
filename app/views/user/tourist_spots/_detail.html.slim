@@ -1,0 +1,61 @@
+.row
+  .col-xs-6
+    .page-header
+      h3
+        = tourist_spot.name
+        .tourist-spot__score
+          = tourist_spot.average_score
+          | 点
+
+  .col-xs-6
+    - if user_signed_in?
+      .col-xs-4
+        span id='favoritebutton_#{tourist_spot.id}'
+          = render 'user/tourist_spots/favoritebutton', tourist_spot: tourist_spot
+
+      .col-xs-4
+        span id='wentbutton_#{tourist_spot.id}'
+          = render 'user/tourist_spots/wentbutton', tourist_spot: tourist_spot
+
+    .col-xs-4
+      = link_to "https://twitter.com/share?url=#{ request.url }&text=#{ tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'shareList__link icon-twitter btn btn-info', data: { show_count: false }, title: 'Twitter', target: '_blank' do
+        i.fab.fa-twitter
+          |  Twitterでシェア
+
+.row
+  #sampleCarousel.carousel.slide[data-ride="carousel"]
+    ol.carousel-indicators
+      li.active[data-target="#sampleCarousel" data-slide-to="0"]
+      li[data-target="#sampleCarousel" data-slide-to="1"]
+      li[data-target="#sampleCarousel" data-slide-to="2"]
+    .carousel-inner[role="listbox"]
+      - tourist_spot.images.each.with_index(1) do |image, index|
+        - if index == 1
+          .item.active
+            = image_tag image.to_s, class: "tourist-spot__carousel-image"
+        - else
+          .item
+            = image_tag image.to_s, class: "tourist-spot__carousel-image"
+    a.left.carousel-control[href="#sampleCarousel" role="button" data-slide="prev"]
+      span.glyphicon.glyphicon-chevron-left[aria-hidden="true"]
+      span.sr-only
+        | 前へ
+    a.right.carousel-control[href="#sampleCarousel" role="button" data-slide="next"]
+      span.glyphicon.glyphicon-chevron-right[aria-hidden="true"]
+      span.sr-only
+        | 次へ
+  br
+
+.row
+  ul.nav.nav-tabs.nav-justified
+    li[role="presentation"]
+      = link_to "観光地トップ", user_tourist_spot_path(tourist_spot)
+    li[role="presentation"]
+      = link_to "レビュー一覧( #{ tourist_spot.reviews.count } )", user_tourist_spot_reviews_path(tourist_spot)
+    li[role="presentation"]
+      = link_to  "レビュー投稿", new_user_tourist_spot_review_path(tourist_spot)
+    li[role="presentation"]
+      = link_to  "写真", user_tourist_spot_images_path(tourist_spot)
+    li[role="presentation"]
+      = link_to  "地図", user_tourist_spot_map_path(tourist_spot)
+  br

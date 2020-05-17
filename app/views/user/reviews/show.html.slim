@@ -1,0 +1,117 @@
+= provide(:title, "レビュー 詳細")
+.row.page-header
+  .page-header.review__title
+    = @review.title
+    - if user_signed_in?
+      - if @review.liked_by?(current_user)
+        = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do
+          i.fa.fa-heart[aria-hidden="true" style="color: red;"]
+          = @review.likes.count
+      - else
+        = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do
+          i.fa.fa-heart-o[aria-hidden="true"]
+          = @review.likes.count
+    .review__score
+      = @review.score
+      | 点 
+  .row
+    #sampleCarousel.carousel.slide[data-ride="carousel"]
+      ol.carousel-indicators
+        li.active[data-target="#sampleCarousel" data-slide-to="0"]
+        li[data-target="#sampleCarousel" data-slide-to="1"]
+        li[data-target="#sampleCarousel" data-slide-to="2"]
+      .carousel-inner[role="listbox"]
+        - @review.images.each.with_index(1) do |image, index|
+          - if index == 1
+            .item.active
+              = image_tag image.to_s, class: "review__carousel-image"
+          - else
+            .item
+              = image_tag image.to_s, class: "review__carousel-image"
+      a.left.carousel-control[href="#sampleCarousel" role="button" data-slide="prev"]
+        span.glyphicon.glyphicon-chevron-left[aria-hidden="true"]
+        span.sr-only
+          | 前へ
+      a.right.carousel-control[href="#sampleCarousel" role="button" data-slide="next"]
+        span.glyphicon.glyphicon-chevron-right[aria-hidden="true"]
+        span.sr-only
+          | 次へ
+    .col-xs-2
+  .col-xs-2
+  .col-xs-8
+    table.table
+      tbody
+        tr
+          td
+            = attachment_image_tag @review.user, :profile_image, fallback: "no_image.jpg",size: "50x50", class: "img-circle"
+            = link_to @review.user.name, user_user_path(@review.user)
+            |  ( 
+            = @review.user.age
+            | 歳
+            = @review.user.sex
+            | ・
+            = @review.is_value
+            |  ) 
+            - @user = @review.user
+            - if user_signed_in?
+              |  <span id="followbutton_
+              = @user.id
+              | "> 
+              - unless @user == current_user
+                = render "user/users/followbutton", user: @user
+        tr
+          td
+            = @review.body
+    - if @review.user === current_user
+      = link_to "編集", edit_user_tourist_spot_review_path(@review), class: "btn btn-primary"
+      = link_to "削除", user_tourist_spot_review_path(@review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger"
+  .col-xs-2
+.row.review
+  .col-xs-3
+  .col-xs-6
+    - if user_signed_in?
+      = form_with model: @comment, url: user_tourist_spot_review_comments_path(@review.tourist_spot, @review), local: true, builder: CustomFormBuilder do |f|
+        = f.label :title, "タイトル"
+        br
+        = f.text_field :title, class: "form-control comment_title"
+        br
+        = f.label :body, "本文"
+        br
+        = f.text_area :body, class: "form-control comment_body"
+        br
+        = f.hidden_field :review_id, value: @review.id
+        = f.submit "投稿", class: "btn btn-success btn-block"
+    - if @comments.present?
+      table.table.review__comment-table
+        thead
+          tr
+            th
+              | 投稿者
+            th
+              | タイトル
+            th
+              | 本文
+            th
+              | 投稿日時
+            th
+        tbody
+          - @comments.each do |comment|
+            tr
+              td
+                = attachment_image_tag comment.user, :profile_image, fallback: "no_image.jpg", size: '50x50', class: "img-circle"
+                = link_to comment.user.name, user_user_path(comment.user)
+              td
+                = comment.title
+              td
+                = comment.body
+              td
+                = comment.created_at.to_s(:datetime_jp)
+              td
+                - if comment.user === current_user
+                  = link_to "編集", edit_user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), class: "btn btn-primary"
+                  = link_to "削除", user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger"
+    - else
+      p.review__text
+        | コメントはありません。
+    .col-xs-3
+= paginate @comments

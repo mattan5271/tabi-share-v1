@@ -1,8 +1,0 @@
-<% @tags.each do |tag| %>
-<div class="badge">
-  <%= link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: "tourist-spot__tag-link" %>
-</div>
-<% end %>
-
-
-<%= render 'tourist_spots', tourist_spots: @tourist_spots_tag %>

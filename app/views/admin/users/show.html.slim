@@ -1,0 +1,76 @@
+.row
+  .col-xs-2
+
+  .col-xs-8
+    .table-responsive
+      table.table.table-bordered.table-hove
+        tbody
+          tr
+            th.active
+              | id
+            td
+              = @user.id
+          tr
+            th.active
+              | 登録日
+            td
+              = @user.created_at.to_s(:datetime_jp)
+          tr
+            th.active
+              | 最終更新日
+            td
+              = @user.updated_at.to_s(:datetime_jp)
+          tr
+            th.active
+              | プロフィール画像
+            td
+              = attachment_image_tag @user, :profile_image, fallback: 'no_image.jpg', class: 'img-thumbnail img-responsive'
+          tr
+            th.active
+              | 氏名
+            td
+              = @user.name
+          tr
+            th.active
+              | 性別
+            td
+              = @user.sex
+          tr
+            th.active
+              | 自己紹介文
+            td
+              = @user.introduction
+          tr
+            th.active
+              | 住所
+            - if @user.postcode.present?
+              td
+                - if @user.postcode
+                  = @user.full_address
+          tr
+            th.active
+              | メールアドレス
+            td
+              = @user.email
+          tr
+            th.active
+              | ポイント数
+            td
+              = @user.point
+          tr
+            th.active
+              | 会員ランク
+            td
+              = @user.rank
+          tr
+            th.active
+              | 会員ステータス
+            td
+              = @user.is_valid
+
+    = link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary btn-block'
+    br
+
+    = link_to '退会', admin_user_path(@user), method: :delete, data: { confirm: '本当に退会させますか？' }, class: 'btn btn-danger btn-block'
+
+  .col-xs-2

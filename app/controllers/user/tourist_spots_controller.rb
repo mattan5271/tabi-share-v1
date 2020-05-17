@@ -109,6 +109,16 @@ class User::TouristSpotsController < ApplicationController
     @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
   end
 
+  def index
+    @tourist_spots = TouristSpot.rank(:row_order)
+  end
+
+  def sort
+    tourist_spot = TouristSpot.find(params[:tourist_spot_id])
+    tourist_spot.update(tourist_spot_params)
+    render body: nil
+  end
+
   private
 
     def set_tourist_spot
@@ -133,6 +143,7 @@ class User::TouristSpotsController < ApplicationController
         :business_hour,
         :is_parking,
         :tag_list,
+        :row_order_position,
         {images: []}
       )
     end

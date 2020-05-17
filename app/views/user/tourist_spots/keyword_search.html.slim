@@ -1,0 +1,20 @@
+= provide(:title, "観光スポット キーワード検索")
+.page-header
+  h3
+    | キーワード検索
+.row.tourist-spot__sort
+  .col-xs-6
+  .col-xs-6
+    .row
+      = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
+        .col-xs-8
+          = hidden_field_tag :search, @search
+          = select_tag "sort", options_for_select([["おすすめ順", "1"], ["新着順", "2"], ["レビュー数", "3"], ["点数順", "4"]]), include_blank: "-----", class: "form-control"
+        .col-xs-2
+          = submit_tag "並び替え", class: "btn btn-success"
+      .col-xs-2
+        = link_to "ランダム表示", user_genre_search_path("sort": "5"), class: "btn btn-warning"
+.row.tourist-spot
+  = render 'tourist_spots', tourist_spots: @tourist_spots
+- if @tourist_spot
+  = paginate @tourist_spots

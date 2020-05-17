@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 			get 'went_tourist_spots' => 'wents#index'
 		end
 
-		resources :tourist_spots, only: [:new, :create, :show, :edit, :update, :destroy] do
+		resources :tourist_spots, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
 			resource :favorites, only: [:create, :destroy]
 			resource :wents, only: [:create, :destroy]
 			resources :reviews do
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 			end
 			get 'map' => 'tourist_spots#map'
 			get 'images' => 'tourist_spots#images'
+			put :sort
 		end
 
     resources :messages, only: [:create]

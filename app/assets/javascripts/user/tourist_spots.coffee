@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# 住所自動入力
 $ ->
   $("#tourist_spot_postcode").jpostal({
     postcode : [ "#tourist_spot_postcode" ],
@@ -12,5 +13,6 @@ $ ->
                 }
   })
 
+# タグ
 $(document).on 'ready page:load', ->
   $('#tags').tagit()

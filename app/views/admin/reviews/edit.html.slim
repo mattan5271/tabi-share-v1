@@ -1,0 +1,29 @@
+.row
+  .col-xs-3
+  .col-xs-6.review
+    = form_with model: @review, url: admin_tourist_spot_review_path(@review.tourist_spot, @review), local: true, builder: CustomFormBuilder do |f|
+      = f.label :images, "写真(複数選択可)"
+      p
+        = f.file_field :images, multiple: true, id: "img_field", style: "display:none;"
+      .btn.btn-warning[onclick="$('#img_field').click()"]
+        | 写真アップロード
+      = f.label :title, "タイトル"
+      = f.text_field :title, class: "form-control"
+      br
+      = f.label :body, "本文"
+      = f.text_field :body, placeholder: "ハイフン無し", class: "form-control"
+      br
+      = f.label :score, "点数"
+      = f.number_field :score, class: "form-control"
+      br
+      = label_tag :ステータス
+      br
+      .admin-review__radio
+
+      = f.radio_button :is_value, "本名", checked: true
+      = f.label :is_value, "本名", class: "admin-review__valid-label"
+      = f.radio_button :is_value, "仮名"
+      = f.label :is_value, "仮名"
+      br
+      = f.submit "保存", class: "btn btn-primary btn-lg btn-block admin-review__button"
+    .col-xs-3

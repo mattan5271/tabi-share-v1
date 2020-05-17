@@ -1,0 +1,48 @@
+= provide(:title, 'ログイン')
+
+.row
+  .col-xs-3
+
+  .col-xs-6
+    = render 'users/shared/links'
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name), builder: CustomFormBuilder) do |f|
+
+      - if flash.present?
+        .alert.alert-danger.alert-dismissible.fade.in role='alert'
+          button.close type='button' data-dismiss='alert'
+            span aria-hidden='true'
+              | ×
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => 'flash_#{name}' if msg.is_a?(String)
+
+            p
+              a href='#' data-dismiss='alert'
+                | 閉じる
+
+      = f.label :email, 'メールアドレス'
+      br
+      = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
+      br
+
+      = f.label :password, 'パスワード'
+      br
+      = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
+
+      - if devise_mapping.rememberable?
+        = f.check_box :remember_me
+        = f.label :remember_me, '記憶する'
+        br
+        br
+
+      = f.submit 'ログイン', class: 'btn btn-danger btn-lg btn-block'
+      br
+
+    - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+      = link_to 'パスワードをお忘れの方はこちら', new_password_path(resource_name)
+      br
+
+    - if devise_mapping.confirmable? && controller_name != 'confirmations'
+      = link_to 'メール認証を行っていない方はこちら', new_confirmation_path(resource_name)
+
+  .col-xs-3

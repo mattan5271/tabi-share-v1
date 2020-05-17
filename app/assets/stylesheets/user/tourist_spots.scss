@@ -112,6 +112,12 @@
   &__tag-link:hover {
     color: white;
   }
+
+  &__carousel-image {
+    width: 30%;
+    margin: 0 auto;
+    border-radius: 5%;
+  }
 }
 
 .weather-title,
@@ -122,4 +128,10 @@
 .weather-text {
   text-align: center;
   font-size: 20px;
+}
+
+.table-sortable {
+  tr.item {
+    cursor: row-resize;
+  }
 }

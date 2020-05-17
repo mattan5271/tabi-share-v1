@@ -1,0 +1,17 @@
+.row
+  .col-xs-3
+
+  .col-xs-6
+    = form_with model: @scene, url: admin_scenes_path, local: true, builder: CustomFormBuilder do |f|
+
+      = f.file_field :image, class: 'img_field', style: 'display:none;'
+      = attachment_image_tag @scene, :image, fallback: 'no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
+      br
+
+      = f.text_field :name, placeholder: '利用シーン名', class: 'form-control'
+      br
+
+      = f.submit '新規登録', class: 'btn btn-success btn-block'
+      br
+
+  .col-xs-3

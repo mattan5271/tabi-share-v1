@@ -11,8 +11,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :coupons, dependent: :destroy
-  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :follower, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followed, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
   has_many :messages, dependent: :destroy
@@ -20,9 +20,9 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
-  enum sex: { "男性": 0, "女性": 1, "ニューハーフ": 2 }
-  enum is_valid: { "有効": true, "退会済": false }
-  enum rank: { "レギュラー": 0, "シルバー": 1, "ゴールド": 2, "プラチナ": 3, "ダイヤモンド": 4 }
+  enum sex: { '男性': 0, '女性': 1, 'ニューハーフ': 2 }
+  enum is_valid: { '有効': true, '退会済': false }
+  enum rank: { 'レギュラー': 0, 'シルバー': 1, 'ゴールド': 2, 'プラチナ': 3, 'ダイヤモンド': 4 }
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
@@ -65,12 +65,12 @@ class User < ApplicationRecord
 
   # 住所を結合
   def full_address
-    "〒" + self.postcode.to_s + " " + prefecture_name + " " + self.address_city + " " + self.address_street + " " + self.address_building
+    '〒' + self.postcode.to_s + ' ' + prefecture_name + ' ' + self.address_city + ' ' + self.address_street + ' ' + self.address_building
   end
 
   # フォロー通知
   def create_notification_follow!(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ',current_user.id, id, 'follow'])
     if temp.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
@@ -83,25 +83,25 @@ class User < ApplicationRecord
   #キーワード検索
   def self.keyword_search(search)
     if search.present?
-      User.where(['name LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
+      User.where(['name LIKE ? OR introduction LIKE ?', '%#{search}%', '%#{search}%'])
     end
   end
 
   # 退会済みユーザーをログインできなくする
   def active_for_authentication?
-    super && self.is_valid == "有効"
+    super && self.is_valid == '有効'
   end
 
   # 次のランクまでのポイント数を計算
   def next_rank(user)
     case user.rank
-    when "レギュラー"
+    when 'レギュラー'
       10 - user.point
-    when "シルバー"
+    when 'シルバー'
       50 - user.point
-    when "ゴールド"
+    when 'ゴールド'
       100 - user.point
-    when "プラチナ"
+    when 'プラチナ'
       300 - user.point
     end
   end

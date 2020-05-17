@@ -11,31 +11,17 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require activestorage
 //= require jquery
-//= require bootstrap-sprockets
-//= require jquery.jpostal
-//= require bxslider
-//= require highcharts/highcharts
-//= require highcharts/highcharts-more
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery-ui/effects/effect-highlight
+//= require jquery-ui/widgets/sortable
+//= require bootstrap-sprockets
+//= require jquery.jpostal
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
 //= require tag-it
 //= require_tree .
-
-// スライドショー
-$(document).ready(function () {
-  $('.bxslider').bxSlider({
-    auto: true, // 自動スライド
-    speed: 1000, // スライドするスピード
-    moveSlides: 1, // 移動するスライド数
-    pause: 3000, // 自動スライドの待ち時間
-    maxSlides: 10, // 一度に表示させる最大数
-    slideWidth: 250, // 各スライドの幅
-    randomStart: true, // 最初に表示するスライドをランダムに設定
-    autoHover: true // ホバー時に自動スライドを停止
-  });
-});
 
 // 画像アップロード時にプレビュー
 $(function () {
@@ -48,7 +34,7 @@ $(function () {
       reader.readAsDataURL(input.files[0]);
     }
   }
-  $("#img_field").change(function () {
+  $('.img_field').change(function () {
     readURL(this);
   });
 });
@@ -61,5 +47,26 @@ $(function () {
       scrollTop: 0
     }, 800);
     return false;
+  });
+});
+
+$(function () {
+  $('.item').sortable({
+    update: function (e, ui) {
+      var item = ui.item;
+      var item_data = item.data();
+      var params = {
+        _method: 'put'
+      };
+      params[item_data.modelName] = {
+        row_order_position: item.index()
+      }
+      $.ajax({
+        type: 'POST',
+        url: item_data.updateUrl,
+        dataType: 'json',
+        data: params
+      });
+    }
   });
 });

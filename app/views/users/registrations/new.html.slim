@@ -1,0 +1,94 @@
+= provide(:title, 'サインアップ ')
+
+.row
+  .col-xs-3
+
+  .col-xs-6
+    = render 'users/shared/links'
+
+    h3.text-center
+      | 会員情報入力
+
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), builder: CustomFormBuilder) do |f|
+
+      = f.label :name, '氏名'
+      span.label.label-danger
+        | 必須
+      br
+      = f.text_field :name, autofocus: true, placeholder: '例) 田中 太郎', autocomplete: 'name', class: 'form-control'
+      br
+
+      = f.label :age, '年齢'
+      span.label.label-danger
+        | 必須
+      br
+      = f.number_field :age, placeholder: '例) 22', autocomplete: 'age', class: 'form-control'
+      br
+
+      = f.label :sex, '性別'
+      span.label.label-danger
+        | 必須
+      br
+      = f.select :sex, User.sexes.keys, {prompt: '選択してください'}, class: 'form-control'
+      br
+
+      = f.label :postcode, '郵便番号'
+      span.label.label-default
+        | 任意
+      br
+      = f.text_field :postcode, placeholder: '例) 163-8001', autofocus: true, autocomplete: 'postcode', class: 'form-control'
+      br
+
+      = f.label :prefecture_name, '都道府県'
+      span.label.label-default
+        | 任意
+      br
+      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: '選択してください'}, class: 'form-control'
+      br
+
+      = f.label :address_city, '市区町村'
+      span.label.label-default
+        | 任意
+      br
+      = f.text_field :address_city, placeholder: '例) 新宿区', autocomplete: 'address_city', class: 'form-control'
+      br
+
+      = f.label :address_street, '番地'
+      span.label.label-default
+        | 任意
+      br
+      = f.text_field :address_street, placeholder: '例) 西新宿2-8-1', autocomplete: 'address_street', class: 'form-control'
+      br
+
+      = f.label :address_building, '建物'
+      span.label.label-default
+        | 任意
+      br
+      = f.text_field :address_building, placeholder: '例) グランドハイツ 123号', autocomplete: 'address_building', class: 'form-control'
+      br
+
+      = f.label :email, 'メールアドレス'
+      span.label.label-danger
+        | 必須
+      br
+      = f.email_field :email, placeholder: '例) abc@abc.abc', autocomplete: 'email', class: 'form-control'
+      br
+
+      = f.label :password, 'パスワード'
+      span.label.label-danger
+        | 必須
+      br
+      = f.password_field :password, placeholder: '#{@minimum_password_length}~20文字', autocomplete: 'new-password', class: 'form-control'
+      br
+
+      = f.label :password_confirmation, 'パスワード(再確認)'
+      br
+      = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'
+      br
+
+      = recaptcha_tags
+      br
+
+      = f.submit '新規会員登録', class: 'btn btn-success btn-lg btn-block'
+
+  .col-xs-3

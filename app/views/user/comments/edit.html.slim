@@ -1,0 +1,15 @@
+= provide(:title, "コメント 編集")
+.row
+  .col-xs-3
+  .col-xs-6
+    = form_with model: @comment, url: user_tourist_spot_review_comment_path(@comment.review.tourist_spot, @comment.review, @comment), local: true, builder: CustomFormBuilder do |f|
+      = f.label :title, "タイトル"
+      br
+      = f.text_field :title, class: "form-control"
+      br
+      = f.label :body, "本文"
+      br
+      = f.text_area :body, class: "form-control"
+      br
+      = f.submit "保存", class: "btn btn-primary btn-block"
+  .col-xs-3

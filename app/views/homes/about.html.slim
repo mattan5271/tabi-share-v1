@@ -1,0 +1,85 @@
+= provide(:title, 'サイト説明')
+.page-header
+  h2
+    | サイト説明
+.row.about
+  .about-container
+      .service-box
+        .service-icon.yellow
+          .front-content
+            i.fas.fa-info
+            h3
+              | どんなサイト？
+        .service-content
+          h3
+            | サイト概要
+          p
+            | 集客を目的とした各名所のオーナーや自治体が観光スポットを登録する事が出来る。
+            br
+            | ユーザーは、全国の観光スポットを様々な方法で検索する事ができ、
+            br
+            | その観光スポットを訪れたユーザーの口コミ情報を共有できる。
+            br
+            | また、優良なレビューをしたユーザーにはポイントが与えられ、
+            br
+            | ポイントが溜まると会員ランクが上昇する。
+
+      .service-box
+        .service-icon.orange
+          .front-content
+            i.fa.fa-trophy
+            h3
+              | 会員ランクって？
+        .service-content
+          h3
+            | 【ポイント加算条件】
+          p
+            | 1. Facebookログインをしてレビューを投稿( 3ポイント )
+            br
+            | 2. レビューに対していいねがされる( 1ポイント )
+          h3
+            | 【ランクアップ条件】
+          p
+            | レギュラー : 0 ~ 9ポイント
+            br
+            | シルバー : 10 ~ 29ポイント
+            br
+            | ゴールド : 30 ~ 49ポイント
+            br
+            | プラチナ : 50 ~ 90ポイント
+            br
+            | ダイヤモンド : 100ポイント以上
+
+      .service-box
+        .service-icon.red
+          .front-content
+            i.fas.fa-cogs
+            h3
+              | どんな機能があるの？
+        .service-content
+          h3
+            | 主な機能
+          .col-xs-2
+            = image_tag 'review.png', size: '100x100'
+            h3
+              | 投稿・レビュー機能
+          .col-xs-2
+            = image_tag 'search.png', size: '100x100'
+            h3
+              | 豊富な検索機能
+          .col-xs-2
+            = image_tag 'ranking.png', size: '100x100'
+            h3
+              | ランキング機能
+          .col-xs-2
+            = image_tag 'map.png', size: '100x100'
+            h3
+              | 位置情報取得機能
+          .col-xs-2
+            = image_tag 'twitter.png', size: '100x100'
+            h3
+              | フォロー・DM機能
+          .col-xs-2
+            = image_tag 'smartphone.png', size: '100x100'
+            h3
+              | 通知機能

@@ -1,0 +1,92 @@
+.row
+  .col-xs-2
+
+  .col-xs-8
+    .table-responsive
+      table.table.table-bordered.table-hove
+        tbody
+          tr
+            th.active
+              | id
+            td
+              = @review.id
+          tr
+            th.active
+              | 登録日
+            td
+              = @review.created_at.to_s(:datetime_jp)
+          tr
+            th.active
+              | 最終更新日
+            td
+              = @review.updated_at.to_s(:datetime_jp)
+          tr
+            th.active
+              | 画像
+            td
+              = image_tag @review.images[0].to_s, class: 'img-thumbnail img-responsive'
+          tr
+            th.active
+              | タイトル
+            td
+              = @review.title
+          tr
+            th.active
+              | 本文
+            td
+              = @review.body
+          tr
+            th.active
+              | 点数
+            td
+              = @review.score
+          tr
+            th.active
+              | ステータス
+            td
+              = @review.is_value
+
+    = link_to '編集', edit_admin_tourist_spot_review_path(@review.tourist_spot, @review), class: 'btn btn-primary btn-block'
+    br
+
+    = link_to '削除', admin_tourist_spot_review_path(@review.tourist_spot, @review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-block'
+
+  .col-xs-2
+
+.row
+  .col-xs-2
+
+  .col-xs-8
+    .table-responsive
+      table.table.admin-review__table
+        thead
+          tr
+            th
+              | 投稿者
+            th
+              | タイトル
+            th
+              | 本文
+            th
+              | 投稿日時
+            th
+
+        tbody
+          - @comments.each do |comment|
+            tr
+              td
+                = link_to comment.user.name, admin_user_path(comment.user)
+              td
+                = comment.title
+              td
+                = comment.body
+              td
+                = comment.created_at.to_s(:datetime_jp)
+              td
+                = link_to '編集', edit_admin_comment_path(comment), class: 'btn btn-primary'
+                = link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
+
+  .col-xs-2
+
+.row
+  = paginate @comments

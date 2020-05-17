@@ -1,0 +1,32 @@
+.row
+  .table-responsive
+    table.table.table-bordered.table-hover
+      thead
+        tr.active
+          th
+            | ID
+          th
+            | 氏名
+          th
+            | メールアドレス
+          th
+            | 会員ステータス
+
+      tbody
+        - @users.each do |user|
+          tr
+            td
+              = user.id
+            td
+              = link_to admin_user_path(user) do
+                = attachment_image_tag user, :profile_image, size: '100x100', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
+              = user.name
+            td
+              = user.email
+            td
+              = user.is_valid
+
+  = link_to 'CSV出力', admin_users_path(format: :csv), class: 'btn btn-success'
+
+.row
+  = paginate @users

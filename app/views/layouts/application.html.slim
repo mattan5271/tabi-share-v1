@@ -1,0 +1,187 @@
+doctype html
+html
+  head
+    = favicon_link_tag('favicon.ico')
+    title
+      = full_title(yield(:title))
+    = csrf_meta_tags
+    = csp_meta_tag
+    = include_gon
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    script src='https://kit.fontawesome.com/c51513dd6c.js' crossorigin='anonymous'
+    script src='https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js' type='text/javascript'
+
+  body
+    header
+      nav.navbar.navbar-default.navbar-fixed-top
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed type='button' data-toggle='collapse' data-target='#navbarEexample7'
+              span.sr-only
+                | Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            = link_to root_path, class: 'navbar-brand' do
+              = image_tag asset_path('logo.png'), class: 'header-logo'
+
+          #navbarEexample7.collapse.navbar-collapse
+            - if user_signed_in?
+              p.navbar-text
+                span
+                  | ようこそ
+                = link_to current_user.name, user_user_path(current_user)
+                | さん！
+
+            ul.nav.navbar-nav.navbar-right
+              - unless admin_signed_in?
+                li.dropdown role='presentation'
+                  a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
+                    i.fas.fa-list-ul
+                    span
+                      | ジャンルから探す
+                    span.caret
+                  ul.dropdown-menu role='menu'
+                    li role='presentation'
+                      - Genre.all.each do |genre|
+                        = link_to  genre.name, user_tourist_spot_genre_search_path(search: genre.id), class: 'genre-link'
+                        br
+
+                li.dropdown role='presentation'
+                  a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
+                    i.fas.fa-bullseye
+                    span
+                      | 利用シーンから探す
+                    span.caret
+                  ul.dropdown-menu role='menu'
+                    li role='presentation'
+                      - Scene.all.each do |scene|
+                        = link_to  scene.name, user_tourist_spot_scene_search_path(search: scene.id), class: 'scene-link'
+                        br
+
+              - if user_signed_in?
+                li.dropdown role='presentation'
+                  - if unchecked_notifications(current_user).present?
+                    i.fa.fa-circle.icon style='color: gold;'
+                  a.dropdown-toggle.link data-toggle='dropdown' href='#' role='button' aria-expanded='false'
+                    = attachment_image_tag current_user, :profile_image, :fill, 25, 25, fallback: 'no_image.jpg', size:'25x25', class: 'img-circle'
+                    span
+                      | アカウント
+                    span.caret
+                  ul.dropdown-menu role='menu'
+                    li role='presentation'
+                      = link_to user_user_path(current_user) do
+                        i.fas.fa-user
+                        | マイページ
+                    li
+                      - if unchecked_notifications(current_user).present?
+                        i.fa.fa-circle.notification-icon style='color: gold;'
+                      = link_to user_notifications_path, class: 'notification-link' do
+                        i.fas.fa-bell
+                        | 通知
+                    li
+                      = link_to user_rooms_path do
+                        i.fas.fa-envelope
+                        | メッセージ
+                    li
+                      = link_to user_coupons_path do
+                        i.fas.fa-gift
+                        | クーポン
+                    li
+                      = link_to user_user_favorite_tourist_spots_path(current_user) do
+                        i.fas.fa-star
+                        | 行きたい観光スポット
+                    li
+                      = link_to user_user_went_tourist_spots_path(current_user) do
+                        i.fas.fa-check-circle
+                        | 行った観光スポット
+                    li role='presentation'
+                      = link_to edit_user_user_path(current_user) do
+                        i.fas.fa-user-cog
+                        | プロフィール編集
+                    li role='presentation'
+                      = link_to destroy_user_session_path, method: :delete do
+                        i.fas.fa-sign-out-alt
+                        | ログアウト
+
+              - elsif admin_signed_in?
+                li
+                  = link_to 'ユーザー一覧', admin_users_path
+                li
+                  = link_to '観光スポット一覧', admin_tourist_spots_path
+                li
+                  = link_to 'ジャンル一覧', admin_genres_path
+                li
+                  = link_to '利用シーン一覧', admin_scenes_path
+                li
+                  = link_to 'ログアウト', destroy_admin_session_path, method: :delete
+              - else
+                li
+                  = link_to '新規登録', new_user_registration_path
+                li
+                  = link_to 'ログイン', new_user_session_path
+                li
+                  = link_to 'サイト説明', about_path
+
+    main
+      .container
+        = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
+          .row
+            .col-xs-10.keyword-search
+              = text_field_tag :search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
+            .col-xs-2
+              = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+        = yield
+        span#back
+          a href='#'
+            = image_tag 'arrow.png'
+
+    footer
+      .container
+        .row
+          .col-xs-2
+            span.logo
+              | TaBi Share
+
+          .col-xs-5
+            ul.menu
+              span
+                | Menu
+              li
+                = link_to root_path do
+                  i.fas.fa-home
+                  | トップ
+              li
+                = link_to about_path do
+                  i.fas.fa-info-circle
+                  | サイト説明
+              li
+                = link_to new_user_tourist_spot_path do
+                  i.fas.fa-pen-square
+                  | 観光地登録
+              li
+                a href='#'
+                  i.fas.fa-file-alt
+                  | 利用規約
+
+          .col-xs-5
+            ul.address
+              span
+                | Contact
+              li
+                a href='https://twitter.com/program_5271'
+                  i.fa.fa-twitter aria-hidden='true'
+                  | Twitter
+              li
+                a href='https://www.instagram.com/matsubishi5/?hl=ja'
+                  i.fab.fa-instagram-square aria-hidden='true'
+                  | Instagram
+              li
+                a href='https://github.com/matsubishi5'
+                  i.fab.fa-github aria-hidden='true'
+                  | GitHub
+              li
+                = link_to new_user_contact_path do
+                  i.fa.fa-envelope aria-hidden='true'
+                  | お問い合わせ

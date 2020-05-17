@@ -1,0 +1,21 @@
+= provide(:title, "フォロー中一覧")
+.row
+  - @followings.each do |user|
+    .col-xs-3
+      .thumbnail
+        .caption
+          p
+            = attachment_image_tag user, :profile_image, fallback: "no_image.jpg", size: "50x50", class: "img-circle"
+            = link_to user.name, user_user_path(user)
+          = link_to "#{user.follower.count}フォロー中", user_following_path(user)
+          br
+          |  <span id="follower-link_
+          = user.id
+          | "> 
+          = link_to "#{user.followed.count}フォロワー", user_follower_path(user)
+          |  <span class=" user__followbutton" id="followbutton_
+          = user.id
+          | "> 
+          - unless user == current_user
+            = render "user/users/followbutton", user: user
+= paginate @followings

@@ -1,0 +1,27 @@
+.row
+  table.table.table-bordered.table-hover
+    thead
+      tr.active
+        th
+          | ID
+        th
+          | タイトル
+        th
+          | 投稿者
+        th
+          | 投稿日
+
+    tbody
+      - @reviews.each do |review|
+        tr
+          td
+            = link_to review.id, admin_tourist_spot_review_path(review.tourist_spot, review)
+          td
+            = review.title
+          td
+            = review.user.name
+          td
+            = review.created_at.to_s(:datetime_jp)
+
+.row
+  = paginate @reviews

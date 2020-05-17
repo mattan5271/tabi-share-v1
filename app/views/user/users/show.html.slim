@@ -1,0 +1,79 @@
+= provide(:title, "ユーザー 詳細")
+.row.user
+  .col-xs-2
+  .col-xs-8
+    table.table
+      tbody
+        tr
+          td
+            h3
+              - case @user.rank when "レギュラー"
+                span.label.label-default
+                  = @user.rank
+              - when "シルバー"
+                span.label.label-primary
+                  = @user.rank
+              - when "ゴールド"
+                span.label.label-warning
+                  = @user.rank
+              - when "プラチナ"
+                span.label.label-info
+                  = @user.rank
+              - when "ダイヤモンド"
+                span.label.label-danger
+                  = @user.rank
+            - if @user == current_user
+              p
+                | ( 次のランクまであと
+                = @user.next_rank(@user)
+                | ポイント )
+            = attachment_image_tag @user, :profile_image, size: "100x100", fallback: "no_image.png", class: "img-thumbnail user__image"
+            span.user__name
+              = @user.name
+            |  ( 
+            = @user.age
+            | 歳 
+            = @user.sex
+            |  ) 
+            - if @user == current_user
+              = link_to "プロフィールを編集", edit_user_user_path(@user), class: "btn btn-primary user__button"
+              = link_to "退会", user_user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger"
+            - if user_signed_in?
+              |  <span id="followbutton_
+              = @user.id
+              | " class="user__button"> 
+              - unless @user == current_user
+                = render "user/users/followbutton", user: @user
+            - if user_signed_in?
+              - unless @user.id == current_user.id
+                - if @isRoom == true
+                  = link_to "メッセージ",user_room_path(@roomId), class: "btn btn-success user__button"
+                - else
+                  = form_with model: @room, url: user_rooms_path, local: true do |f|
+                    = fields_for @entry do |e|
+                      = e.hidden_field :user_id, value: @user.id
+                    = f.submit "メッセージ", class: "btn btn-success, user__button"
+            p
+              = @user.introduction
+        tr
+          td
+    ul.nav.nav-tabs.nav-justified
+      li[role="presentation"]
+        = link_to "ユーザートップ", user_user_path(@user)
+      li[role="presentation"]
+        = link_to "行った観光地", user_user_went_tourist_spots_path(@user)
+      li[role="presentation"]
+        = link_to "行きたい観光地", user_user_favorite_tourist_spots_path(@user)
+      li[role="presentation"]
+        = link_to "#{@user.follower.count}フォロー中", user_following_path(@user)
+      |  <li id="follower-link_
+      = @user.id
+      | " role=" presentation"> 
+      = link_to "#{@user.followed.count}フォロワー", user_follower_path(@user)
+  .col-xs-2
+.row.user__reviews
+  .col-xs-4
+  .col-xs-4
+    = render "user/reviews/reviews", reviews: @reviews
+  .col-xs-4
+= paginate @reviews

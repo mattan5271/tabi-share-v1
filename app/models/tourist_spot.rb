@@ -7,11 +7,15 @@ class TouristSpot < ApplicationRecord
   has_many :wents, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  enum is_parking: { "有": true, "無": false }
+  enum is_parking: { '有': true, '無': false }
 
   mount_uploaders :images, ImageUploader # Carrierwave画像アップロード
 
   acts_as_taggable # タグ付け
+
+  # 並び順を「ranked-model」gemで管理
+  include RankedModel
+  ranks :row_order
 
   validates :images, presence: true
   validates :name, presence: true, length: { maximum: 50 }
@@ -39,7 +43,7 @@ class TouristSpot < ApplicationRecord
 
   # 住所を結合
   def full_address
-    "〒" + self.postcode.to_s + " " + prefecture_name + " " + self.address_city + " " + self.address_street + " " + self.address_building
+    '〒' + self.postcode.to_s + ' ' + prefecture_name + ' ' + self.address_city + ' ' + self.address_street + ' ' + self.address_building
   end
 
   #住所自動入力
@@ -68,7 +72,7 @@ class TouristSpot < ApplicationRecord
   #キーワード検索
   def self.keyword_search(search)
     if search.present?
-      TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+      TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', '%#{search}%', '%#{search}%', '%#{search}%', '%#{search}%'])
     end
   end
 
@@ -125,21 +129,21 @@ class TouristSpot < ApplicationRecord
 
   # ランダム表示
   def self.random_order
-    self.order("RANDOM()").limit(1)
+    self.order('RANDOM()').limit(1)
   end
 
   # 並び替え
   def self.sort(sort, tourist_spots)
     case sort
-    when "1"
+    when '1'
       tourist_spots.recommended_order #おすすめ順
-    when "2"
+    when '2'
       tourist_spots.new_order #新着順
-    when "3"
+    when '3'
       tourist_spots.reviews_order #レビュー数順
-    when "4"
+    when '4'
       tourist_spots.score_order #点数順
-    when "5"
+    when '5'
       tourist_spots.random_order #ランダム表示
     else
       tourist_spots

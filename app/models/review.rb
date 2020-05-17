@@ -8,7 +8,7 @@ class Review < ApplicationRecord
 
   mount_uploaders :images, ImageUploader
 
-  enum is_value: { "本名": true, "仮名": false }
+  enum is_value: { '本名': true, '仮名': false }
 
   validates :images, presence: true
   validates :title, presence: true, length: { maximum: 50 }
@@ -37,33 +37,33 @@ class Review < ApplicationRecord
 
   # 点数順
   def self.score_order
-    self.order(score: "DESC")
+    self.order(score: 'DESC')
   end
 
   # 男性のみ
   def self.man_only
-    self.includes(:user).where(users: {sex:"男性"})
+    self.includes(:user).where(users: {sex:'男性'})
   end
 
   # 女性のみ
   def self.woman_only
-    self.includes(:user).where(users: {sex:"女性"})
+    self.includes(:user).where(users: {sex:'女性'})
   end
 
   # 並び替え
   def self.sort(sort, reviews)
     case sort
-    when "1"
+    when '1'
       reviews.recommended_order #おすすめ順
-    when "2"
+    when '2'
       reviews.new_order #新着順
-    when "3"
+    when '3'
       reviews.comments_order #レビュー数順
-    when "4"
+    when '4'
       reviews.score_order #点数順
-    when "5"
+    when '5'
       reviews.man_only # 男性のみ
-    when "6"
+    when '6'
       reviews.woman_only # 女性のみ
     else
       reviews
@@ -74,18 +74,18 @@ class Review < ApplicationRecord
   def user_rank_update(user)
     case user.point
     when 0..9
-      user.rank = "レギュラー"
+      user.rank = 'レギュラー'
     when 10..29
-      user.rank = "シルバー"
+      user.rank = 'シルバー'
       Coupon.coupon_create(user)
     when 30..49
-      user.rank = "ゴールド"
+      user.rank = 'ゴールド'
       Coupon.coupon_create(user)
     when 50..99
-      user.rank = "プラチナ"
+      user.rank = 'プラチナ'
       Coupon.coupon_create(user)
     when 100..9999
-      user.rank = "ダイヤモンド"
+      user.rank = 'ダイヤモンド'
       Coupon.coupon_create(user)
     end
     user.save
@@ -93,7 +93,7 @@ class Review < ApplicationRecord
 
   def create_notification_like!(current_user)
     # すでにいいねされているかを確認
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and review_id = ? and action = ? ", current_user.id, user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and review_id = ? and action = ? ', current_user.id, user_id, id, 'like'])
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_user.active_notifications.new(

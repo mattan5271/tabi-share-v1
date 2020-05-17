@@ -1,0 +1,26 @@
+.table-responsive
+  table.table.table-bordered.table-hover.table-sortable
+    thead
+      tr.active
+        th
+        th
+          | 観光スポット名
+        th
+          | ジャンル
+        th
+          | 利用シーン
+    tbody
+      - @tourist_spots.each do |tourist_spot|
+        |  <tr class="item" data-model_name="
+        = TouristSpot.class.name.underscore
+        | " data-update_url="
+        = user_tourist_spot_sort_path(tourist_spot)
+        | ">
+        td
+
+        td
+          = tourist_spot.name
+        td
+          = tourist_spot.genre.name
+        td
+          = tourist_spot.scene.name

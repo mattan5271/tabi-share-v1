@@ -1,0 +1,34 @@
+= provide(:title, "ダイレクトメッセージ 詳細")
+.row
+  .col-xs-3
+  .col-xs-6
+    .page-header
+      h3
+        - @entries.each do |entry|
+          = link_to entry.user.name, user_user_path(entry.user)
+    - if @messages.present?
+      table.table
+        thead
+          tr
+            th
+              | 送信者
+            th
+              | メッセージ
+        tbody
+          - @messages.each do |message|
+            tr
+              td
+                = link_to message.user.name, user_user_path(message.user)
+              td
+                = message.body
+    - else
+      h3
+        | メッセージはまだありません
+    = form_with model: @message, url: user_messages_path, local: true do |f|
+      .row
+        .col-xs-10
+          = f.text_field :body, placeholder: "新しいメッセージを作成", class: "form-control room__form"
+          = f.hidden_field :room_id, value: @room.id
+        .col-xs-2
+          = f.submit "送信", class: "btn btn-info btn-block room__button"
+  .col-xs-3

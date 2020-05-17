@@ -20,6 +20,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.img-hover:hover,
+.img_prev:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.01, 1.01);
+}
+
 body {
   padding-top: 70px;
   background-color: #FFFAFA;

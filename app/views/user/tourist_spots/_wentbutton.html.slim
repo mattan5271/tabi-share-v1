@@ -1,0 +1,14 @@
+- if tourist_spot.wented_by?(current_user)
+  = link_to user_tourist_spot_wents_path(tourist_spot), method: :delete, remote: true, class: "btn btn-default" do
+    i.fas.fa-check-circle
+      |  行った！から削除
+    |  ( 
+    = tourist_spot.wents.count
+    |  ) 
+- else
+  = link_to user_tourist_spot_wents_path(tourist_spot), method: :post, remote: true, class: "btn btn-success" do
+    i.fas.fa-check-circle
+      |  行った！
+    |  ( 
+    = tourist_spot.wents.count
+    |  ) 
