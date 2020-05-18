@@ -1,40 +1,41 @@
-= provide(:title, "観光スポットランキング")
+= provide(:title, '観光スポットランキング')
+
 .row
-  .col-xs-2
-  .col-xs-8
-    .page-header
-      h3
-        | 観光地ランキング TOP10
-    .table-responsive
-      table.table.table-bordered.table-hover
-        thead
+  .page-header
+    h3
+      | 観光地ランキング TOP10
+
+.row
+  .table-responsive
+    table.table.table-bordered.table-hover
+      thead
+        tr
+          th.text-center
+            | 順位
+          th.text-center
+            | 観光地名
+          th.text-center
+            | 行きたい！数
+          th.text-center
+            | 行った数
+
+      tbody
+        - @tourist_spots.each.with_index(1) do |tourist_spot, index|
           tr
-            th.text-center
-              | 順位
-            th.text-center
-              | 観光地名
-            th.text-center
-              | 行きたい！数
-            th.text-center
-              | 行った数
-        tbody
-          - @tourist_spots.each.with_index(1) do |tourist_spot, index|
-            tr
-              td.text-center
-                - case index when 1
-                  i.fas.fa-crown[style="color: gold;"]
-                - when 2
-                  i.fas.fa-crown[style="color: silver;"]
-                - when 3
-                  i.fas.fa-crown[style="color: #B08A1C;"]
-                - else
-                  = index
-              td
-                = link_to user_tourist_spot_path(tourist_spot) do
-                  = image_tag tourist_spot.images[0].to_s, size: "100x100", class: "img-circle"
-                  = tourist_spot.name
-              td
-                = tourist_spot.wents.count
-              td
-                = tourist_spot.favorites.count
-  .col-xs-2
+            td.text-center
+              - case index when 1
+                i.fas.fa-crown[style='color: gold;']
+              - when 2
+                i.fas.fa-crown[style='color: silver;']
+              - when 3
+                i.fas.fa-crown[style='color: #B08A1C;']
+              - else
+                = index
+            td
+              = link_to user_tourist_spot_path(tourist_spot) do
+                = image_tag tourist_spot.images[0].to_s, size: '100x100', class: 'img-thumbnail img-rounded img-responsive img-hover'
+              = tourist_spot.name
+            td
+              = tourist_spot.wents.count
+            td
+              = tourist_spot.favorites.count

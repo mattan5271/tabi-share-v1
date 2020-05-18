@@ -1,6 +1,8 @@
 = provide(:title, "観光スポット 写真一覧")
+
 .row
   = render 'detail', tourist_spot: @tourist_spot
+
   - @reviews.each do |review|
     - review.images.each do |image|
       .col-xs-2
@@ -9,5 +11,5 @@
             = image_tag image.to_s, size: "150x100"
           .caption
             p
-              | 投稿者 : 
+              | 投稿者:
               = link_to review.user.name, user_user_path(review.user)

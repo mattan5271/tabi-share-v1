@@ -1,8 +1,9 @@
 - if review.liked_by?(current_user)
   = link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :delete, remote: true do
-    i.fa.fa-heart[aria-hidden="true" style="color: red;"]
+    i.fa.fa-heart[aria-hidden='true' style='color: red;']
     = review.likes.count
+
 - else
   = link_to user_tourist_spot_review_likes_path(review.tourist_spot, review), method: :post, remote: true do
-    i.fa.fa-heart-o[aria-hidden="true"]
+    i.fa.fa-heart-o[aria-hidden='true']
     = review.likes.count

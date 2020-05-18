@@ -1,16 +1,37 @@
-= provide(:title, "観光スポット 地図")
+= provide(:title, '観光スポット 地図')
+
 .row
-  .col-xs-12.tourist-spot
-    = render 'detail', tourist_spot: @tourist_spot
-    .row
-      .col-xs-3
-        = render 'weather', tourist_spot: @tourist_spot
-      .col-xs-9
-        #map
-        style
-          |  #map { height: 550px; width: 100%; margin-top: 30px; } 
-        script
-          |  let map function initMap() { geocoder = new google.maps.Geocoder() map = new google.maps.Map(document.getElementById('map'), { center: { lat: <ruby code="= @tourist_spot.latitude"></ruby> , lng: <ruby code="= @tourist_spot.longitude"></ruby> }, zoom: 12, }); marker = new google.maps.Marker({ position: { lat: < %= @tourist_spot.latitude % > , lng: < %= @tourist_spot.longitude % > }, map: map }); } 
-        |  <script src="https://maps.googleapis.com/maps/api/js?key=
-        = ENV['GOOGLE_MAP_API']
-        | &callback=initMap" asyncdefer>
+  = render 'detail', tourist_spot: @tourist_spot
+
+.row
+  .col-xs-3
+    = render 'weather', tourist_spot: @tourist_spot
+
+  .col-xs-9
+    #map style='height: 550px; width: 100%; margin-top: 30px;'
+
+    javascript:
+
+      let map
+
+      function initMap() {
+        geocoder = new google.maps.Geocoder()
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {
+            lat: <%= @tourist_spot.latitude %> ,
+            lng: <%= @tourist_spot.longitude %>
+          },
+          zoom: 12,
+        });
+
+        marker = new google.maps.Marker({
+          position: {
+            lat: <%= @tourist_spot.latitude %> ,
+            lng: <%= @tourist_spot.longitude %>
+          },
+          map: map
+        });
+      }
+
+    script src="https://maps.googleapis.com/maps/api/js?key=ENV['GOOGLE_MAP_API']&callback=initMap" asyncdefer

@@ -1,40 +1,41 @@
-- if reviews.present?
-  - reviews.each do |review|
-    .thumbnail
-      = link_to user_tourist_spot_review_path(review.tourist_spot, review) do
-        - if review.images.present?
-          = image_tag review.images[0].to_s, class: "review__image"
-        - else
-          = image_tag "no_image.png", class: "review__image"
-      .caption
-        div[review__score-container]
-          span.review__score
-            = review.score
-            | 点 
-          p
+.row
+  - if reviews.present?
+    - reviews.each do |review|
+      .thumbnail
+        = link_to user_tourist_spot_review_path(review.tourist_spot, review) do
+          - if review.images.present?
+            = image_tag review.images[0].to_s, class: 'img-responsive img-hover'
+          - else
+            = image_tag 'no_image.png', class: 'img-responsive img-hover'
 
-        = attachment_image_tag review.user, :profile_image, fallback: "no_image.png", size: "40x40", class: "img-circle"
-        = link_to review.user.name, user_user_path(review.user), class: "review__name"
-        |  ( 
-        = review.user.age
-        | 歳
-        = review.user.sex
-        | ・
-        = review.is_value
-        |  ) 
-        p
-          = link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-title"
-        p
-          = review.body
-        - if user_signed_in?
-          |  <span id="likebutton_
-          = review.id
-          | "> 
-          = render "user/reviews/likebutton", review: review
-          = link_to user_tourist_spot_review_path(review.tourist_spot, review), class: "review__comment-link" do
-            i.fas.fa-comment-dots
-              | コメント
-              = review.comments.count
-- else
-  p.review__text
-    | レビューはありません。
+        .caption
+            p.review__score
+              = review.score
+              | 点
+            p
+              = attachment_image_tag review.user, :profile_image, fallback: 'no_image.png', size: '50x50', class: 'img-thumbnail img-responsive img-hover'
+              = link_to review.user.name, user_user_path(review.user), class: 'review__name'
+              | (
+              = review.user.age
+              | 歳
+              = review.user.sex
+              | ・
+              = review.is_value
+              | )
+              p
+                = link_to review.title, user_tourist_spot_review_path(review.tourist_spot, review)
+              p
+                = review.body
+
+              - if user_signed_in?
+                span id='likebutton_#{review.id}'
+                  = render 'user/reviews/likebutton', review: review
+
+                = link_to user_tourist_spot_review_path(review.tourist_spot, review), class: 'margin-left--10px' do
+                  i.fas.fa-comment-dots
+                    | コメント
+                    = review.comments.count
+
+  - else
+    p.review__text
+      | レビューはありません。

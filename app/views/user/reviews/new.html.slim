@@ -1,33 +1,43 @@
-= provide(:title, "レビュー 新規登録")
+= provide(:title, 'レビュー 新規登録')
+
 .row
   .col-xs-3
-  .col-xs-6.review
+
+  .col-xs-6
     = form_with model: @review, url: user_tourist_spot_reviews_path, local: true, builder: CustomFormBuilder do |f|
-      = f.label :images, "写真(複数選択可)"
-      span.review__require-label
+
+      = f.label :images, '写真(複数選択可)'
+      span.label.label-danger
         | 必須
       br
       p
-        = f.file_field :images, multiple: true, id: "img_field", style: "display:none;"
-      .btn.btn-warning[onclick="$('#img_field').click()"]
+        = f.file_field :images, multiple: true, class: 'img_field', style: 'display:none;'
+      .btn.btn-warning onclick="$('.img_field').click()"
         | 写真アップロード
-      = f.label :title, "タイトル"
-      span.review__require-label
+      br
+      br
+
+      = f.label :title, 'タイトル'
+      span.label.label-danger
         | 必須
       br
-      = f.text_field :title, placeholder: "例) 楽しかった！", autofocus: true, class: "form-control"
+      = f.text_field :title, placeholder: '例) 楽しかった！', autofocus: true, class: 'form-control'
       br
-      = f.label :body, "本文"
-      span.review__require-label
+
+      = f.label :body, '本文'
+      span.label.label-danger
         | 必須
       br
-      = f.text_area :body, placeholder: "例) 家族で旅行に行きました。\n 空気がとても美味しくて、良いリフレッシュになりました。", class: "form-control"
+      = f.text_area :body, placeholder: '例) 家族で旅行に行きました。\n 空気がとても美味しくて、良いリフレッシュになりました。', class: 'form-control'
       br
-      = f.label :score, "点数"
-      span.review__require-label
+
+      = f.label :score, '点数'
+      span.label.label-danger
         | 必須
       br
-      = f.select :score, options_for_select(1..100), {prompt: "選択してください"}, class: "form-control"
+      = f.select :score, options_for_select(1..100), {prompt: '選択してください'}, class: 'form-control'
       br
-      = f.submit "投稿", class: "btn btn-success btn-lg btn-block"
-    .col-xs-3
+
+      = f.submit '投稿', class: 'btn btn-success btn-lg btn-block'
+
+  .col-xs-3

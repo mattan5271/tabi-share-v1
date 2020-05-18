@@ -1,15 +1,16 @@
 - if tourist_spot.favorited_by?(current_user)
-  = link_to user_tourist_spot_favorites_path(tourist_spot), method: :delete, remote: true, class: "btn btn-default" do
+  = link_to user_tourist_spot_favorites_path(tourist_spot), method: :delete, remote: true, class: 'btn btn-default' do
     i.fas.fa-map-marker-alt
       |  行きたい！から削除
-    |  (
+    | (
     = tourist_spot.favorites.count
-    |  )
+    | )
+
 - else
-  = link_to user_tourist_spot_favorites_path(tourist_spot), method: :post, remote: true, class: "btn btn-warning" do
+  = link_to user_tourist_spot_favorites_path(tourist_spot), method: :post, remote: true, class: 'btn btn-warning' do
     i.fas.fa-star
       |  行きたい！
-    |  (
+    | (
     = tourist_spot.favorites.count
-    |  )
+    | )
 
