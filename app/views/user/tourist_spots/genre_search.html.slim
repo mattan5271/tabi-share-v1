@@ -17,6 +17,7 @@
         = submit_tag '並び替え', class: 'btn btn-success'
     .col-xs-2
       = link_to 'ランダム表示', user_tourist_spot_genre_search_path('sort': '5'), class: 'btn btn-warning'
+br
 
 .row
   = render 'tourist_spots', tourist_spots: @tourist_spots

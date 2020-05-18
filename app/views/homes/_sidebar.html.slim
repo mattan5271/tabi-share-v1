@@ -54,7 +54,7 @@
             th.text-center
               | 投稿数
         tbody
-          - tags_rank.each.with_index(1) do |tag, index|
+          - tags.each.with_index(1) do |tag, index|
             tr
               td.text-center
                 - case index when 1

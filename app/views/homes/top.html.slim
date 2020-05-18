@@ -6,7 +6,7 @@
       .page-header
         h3
           | ジャンルから探す
-      - @genre.each do |genre|
+      - @genres.each do |genre|
         .col-xs-4
           = link_to user_tourist_spot_genre_search_path(search: genre.id) do
             = attachment_image_tag genre, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
@@ -18,7 +18,7 @@
         h3
           | 利用シーンから探す
 
-      - @scene.each do |scene|
+      - @scenes.each do |scene|
         .col-xs-4
           = link_to user_tourist_spot_scene_search_path(search: scene.id) do
             = attachment_image_tag scene, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
@@ -40,7 +40,7 @@
   .col-xs-1
 
   .col-xs-4
-    = render 'sidebar', tourist_spots: @tourist_spots, tags_rank: @tags_rank, users: @users, my_rank: @my_rank
+    = render 'sidebar', tourist_spots: @tourist_spots, tags: @tags, users: @users, my_rank: @my_rank
 
 .row
   .page-header
