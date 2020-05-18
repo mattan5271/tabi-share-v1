@@ -1,9 +1,0 @@
-| $("#followbutton_
-= @user.id
-| ").html("
-= j(render 'user/users/followbutton', user: @user)
-| "); $("#follower-link_
-= @user.id
-| ").html('
-= link_to "#{@user.followed.count}フォロワー", user_follower_path(@user)
-| ');

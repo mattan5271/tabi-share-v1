@@ -1,31 +1,39 @@
-= provide(:title, "お問い合わせ")
+= provide(:title, 'お問い合わせ')
+
 .row
   .col-xs-3
-  .col-xs-6.contact
+
+  .col-xs-6
     = form_with model: @contact, url: user_contacts_path, local: true, builder: CustomFormBuilder do |f|
-      = f.label :name, "氏名"
-      span.contact__require-label
+
+      = f.label :name, '氏名'
+      span.label.label-danger
         | 必須
       br
-      = f.text_field :name, class: "form-control"
+      = f.text_field :name, class: 'form-control'
       br
-      = f.label :email, "メールアドレス"
-      span.contact__require-label
+
+      = f.label :email, 'メールアドレス'
+      span.label.label-danger
         | 必須
       br
-      = f.text_field :email, class: "form-control"
+      = f.text_field :email, class: 'form-control'
       br
-      = f.label :title, "タイトル"
-      span.contact__require-label
+
+      = f.label :title, 'タイトル'
+      span.label.label-danger
         | 必須
       br
-      = f.text_field :title, class: "form-control"
+      = f.text_field :title, class: 'form-control'
       br
-      = f.label :body, "本文"
-      span.contact__require-label
+
+      = f.label :body, '本文'
+      span.label.label-danger
         | 必須
       br
-      = f.text_area :body, class: "form-control"
+      = f.text_area :body, class: 'form-control'
       br
-      = f.submit "送信", class: "btn btn-success btn-lg btn-block"
-    .col-xs-3
+
+      = f.submit '送信', class: 'btn btn-success btn-lg btn-block'
+
+  .col-xs-3

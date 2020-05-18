@@ -1,128 +1,46 @@
 = provide(:title, 'トップ')
+
 .row
-  .page-header
-    h3
-      | ジャンルから探す
-  - @genre.each do |genre|
-    .col-xs-3.top__search-container
-      = link_to user_tourist_spot_genre_search_path(search: genre.id) do
-        .thumbnail
-          = attachment_image_tag genre, :image, fallback: 'no_image.png'
-          .caption
-            p.top__search-text
+  .col-xs-7
+    .row
+      .page-header
+        h3
+          | ジャンルから探す
+      - @genre.each do |genre|
+        .col-xs-4
+          = link_to user_tourist_spot_genre_search_path(search: genre.id) do
+            = attachment_image_tag genre, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
+            p
               = genre.name
 
-.row
-  .page-header
-    h3
-      | 利用シーンから探す
+    .row
+      .page-header
+        h3
+          | 利用シーンから探す
 
-  - @scene.each do |scene|
-    .col-xs-3.top__search-container
-      = link_to user_tourist_spot_scene_search_path(search: scene.id) do
-        .thumbnail
-          = attachment_image_tag scene, :image, fallback: 'no_image.png'
-          .caption
-            p.top__search-text
+      - @scene.each do |scene|
+        .col-xs-4
+          = link_to user_tourist_spot_scene_search_path(search: scene.id) do
+            = attachment_image_tag scene, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
+            p
               = scene.name
 
-.row
-  .page-header
-    h3
-      | 都道府県から探す
+    .row
+      .page-header
+        h3
+          | 都道府県から探す
 
-  - JpPrefecture::Prefecture.all.each do |prefecture|
-    .col-xs-2.top__search-container
-      = link_to user_tourist_spot_prefecture_search_path(search: prefecture.code) do
-        = image_tag "prefectures/#{ prefecture.name }.jpg", size: '150x100'
-        p.top__search-text
-          = prefecture.name
-
-.row
-  .page-header
-    h3
-      |おすすめ観光地
-
-    - if @tourist_spots_rank.present?
-      - @tourist_spots_rank.each.with_index(1) do |tourist_spot, index|
+      - JpPrefecture::Prefecture.all.each do |prefecture|
         .col-xs-4
-          = link_to user_tourist_spot_path(tourist_spot) do
-            .tourist-spot__container.ribbon-wrapper
-              span.ribbon
-                td.text-center
-                  - case index when 1
-                    i.fas.fa-crown style='color: gold;'
-                  - when 2
-                    i.fas.fa-crown style='color: silver;'
-                  - when 3
-                    i.fas.fa-crown style='color: #B08A1C;'
-                  - else
-                    = index
-              = image_tag tourist_spot.images[0].to_s, class: 'tourist-spot__container--image'
-              .tourist-spot__container--box
-                .col-xs-7.tourist-spot__container--image
-                  = tourist_spot.name
-                .col-xs-5
-                  .tourist-spot__score
-                    = tourist_spot.average_score
-                    | 点
-    - else
-      p.tourist-spot__text
-        | 観光スポットがありません
+          = link_to user_tourist_spot_prefecture_search_path(search: prefecture.code) do
+            = image_tag "prefectures/#{ prefecture.name }.jpg", size: '100x100', class: 'img-responsive img-rounded img-hover top-image'
+          p
+            = prefecture.name
 
-    .top__ranking-link
-      = link_to user_tourist_spot_ranking_path do
-        i.fas.fa-caret-right style='color: #FFCC33;'
-        | 観光地ランキングへ
+  .col-xs-1
 
-.row
-  .page-header
-    h3
-      | 新着
-  = render 'user/tourist_spots/tourist_spots', tourist_spots: @tourist_spots_new
-
-.row
-  .page-header
-    h3
-      | ユーザーを探す
-
-  = render 'user/users/users', users: @users_rank
-  .top__ranking-link
-    = link_to user_user_ranking_path do
-      i.fas.fa-caret-right style='color: #FFCC33;'
-      | ユーザーランキングへ
-
-.row
-  .page-header
-    h3
-      | 人気タグから探す
-
-  .table-responsive
-    table.table.table-bordered.table-hover
-      thead
-        tr
-          th.text-center
-            | 順位
-          th.text-center
-            | タグ名
-          th.text-center
-            | 投稿数
-      tbody
-        - @tags_rank.each.with_index(1) do |tag, index|
-          tr
-            td.text-center
-              - case index when 1
-                i.fas.fa-crown style='color: gold;'
-              - when 2
-                i.fas.fa-crown style='color: silver;'
-              - when 3
-                i.fas.fa-crown style='color: #B08A1C;'
-              - else
-                = index
-            td
-              = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag)
-            td.text-center
-              = tag.taggings_count
+  .col-xs-4
+    = render 'sidebar', tourist_spots: @tourist_spots, tags_rank: @tags_rank, users: @users, my_rank: @my_rank
 
 .row
   .page-header
@@ -131,7 +49,8 @@
 
   #map style='height: 800px; width: 100%;'
 
-  script src='https://maps.googleapis.com/maps/api/js?key=ENV['GOOGLE_MAP_API']&callback=initMap' async defer
+  - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API']}&callback=initMap".html_safe
+  script{ async src=google_api }
 
   javascript:
 
@@ -145,8 +64,6 @@
         LatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
         // 地図の作成
-        console.log(markerData[0]['latitude']);
-        // var mapLatLng = new google.maps.LatLng({lat: position.coords.latitude, lng: position.coords.longitude}); // 緯度経度のデータ作成
         map = new google.maps.Map(document.getElementById('map'), { // #mapに地図を埋め込む
           center: LatLng, // 地図の中心を指定
           zoom: 15 // 地図のズームを指定

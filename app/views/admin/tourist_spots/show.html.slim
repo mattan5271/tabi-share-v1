@@ -24,7 +24,7 @@
             th.active
               | 画像
             td
-              = image_tag @tourist_spot.images[0].to_s, class: "img-thumbnail img-responsive"
+              = image_tag @tourist_spot.images[0].to_s, size: '100x100', class: "img-thumbnail img-responsive"
           tr
             th.active
               | 地名・施設名
@@ -34,8 +34,8 @@
             th.active
               | タグ
             td
-              - tourist_spot.tag_list.each do |tag|
-                .badge
+              - @tourist_spot.tag_list.each do |tag|
+                .badge.margin-left--10px
                   = tag
           tr
             th.active

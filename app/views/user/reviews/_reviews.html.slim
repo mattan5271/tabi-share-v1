@@ -9,12 +9,12 @@
             = image_tag 'no_image.png', class: 'img-responsive img-hover'
 
         .caption
-            p.review__score
+            p.score
               = review.score
               | 点
             p
               = attachment_image_tag review.user, :profile_image, fallback: 'no_image.png', size: '50x50', class: 'img-thumbnail img-responsive img-hover'
-              = link_to review.user.name, user_user_path(review.user), class: 'review__name'
+              = link_to review.user.name, user_user_path(review.user), class: 'margin-left--10px'
               | (
               = review.user.age
               | 歳
@@ -37,5 +37,5 @@
                     = review.comments.count
 
   - else
-    p.review__text
+    p.centered
       | レビューはありません。

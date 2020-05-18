@@ -1,0 +1,127 @@
+.row
+  .row
+    .page-header
+      h4
+        | 観光地ランキング
+
+  .row
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | 観光地スポット
+            th.text-center
+              | 行きたい！
+
+        tbody
+          - tourist_spots.each.with_index(1) do |tourist_spot, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown[style='color: gold;']
+                - when 2
+                  i.fas.fa-crown[style='color: silver;']
+                - when 3
+                  i.fas.fa-crown[style='color: #B08A1C;']
+                - else
+                  = index
+              td
+                = link_to user_tourist_spot_path(tourist_spot) do
+                  = image_tag tourist_spot.images[0].to_s, size: '50x50', class: 'img-thumbnail img-rounded img-responsive img-hover'
+                  span.margin-left--10px
+                    = tourist_spot.name
+              td.text-center
+                = tourist_spot.favorites.count
+
+.row
+  .row
+    .page-header
+      h4
+        | タグランキング
+
+  .row
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | タグ
+            th.text-center
+              | 投稿数
+        tbody
+          - tags_rank.each.with_index(1) do |tag, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown style='color: gold;'
+                - when 2
+                  i.fas.fa-crown style='color: silver;'
+                - when 3
+                  i.fas.fa-crown style='color: #B08A1C;'
+                - else
+                  = index
+              td
+                = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag)
+              td.text-center
+                = tag.taggings_count
+
+.row
+  .row
+    .page-header
+      h4
+        | ユーザーランキング
+
+  .row
+    .col-xs-9
+      = form_with url: user_user_keyword_search_path, method: :get, local: true do
+        = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
+
+    .col-xs-3
+      = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+      br
+
+  .row
+    - if user_signed_in?
+      |  あなたの順位は
+      = users.count
+      | 人中
+      strong
+        = my_rank
+        | 位
+      | です
+
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | 会員
+            th.text-center
+              | ポイント数
+
+        tbody
+          - users.each.with_index(1) do |user, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown[style='color: gold;']
+                - when 2
+                  i.fas.fa-crown[style='color: silver;']
+                - when 3
+                  i.fas.fa-crown[style='color: #B08A1C;']
+                - else
+                  = index
+              td
+                = link_to user_user_path(user) do
+                  = attachment_image_tag user, :profile_image, size: '50x50', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
+                  span.margin-left--10px
+                    = user.name
+              td.text-center
+                = user.point

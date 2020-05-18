@@ -24,7 +24,7 @@ html
               span.icon-bar
               span.icon-bar
             = link_to root_path, class: 'navbar-brand' do
-              = image_tag asset_path('logo.png'), class: 'header-logo'
+              = image_tag asset_path('logo.png'), class: 'header__logo'
 
           #navbarEexample7.collapse.navbar-collapse
             - if user_signed_in?
@@ -40,70 +40,70 @@ html
                   a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
                     i.fas.fa-list-ul
                     span
-                      | ジャンルから探す
+                      |  ジャンルから探す
                     span.caret
                   ul.dropdown-menu role='menu'
                     li role='presentation'
                       - Genre.all.each do |genre|
-                        = link_to  genre.name, user_tourist_spot_genre_search_path(search: genre.id), class: 'genre-link'
+                        = link_to  genre.name, user_tourist_spot_genre_search_path(search: genre.id)
                         br
 
                 li.dropdown role='presentation'
                   a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
                     i.fas.fa-bullseye
                     span
-                      | 利用シーンから探す
+                      |  利用シーンから探す
                     span.caret
                   ul.dropdown-menu role='menu'
                     li role='presentation'
                       - Scene.all.each do |scene|
-                        = link_to  scene.name, user_tourist_spot_scene_search_path(search: scene.id), class: 'scene-link'
+                        = link_to  scene.name, user_tourist_spot_scene_search_path(search: scene.id)
                         br
 
               - if user_signed_in?
                 li.dropdown role='presentation'
                   - if unchecked_notifications(current_user).present?
-                    i.fa.fa-circle.icon style='color: gold;'
-                  a.dropdown-toggle.link data-toggle='dropdown' href='#' role='button' aria-expanded='false'
-                    = attachment_image_tag current_user, :profile_image, :fill, 25, 25, fallback: 'no_image.jpg', size:'25x25', class: 'img-circle'
+                    i.fa.fa-circle.header__notifications-icon--1 style='color: gold;'
+                  a.dropdown-toggle.header__acount-link data-toggle='dropdown' href='#' role='button' aria-expanded='false'
+                    = attachment_image_tag current_user, :profile_image, size:'30x30', fallback: 'no_image.jpg', class: 'img-thumbnail img-responsive img-hover'
                     span
-                      | アカウント
+                      |  アカウント
                     span.caret
                   ul.dropdown-menu role='menu'
                     li role='presentation'
                       = link_to user_user_path(current_user) do
                         i.fas.fa-user
-                        | マイページ
+                        |  マイページ
                     li
                       - if unchecked_notifications(current_user).present?
-                        i.fa.fa-circle.notification-icon style='color: gold;'
-                      = link_to user_notifications_path, class: 'notification-link' do
+                        i.fa.fa-circle.header__notifications-icon--2 style='color: gold;'
+                      = link_to user_notifications_path, class: 'header__notifications-link' do
                         i.fas.fa-bell
-                        | 通知
+                        |  通知
                     li
                       = link_to user_rooms_path do
                         i.fas.fa-envelope
-                        | メッセージ
+                        |  メッセージ
                     li
                       = link_to user_coupons_path do
                         i.fas.fa-gift
-                        | クーポン
+                        |  クーポン
                     li
                       = link_to user_user_favorite_tourist_spots_path(current_user) do
                         i.fas.fa-star
-                        | 行きたい観光スポット
+                        |  行きたい観光スポット
                     li
                       = link_to user_user_went_tourist_spots_path(current_user) do
                         i.fas.fa-check-circle
-                        | 行った観光スポット
+                        |  行った観光スポット
                     li role='presentation'
                       = link_to edit_user_user_path(current_user) do
                         i.fas.fa-user-cog
-                        | プロフィール編集
+                        |  プロフィール編集
                     li role='presentation'
                       = link_to destroy_user_session_path, method: :delete do
                         i.fas.fa-sign-out-alt
-                        | ログアウト
+                        |  ログアウト
 
               - elsif admin_signed_in?
                 li
@@ -128,11 +128,14 @@ html
       .container
         = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
           .row
-            .col-xs-10.keyword-search
+            .col-xs-10
               = text_field_tag :search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
             .col-xs-2
               = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+          br
+
         = yield
+
         span#back
           a href='#'
             = image_tag 'arrow.png'

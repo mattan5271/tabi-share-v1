@@ -83,7 +83,8 @@ class User < ApplicationRecord
   #キーワード検索
   def self.keyword_search(search)
     if search.present?
-      User.where(['name LIKE ? OR introduction LIKE ?', '%#{search}%', '%#{search}%'])
+      p '成功'
+      User.where(['name LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
     end
   end
 

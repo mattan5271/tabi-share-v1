@@ -1,22 +1,24 @@
 = provide(:title, 'レビュー 詳細')
 
 .row
-  .page-header.review__title
-    = @review.title
+  .page-header
+    h3
+      = @review.title
 
-    - if user_signed_in?
-      - if @review.liked_by?(current_user)
-        = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do
-          i.fa.fa-heart aria-hidden='true' style='color: red;'
-          = @review.likes.count
-      - else
-        = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do
-          i.fa.fa-heart-o aria-hidden='true'
-          = @review.likes.count
+      - if user_signed_in?
+        span.margin-left--10px
+          - if @review.liked_by?(current_user)
+            = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do
+              i.fa.fa-heart aria-hidden='true' style='color: red;'
+              = @review.likes.count
+          - else
+            = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do
+              i.fa.fa-heart-o aria-hidden='true'
+              = @review.likes.count
 
-    .review__score
-      = @review.score
-      | 点
+      .score.margin-left--10px
+        = @review.score
+        | 点
 
 .row
   #sampleCarousel.carousel.slide data-ride='carousel'
@@ -28,10 +30,10 @@
       - @review.images.each.with_index(1) do |image, index|
         - if index == 1
           .item.active
-            = image_tag image.to_s, class: 'review__carousel-image'
+            = image_tag image.to_s, class: 'img-responsive img-rounded carousel-image'
         - else
           .item
-            = image_tag image.to_s, class: 'review__carousel-image'
+            = image_tag image.to_s, class: 'img-responsive img-rounded carousel-image'
     a.left.carousel-control href='#sampleCarousel' role='button' data-slide='prev'
       span.glyphicon.glyphicon-chevron-left aria-hidden='true'
       span.sr-only
@@ -72,7 +74,7 @@
     - if @review.user === current_user
       .pull-right
         = link_to '編集', edit_user_tourist_spot_review_path(@review), class: 'btn btn-primary'
-        = link_to '削除', user_tourist_spot_review_path(@review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
+        = link_to '削除', user_tourist_spot_review_path(@review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'
 
   .col-xs-2
 
@@ -115,7 +117,8 @@
                 td
                   = link_to user_user_path(comment.user) do
                     = attachment_image_tag comment.user, :profile_image, fallback: 'no_image.jpg', size: '50x50', class: 'img-thumbnail img-responsive img-hover'
-                  = comment.user.name
+                    span.margin-left--10px
+                      = comment.user.name
                 td
                   = comment.title
                 td

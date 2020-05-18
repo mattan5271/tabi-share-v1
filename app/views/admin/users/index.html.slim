@@ -19,8 +19,9 @@
               = user.id
             td
               = link_to admin_user_path(user) do
-                = attachment_image_tag user, :profile_image, size: '100x100', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
-              = user.name
+                = attachment_image_tag user, :profile_image, size: '50x50', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
+                span.margin-left--10px
+                  = user.name
             td
               = user.email
             td

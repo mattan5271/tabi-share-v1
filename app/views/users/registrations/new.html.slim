@@ -32,6 +32,13 @@
       = f.select :sex, User.sexes.keys, {prompt: '選択してください'}, class: 'form-control'
       br
 
+      = f.label :introduction, '自己紹介文'
+      span.label.label-default
+        | 任意
+      br
+      = f.text_area :introduction, placeholder: '例) よろしくお願いします。', autocomplete: 'introduction', class: 'form-control'
+      br
+
       = f.label :postcode, '郵便番号'
       span.label.label-default
         | 任意
@@ -78,7 +85,7 @@
       span.label.label-danger
         | 必須
       br
-      = f.password_field :password, placeholder: '#{@minimum_password_length}~20文字', autocomplete: 'new-password', class: 'form-control'
+      = f.password_field :password, placeholder: "#{@minimum_password_length}~20文字", autocomplete: 'new-password', class: 'form-control'
       br
 
       = f.label :password_confirmation, 'パスワード(再確認)'

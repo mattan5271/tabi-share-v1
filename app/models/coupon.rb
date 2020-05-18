@@ -9,8 +9,7 @@ class Coupon < ApplicationRecord
     time = Time.now.to_i
     coupon = Coupon.new(
       user_id: user.id,
-      image_id: '75d6fabbac9c196cc890365c189cc3652ead8d009ba6f307870d272b7f37',
-      limit: 1,
+      limit: 1
     )
     coupon.save
   end

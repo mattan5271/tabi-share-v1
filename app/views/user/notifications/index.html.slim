@@ -1,15 +1,23 @@
-= provide(:title, "通知 一覧")
-.row.notification
+= provide(:title, '通知 一覧')
+
+.row
   .col-xs-3
+
   .col-xs-6
-    = link_to user_notification_path(current_user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" do
+    = link_to user_notification_path(current_user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' do
       i.fas.fa-trash-alt
         |  全削除
+    br
+    br
+
     - notifications = @notifications.where.not(visitor_id: current_user.id)
     - if notifications.exists?
       = render notifications
       = paginate notifications
+
     - else
-      p
-        | 通知はありません
+      .centered
+        p
+          | 通知はありません
+
   .col-xs-3

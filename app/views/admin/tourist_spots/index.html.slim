@@ -19,8 +19,9 @@
               = tourist_spot.id
             td
               = link_to admin_tourist_spot_path(tourist_spot) do
-                = image_tag tourist_spot.images[0].to_s, size: '100x100', class: 'img-thumbnail img-responsive img-hover'
-              = tourist_spot.name
+                = image_tag tourist_spot.images[0].to_s, size: '50x50', class: 'img-thumbnail img-responsive img-hover'
+                span.margin-left--10px
+                  = tourist_spot.name
             td
               = tourist_spot.phone_number
             td

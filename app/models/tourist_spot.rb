@@ -72,7 +72,7 @@ class TouristSpot < ApplicationRecord
   #キーワード検索
   def self.keyword_search(search)
     if search.present?
-      TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', '%#{search}%', '%#{search}%', '%#{search}%', '%#{search}%'])
+      TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
     end
   end
 

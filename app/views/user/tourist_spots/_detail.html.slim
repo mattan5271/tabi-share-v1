@@ -3,7 +3,7 @@
     .page-header
       h3
         = tourist_spot.name
-        .tourist-spot__score
+        .score.margin-left--10px
           = tourist_spot.average_score
           | 点
 
@@ -21,39 +21,39 @@
           |  Twitterでシェア
 
 .row
-  #sampleCarousel.carousel.slide[data-ride="carousel"]
+  #sampleCarousel.carousel.slide data-ride="carousel"
     ol.carousel-indicators
-      li.active[data-target="#sampleCarousel" data-slide-to="0"]
-      li[data-target="#sampleCarousel" data-slide-to="1"]
-      li[data-target="#sampleCarousel" data-slide-to="2"]
-    .carousel-inner[role="listbox"]
+      li.active data-target="#sampleCarousel" data-slide-to="0"
+      li data-target="#sampleCarousel" data-slide-to="1"
+      li data-target="#sampleCarousel" data-slide-to="2"
+    .carousel-inner role="listbox"
       - tourist_spot.images.each.with_index(1) do |image, index|
         - if index == 1
           .item.active
-            = image_tag image.to_s, class: "tourist-spot__carousel-image"
+            = image_tag image.to_s, class: "img-responsive img-rounded carousel-image"
         - else
           .item
-            = image_tag image.to_s, class: "tourist-spot__carousel-image"
-    a.left.carousel-control[href="#sampleCarousel" role="button" data-slide="prev"]
-      span.glyphicon.glyphicon-chevron-left[aria-hidden="true"]
+            = image_tag image.to_s, class: "img-responsive img-rounded carousel-image"
+    a.left.carousel-control href="#sampleCarousel" role="button" data-slide="prev"
+      span.glyphicon.glyphicon-chevron-left aria-hidden="true"
       span.sr-only
         | 前へ
-    a.right.carousel-control[href="#sampleCarousel" role="button" data-slide="next"]
-      span.glyphicon.glyphicon-chevron-right[aria-hidden="true"]
+    a.right.carousel-control href="#sampleCarousel" role="button" data-slide="next"
+      span.glyphicon.glyphicon-chevron-right aria-hidden="true"
       span.sr-only
         | 次へ
   br
 
 .row
   ul.nav.nav-tabs.nav-justified
-    li[role="presentation"]
+    li role="presentation"
       = link_to "観光地トップ", user_tourist_spot_path(tourist_spot)
-    li[role="presentation"]
+    li role="presentation"
       = link_to "レビュー一覧( #{ tourist_spot.reviews.count } )", user_tourist_spot_reviews_path(tourist_spot)
-    li[role="presentation"]
+    li role="presentation"
       = link_to  "レビュー投稿", new_user_tourist_spot_review_path(tourist_spot)
-    li[role="presentation"]
+    li role="presentation"
       = link_to  "写真", user_tourist_spot_images_path(tourist_spot)
-    li[role="presentation"]
+    li role="presentation"
       = link_to  "地図", user_tourist_spot_map_path(tourist_spot)
   br

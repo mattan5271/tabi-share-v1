@@ -7,6 +7,22 @@ class HomesController < ApplicationController
     @genre = Genre.all
     @scene = Scene.all
     gon.tourist_spots = TouristSpot.all
+
+    @tourist_spots = TouristSpot.top_ranking.limit(10) #観光スポットランキング(行きたい！数)
+
+    # ユーザーランキング
+    @users = User.all.order(point: 'DESC')
+    @users_rank = @users.limit(10)
+    @my_rank = 0
+
+    if user_signed_in?
+      @users.each do |user|
+        @my_rank += 1
+        if user.id == current_user.id
+          break
+        end
+      end
+    end
   end
 
   def about

@@ -23,6 +23,17 @@
 //= require tag-it
 //= require_tree .
 
+// トップへ戻る
+$(function () {
+
+  $('#back a').on('click', function () {
+    $('body, html').animate({
+      scrollTop: 0
+    }, 800);
+    return false;
+  });
+});
+
 // 画像アップロード時にプレビュー
 $(function () {
   function readURL(input) {
@@ -39,17 +50,7 @@ $(function () {
   });
 });
 
-// トップへ戻る
-$(function () {
-
-  $('#back a').on('click', function () {
-    $('body, html').animate({
-      scrollTop: 0
-    }, 800);
-    return false;
-  });
-});
-
+// ドラッグ&ドロップ
 $(function () {
   $('.item').sortable({
     update: function (e, ui) {
@@ -61,6 +62,7 @@ $(function () {
       params[item_data.modelName] = {
         row_order_position: item.index()
       }
+
       $.ajax({
         type: 'POST',
         url: item_data.updateUrl,

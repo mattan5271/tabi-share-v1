@@ -1,68 +1,69 @@
-= provide(:title, "ユーザー ランキング")
+= provide(:title, 'ユーザー ランキング')
+
 .row
-  .col-xs-2
-  .col-xs-8
-    .page-header
-      h3
-        | 会員ポイント数ランキング TOP10
-    - if user_signed_in?
-      |  あなたの順位は 
-      = @users.count
-      | 人中 
-      strong
-        = @my_rank
-        |  位
-      | です 
-    .table-responsive
-      table.table.table-bordered.table-hover
-        thead
+  .page-header
+    h3
+      | 会員ポイント数ランキング TOP10
+
+  - if user_signed_in?
+    |  あなたの順位は
+    = @users.count
+    | 人中
+    strong
+      = @my_rank
+      | 位
+    | です
+
+  .table-responsive
+    table.table.table-bordered.table-hover
+      thead
+        tr
+          th.text-center
+            | 順位
+          th.text-center
+            | 会員名
+          th.text-center
+            | ポイント数
+          th.text-center
+            | ランク
+
+      tbody
+        - @users_rank.each.with_index(1) do |user, index|
           tr
-            th.text-center
-              | 順位
-            th.text-center
-              | 会員名
-            th.text-center
-              | ポイント数
-            th.text-center
-              | ランク
-        tbody
-          - @users_rank.each.with_index(1) do |user, index|
-            tr
-              td.text-center
-                - case index when 1
-                  i.fas.fa-crown[style="color: gold;"]
-                - when 2
-                  i.fas.fa-crown[style="color: silver;"]
-                - when 3
-                  i.fas.fa-crown[style="color: #B08A1C;"]
-                - else
-                  = index
-              td
-                = link_to user_user_path(user) do
-                  = attachment_image_tag user, :profile_image, size: "50x50", fallback: "no_image.png", class: "img-circle"
-                  = user.name
-                  |  ( 
-                  = user.age
-                  | 歳 
-                  = user.sex
-                  |  ) 
-              td
-                = user.point
-              td.text-center
-                h4
-                  - case user.rank when "レギュラー"
-                    span.label.label-default
-                      = user.rank
-                  - when "シルバー"
-                    span.label.label-primary
-                      = user.rank
-                  - when "ゴールド"
-                    span.label.label-warning
-                      = user.rank
-                  - when "プラチナ"
-                    span.label.label-info
-                      = user.rank
-                  - when "ダイヤモンド"
-                    span.label.label-danger
-                      = user.rank
-  .col-xs-2
+            td.text-center
+              - case index when 1
+                i.fas.fa-crown[style='color: gold;']
+              - when 2
+                i.fas.fa-crown[style='color: silver;']
+              - when 3
+                i.fas.fa-crown[style='color: #B08A1C;']
+              - else
+                = index
+            td
+              = link_to user_user_path(user) do
+                = attachment_image_tag user, :profile_image, size: '100x100', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
+              = user.name
+              | (
+              = user.age
+              | 歳
+              = user.sex
+              | )
+            td
+              = user.point
+            td.text-center
+              h4
+                - case user.rank when 'レギュラー'
+                  span.label.label-default
+                    = user.rank
+                - when 'シルバー'
+                  span.label.label-primary
+                    = user.rank
+                - when 'ゴールド'
+                  span.label.label-warning
+                    = user.rank
+                - when 'プラチナ'
+                  span.label.label-info
+                    = user.rank
+                - when 'ダイヤモンド'
+                  span.label.label-danger
+                    = user.rank

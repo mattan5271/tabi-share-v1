@@ -1,11 +1,18 @@
-= provide(:title, "クーポン 一覧")
+= provide(:title, 'クーポン 一覧')
+
 .row
-  - @coupons.each do |coupon|
-    .col-xs-3
-      .img-thumbnail
-        = attachment_image_tag coupon, :image, size: "200x200"
-        .caption
-          .coupon__limit
-            - limit = coupon.created_at + coupon.limit.days
-            |  有効期限 : 
-            = limit.to_s(:datetime_jp)
+  - if @coupons.present?
+    - @coupons.each do |coupon|
+      .col-xs-3
+        .thumbnail
+          = image_tag 'coupon.jpg', class: 'img-responsive'
+
+          .caption
+            p.text-center
+              - limit = coupon.created_at + coupon.limit.days
+              |  有効期限 :
+              = limit.to_s(:datetime_jp)
+
+  - else
+    p.centered
+      | レビューは存在しません
