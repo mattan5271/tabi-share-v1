@@ -58,7 +58,7 @@ class User::UsersController < ApplicationController
 
   # キーワード検索
   def keyword_search
-    @users_keyword = User.keyword_search(params[:search])
+    @users = User.keyword_search(params[:search])
   end
 
 	private

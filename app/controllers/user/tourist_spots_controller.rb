@@ -1,5 +1,4 @@
 class User::TouristSpotsController < ApplicationController
-  impressionist actions: [:show], unique: [:session_hash]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
@@ -52,60 +51,54 @@ class User::TouristSpotsController < ApplicationController
 
   # キーワード検索
   def keyword_search
-    tourist_spots_keyword = TouristSpot.keyword_search(params[:search])
-    @search = params[:search]
-    if tourist_spots_keyword.present?
-      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_keyword)
-      if tourist_spots_sort.present?
-        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
-      end
-    end
+    tourist_spots = TouristSpot.keyword_search(params[:keyword_search])
+    @keyword_search = params[:keyword_search]
+    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # ジャンル検索
   def genre_search
-    tourist_spots_genre = TouristSpot.genre_search(params[:search])
-    @search = params[:search]
-    if tourist_spots_genre.present?
-      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_genre)
-      if tourist_spots_sort.present?
-        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
-      end
-    end
+    tourist_spots = TouristSpot.genre_search(params[:genre_search])
+    @genre_search = params[:genre_search]
+    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # 利用シーン検索
   def scene_search
-    tourist_spots_scene = TouristSpot.scene_search(params[:search])
-    @search = params[:search]
-    if tourist_spots_scene.present?
-      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_scene)
-      if tourist_spots_sort.present?
-        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
-      end
-    end
+    tourist_spots = TouristSpot.scene_search(params[:scene_search])
+    @scene_search = params[:scene_search]
+    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # 都道府県検索
   def prefecture_search
-    tourist_spots_prefecture = TouristSpot.prefecture_search(params[:search])
-    @search = params[:search]
-    if tourist_spots_prefecture.present?
-      # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-      tourist_spots_sort = TouristSpot.sort(params[:sort], tourist_spots_prefecture)
-      if tourist_spots_sort.present?
-        @tourist_spots = Kaminari.paginate_array(tourist_spots_sort).page(params[:page]).per(40)
-      end
-    end
+    tourist_spots = TouristSpot.prefecture_search(params[:prefecture_search])
+    @prefecture_search = params[:prefecture_search]
+    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # タグ検索
   def tag_search
-    @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).page(params[:page]).per(40)
+    @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).page(params[:page]).per(20)
     @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
+  end
+
+  # 行きたい！一覧
+  def favorites
+    @tourist_spots = current_user.favorite_tourist_spots.rank(:row_order).page(params[:page]).per(20)
+  end
+
+  # 行った！一覧
+  def wents
+    @tourist_spots = current_user.went_tourist_spots.rank(:row_order).page(params[:page]).per(20)
   end
 
   # ドラッグ&ドロップ

@@ -40,8 +40,10 @@
                   = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: 'label label-default margin-left--10px'
 
       - else
-            p.centered
-              | 観光スポットは存在しません
+        p.centered
+          | 観光スポットは存在しません
+
+      = paginate tourist_spots
 
     .col-xs-3
 
@@ -56,8 +58,8 @@
           - break
 
 
-    = render '/homes/sidebar',  tourist_spots: TouristSpot.top_ranking.limit(10),
-                                reviews: Review.recommended_order.limit(10),
+    = render '/homes/sidebar',  tourist_spots: TouristSpot.ranking,
                                 tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
+                                reviews: Review.ranking,
                                 users: User.all.order(point: 'DESC').limit(10),
                                 my_rank: @my_rank

@@ -1,11 +1,6 @@
 class User::WentsController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    user = User.find(params[:user_id])
-    @tourist_spots = user.went_tourist_spots.rank(:row_order).page(params[:page]).per(20)
-  end
-
   def create
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     unless @tourist_spot.wented_by?(current_user)

@@ -138,13 +138,13 @@
         | ユーザーランキング
 
   .row
-    .col-xs-9
-      = form_with url: user_user_keyword_search_path, method: :get, local: true do
-        = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
+    = form_with url: user_user_keyword_search_path, method: :get, local: true do
+      .col-xs-9
+          = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
 
-    .col-xs-3
-      = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
-      br
+      .col-xs-3
+          = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+          br
 
   .row
     - if user_signed_in?

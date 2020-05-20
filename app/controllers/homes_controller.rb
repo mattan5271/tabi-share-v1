@@ -2,9 +2,9 @@ class HomesController < ApplicationController
   def top
     @genres = Genre.all
     @scenes = Scene.all
-    @tourist_spots = TouristSpot.top_ranking.limit(10) #観光スポットランキング(行きたい！数)
+    @tourist_spots = TouristSpot.ranking #観光スポットランキング(行きたい！数)
     @tags = TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10) # タグランキング
-    @reviews = Review.recommended_order.limit(10)
+    @reviews = Review.ranking
     gon.tourist_spots = TouristSpot.all
 
     # ユーザーランキング

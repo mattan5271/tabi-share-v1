@@ -1,11 +1,6 @@
 class User::FavoritesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    user = User.find(params[:user_id])
-    @tourist_spots = user.favorite_tourist_spots.rank(:row_order).page(params[:page]).per(20)
-  end
-
   def create
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     unless @tourist_spot.favorited_by?(current_user)

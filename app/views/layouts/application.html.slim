@@ -90,11 +90,11 @@ html
                         i.fas.fa-gift
                         |  クーポン
                     li
-                      = link_to user_user_favorite_tourist_spots_path(current_user) do
+                      = link_to user_favorites_path do
                         i.fas.fa-star
                         |  行きたい観光スポット
                     li
-                      = link_to user_user_went_tourist_spots_path(current_user) do
+                      = link_to user_wents_path do
                         i.fas.fa-check-circle
                         |  行った観光スポット
                     li
@@ -130,11 +130,12 @@ html
                   = link_to 'サイト説明', about_path
 
     main
+    br
       .container
         = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
           .row
             .col-xs-10
-              = text_field_tag :search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
+              = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
             .col-xs-2
               = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
           br

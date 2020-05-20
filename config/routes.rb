@@ -36,11 +36,7 @@ Rails.application.routes.draw do
 			put :sort
 		end
 
-		resources :users, only: [:show, :edit, :update, :destroy] do
-			get 'favorite_tourist_spots' => 'favorites#index'
-			get 'went_tourist_spots' => 'wents#index'
-		end
-
+		resources :users, only: [:show, :edit, :update, :destroy]
     resources :messages, only: [:create]
     resources :rooms, only: [:create, :show, :index]
 		resources :contacts, only: [:new, :create]
@@ -48,12 +44,14 @@ Rails.application.routes.draw do
 		resources :coupons, only: [:create, :index]
 		resources :events
 
-		get 'user_keyword/search' => 'users#keyword_search'
+		get 'user/keyword/search' => 'users#keyword_search'
     post 'follow/:id' => 'relationships#follow', as: 'follow'
     post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
     get 'users/following/:user_id' => 'users#following', as:'following'
 		get 'users/follower/:user_id' => 'users#follower', as:'follower'
 
+		get 'favorites' => 'tourist_spots#favorites'
+		get 'wents' => 'tourist_spots#wents'
 		get 'tourist_spot/keyword/search' => 'tourist_spots#keyword_search'
 		get 'tourist_spot/genre/search' => 'tourist_spots#genre_search'
 		get 'tourist_spot/scene/search' => 'tourist_spots#scene_search'

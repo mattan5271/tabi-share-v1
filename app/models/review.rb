@@ -20,53 +20,38 @@ class Review < ApplicationRecord
     likes.where(user_id: user.id).exists?
   end
 
-  # おすすめ順
-  def self.recommended_order
-    self.where(id: Like.group(:review_id).order('count(review_id) desc').pluck(:review_id))
-  end
-
-  # 新着順
-  def self.new_order
-    self.order(id: 'DESC')
-  end
-
-  # コメント数順
-  def self.comments_order
-    self.where(id: Comment.group(:review_id).order('count(review_id) desc').pluck(:review_id))
-  end
-
-  # 点数順
-  def self.score_order
-    self.order(score: 'DESC')
-  end
-
-  # 男性のみ
-  def self.man_only
-    self.includes(:user).where(users: {sex:'男性'})
-  end
-
-  # 女性のみ
-  def self.woman_only
-    self.includes(:user).where(users: {sex:'女性'})
+  def self.ranking
+    self.find(Like.group(:review_id).order('count(review_id) DESC').limit(10).pluck(:review_id))
   end
 
   # 並び替え
   def self.sort(sort, reviews)
-    case sort
-    when '1'
-      reviews.recommended_order #おすすめ順
-    when '2'
-      reviews.new_order #新着順
-    when '3'
-      reviews.comments_order #コメントss数順
-    when '4'
-      reviews.score_order #点数順
-    when '5'
-      reviews.man_only # 男性のみ
-    when '6'
-      reviews.woman_only # 女性のみ
+    if reviews.present?
+      case sort
+      when '1'
+        # おすすめ順
+        reviews.find(Like.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
+      when '2'
+        # 新着順
+        reviews.order(id: 'DESC')
+      when '3'
+        # コメント数順
+        reviews.find(Comment.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
+      when '4'
+        # 点数順
+        reviews.order(score: 'DESC')
+      when '5'
+        # 男性のみ
+        reviews.includes(:user).where(users: {sex:'男性'})
+      when '6'
+        # 女性のみ
+        reviews.includes(:user).where(users: {sex:'女性'})
+      else
+        reviews
+      end
     else
-      reviews
+      # kaminariのエラー対策で空の配列を代入
+      reviews = []
     end
   end
 
@@ -91,6 +76,7 @@ class Review < ApplicationRecord
     user.save
   end
 
+  # いいね通知
   def create_notification_like!(current_user)
     # すでにいいねされているかを確認
     temp = Notification.where(['visitor_id = ? and visited_id = ? and review_id = ? and action = ? ', current_user.id, user_id, id, 'like'])
@@ -109,6 +95,7 @@ class Review < ApplicationRecord
     end
   end
 
+  # コメント通知
   def create_notification_comment!(current_user, comment_id)
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     temp_ids = Comment.select(:user_id).where(review_id: id).where.not(user_id: current_user.id).distinct
@@ -119,6 +106,7 @@ class Review < ApplicationRecord
     save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
   end
 
+  # コメント通知
   def save_notification_comment!(current_user, comment_id, visited_id)
     # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
     notification = current_user.active_notifications.new(

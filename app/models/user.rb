@@ -21,10 +21,6 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
-  enum sex: { '男性': 0, '女性': 1, 'ニューハーフ': 2 }
-  enum is_valid: { '有効': true, '退会済': false }
-  enum rank: { 'レギュラー': 0, 'シルバー': 1, 'ゴールド': 2, 'プラチナ': 3, 'ダイヤモンド': 4 }
-
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
   validates :age, presence: true
@@ -34,8 +30,14 @@ class User < ApplicationRecord
   validates :address_building, allow_blank: true, length: { maximum: 50 }
   validates :introduction, length: { maximum: 200 }
 
+  enum sex: { '男性': 0, '女性': 1, 'ニューハーフ': 2 }
+  enum is_valid: { '有効': true, '退会済': false }
+  enum rank: { 'レギュラー': 0, 'シルバー': 1, 'ゴールド': 2, 'プラチナ': 3, 'ダイヤモンド': 4 }
+
+
   attachment :profile_image
 
+  # 住所自動入力
   include JpPrefecture
   jp_prefecture :prefecture_code
 
