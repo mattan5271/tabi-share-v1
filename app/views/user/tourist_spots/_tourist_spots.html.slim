@@ -45,8 +45,19 @@
 
     .col-xs-3
 
-
   .col-xs-4
-    = render '/homes/sidebar', tourist_spots: TouristSpot.top_ranking.limit(10),
-                        tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
-                        users: User.all.order(point: 'DESC').limit(10)
+    / 自分の順位を計算
+    - @users = User.all
+    - @my_rank = 0
+    - if user_signed_in?
+      - @users.each do |user|
+        - @my_rank += 1
+        - if user.id == current_user.id
+          - break
+
+
+    = render '/homes/sidebar',  tourist_spots: TouristSpot.top_ranking.limit(10),
+                                reviews: Review.recommended_order.limit(10),
+                                tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
+                                users: User.all.order(point: 'DESC').limit(10),
+                                my_rank: @my_rank

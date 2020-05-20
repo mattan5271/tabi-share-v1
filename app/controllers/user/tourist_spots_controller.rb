@@ -1,5 +1,5 @@
 class User::TouristSpotsController < ApplicationController
-  # impressionist actions: [:show], unique: [:session_hash]
+  impressionist actions: [:show], unique: [:session_hash]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
@@ -18,7 +18,7 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def show
-    # impressionist(@tourist_spot)
+    impressionist(@tourist_spot)
   end
 
   def edit
@@ -48,11 +48,6 @@ class User::TouristSpotsController < ApplicationController
   def images
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     @reviews = @tourist_spot.reviews
-  end
-
-  # ランキング
-  def ranking
-    @tourist_spots = TouristSpot.top_ranking.limit(10)
   end
 
   # キーワード検索
@@ -109,14 +104,11 @@ class User::TouristSpotsController < ApplicationController
 
   # タグ検索
   def tag_search
-    @tourist_spots_tag = TouristSpot.tagged_with(params[:tag_name])
+    @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).page(params[:page]).per(40)
     @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
   end
 
-  def index
-    @tourist_spots = TouristSpot.rank(:row_order)
-  end
-
+  # ドラッグ&ドロップ
   def sort
     tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     tourist_spot.update(tourist_spot_params)

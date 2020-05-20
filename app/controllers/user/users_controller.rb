@@ -56,22 +56,6 @@ class User::UsersController < ApplicationController
     @followers = @user.follower_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
-  # ランキング
-  def ranking
-    @users = User.all.order(point: 'DESC')
-    @users_rank = @users.limit(10)
-    @my_rank = 0
-
-    if user_signed_in?
-      @users.each do |user|
-        @my_rank += 1
-        if user.id == current_user.id
-          break
-        end
-      end
-    end
-  end
-
   # キーワード検索
   def keyword_search
     @users_keyword = User.keyword_search(params[:search])

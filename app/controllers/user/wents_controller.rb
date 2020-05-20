@@ -3,7 +3,7 @@ class User::WentsController < ApplicationController
 
   def index
     user = User.find(params[:user_id])
-    @tourist_spots = user.went_tourist_spots.page(params[:page]).per(20)
+    @tourist_spots = user.went_tourist_spots.rank(:row_order).page(params[:page]).per(20)
   end
 
   def create

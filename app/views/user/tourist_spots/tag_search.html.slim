@@ -1,4 +1,17 @@
-- @tags.each do |tag|
-  .badge
-    = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: "tourist-spot__tag-link"
-= render 'tourist_spots', tourist_spots: @tourist_spots_tag
+= provide(:title, '観光スポット タグ別')
+
+.row
+  .page-header
+    h3
+      | 利用シーン別
+
+.row
+  - @tags.each do |tag|
+    .badge
+      = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: 'margin-left--10px'
+
+  = render 'tourist_spots', tourist_spots: @tourist_spots
+
+.row
+  - if @tourist_spots
+    = paginate @tourist_spots

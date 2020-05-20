@@ -111,13 +111,13 @@
 
       = label_tag :駐車場
       br
-      form
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '有', checked: true
-          | 有
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '無'
-          | 無
+      = f.label :is_parking, class: 'radio-inline'
+        = f.radio_button :is_parking, '有', checked: true
+        | 有
+      = f.label :is_parking, class: 'radio-inline'
+        = f.radio_button :is_parking, '無'
+        | 無
+      br
       br
 
       = f.submit '新規登録', class: 'btn btn-success btn-lg btn-block'
