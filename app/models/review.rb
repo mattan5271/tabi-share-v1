@@ -22,7 +22,7 @@ class Review < ApplicationRecord
 
   # おすすめ順
   def self.recommended_order
-    self.where(id: Like.group(:review_id).order('count(review_id) desc').limit(5).pluck(:review_id))
+    self.where(id: Like.group(:review_id).order('count(review_id) desc').pluck(:review_id))
   end
 
   # 新着順
@@ -58,7 +58,7 @@ class Review < ApplicationRecord
     when '2'
       reviews.new_order #新着順
     when '3'
-      reviews.comments_order #レビュー数順
+      reviews.comments_order #コメントss数順
     when '4'
       reviews.score_order #点数順
     when '5'

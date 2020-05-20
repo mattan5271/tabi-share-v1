@@ -50,36 +50,3 @@
     = render '/homes/sidebar', tourist_spots: TouristSpot.top_ranking.limit(10),
                         tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
                         users: User.all.order(point: 'DESC').limit(10)
-
-
-			<div class="tourist-spot__container ribbon-wrapper">
-				<span class="ribbon">
-					<td class="text-center">
-						<% case index when 1 %>
-						<i class="fas fa-crown" style="color: gold;"></i>
-						<% when 2 %>
-						<i class="fas fa-crown" style="color: silver;"></i>
-						<% when 3 %>
-						<i class="fas fa-crown" style="color: #B08A1C;"></i>
-						<% else %>
-						<%= index %>
-						<% end %>
-				</span>
-/.row
-  - if tourist_spots.present?
-    - tourist_spots.each do |tourist_spot|
-      .col-xs-3
-        = link_to user_tourist_spot_path(tourist_spot) do
-          .tourist-spot__container
-            = image_tag tourist_spot.images[0].to_s, class: "tourist-spot__container--image"
-            .tourist-spot__container--box
-              .col-xs-7.tourist-spot__container--image
-                = tourist_spot.name
-              .col-xs-5
-                .tourist-spot__score
-                  = tourist_spot.average_score
-                  | 点 
-  - else
-    .centered
-      p
-        | 観光スポットがありません

@@ -79,26 +79,27 @@ gem 'recaptcha', require: "recaptcha/rails"
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'gon'
 gem 'bootstrap-sass'
 gem 'jp_prefecture'
-gem 'gon'
-gem 'bxslider-rails'
+gem 'gmaps4rails'
+gem 'geocoder'
 gem 'lazy_high_charts'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 gem 'carrierwave'
 gem 'mini_magick'
-gem "refile", require: "refile/rails", github: 'manfe/refile'
+gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem "refile-mini_magick"
-
-gem "gmaps4rails"
-gem "geocoder"
 
 gem 'acts-as-taggable-on'
 
 gem 'ranked-model'
 
-gem 'kaminari'
+gem 'impressionist', '~>1.6.1'
 
+gem 'kaminari'
 
 gem 'rails-i18n'
 
@@ -107,6 +108,9 @@ gem 'whenever', require: false
 gem 'pry-byebug'
 
 gem 'dotenv-rails'
+
+gem 'activesupport'
+
 group :production do
   gem 'mysql2'
 end

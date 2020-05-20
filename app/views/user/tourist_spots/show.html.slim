@@ -1,5 +1,7 @@
 = provide(:title, '観光スポット 詳細')
 
+= @tourist_spot.impressions_count
+
 .row
   = render 'detail', tourist_spot: @tourist_spot
 
@@ -56,4 +58,4 @@
     - if @tourist_spot.user === current_user
       .pull-right
         = link_to '編集', edit_user_tourist_spot_path(@tourist_spot), class: 'btn btn-primary'
-        = link_to '削除', user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
+        = link_to '削除', user_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'

@@ -3,28 +3,31 @@
     table.table.table-bordered.table-hover
       thead
         tr.active
-          th
+          th.text-center
             | ID
-          th
-            | 地名・施設名
-          th
+          th.text-center
+            | 写真
+          th.text-center
+            | 地名・施設
+          th.text-center
             | 電話番号
-          th
+          th.text-center
             | 投稿日
       tbody
 
         - @tourist_spots.each do |tourist_spot|
           tr
-            td
+            td.text-center
               = tourist_spot.id
-            td
+            td.text-center
               = link_to admin_tourist_spot_path(tourist_spot) do
                 = image_tag tourist_spot.images[0].to_s, size: '50x50', class: 'img-thumbnail img-responsive img-hover'
-                span.margin-left--10px
-                  = tourist_spot.name
-            td
+            td.text-center
+              = link_to admin_tourist_spot_path(tourist_spot) do
+                = tourist_spot.name
+            td.text-center
               = tourist_spot.phone_number
-            td
+            td.text-center
               = tourist_spot.created_at.to_s(:datetime_jp)
 
 .row

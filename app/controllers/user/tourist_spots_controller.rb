@@ -1,4 +1,5 @@
 class User::TouristSpotsController < ApplicationController
+  # impressionist actions: [:show], unique: [:session_hash]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
@@ -17,6 +18,7 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def show
+    # impressionist(@tourist_spot)
   end
 
   def edit

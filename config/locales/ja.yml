@@ -22,6 +22,9 @@ ja:
         email: メールアドレス
         title: タイトル
         body: お問い合わせ内容
+      event:
+        title: スケジュール名
+        body: スケジュール内容
       genre:
         name: ジャンル名
       message:

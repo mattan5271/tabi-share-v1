@@ -1,0 +1,42 @@
+= provide(:title, 'スケジュール 詳細')
+
+.row
+  .page-header
+    h3
+      | スケジュール管理
+
+.row
+  #calendar
+  br
+
+.row
+  .table-responsive
+    table.table.table-bordered
+      tbody
+        tr
+          th.active
+            | スケジュール名
+          td
+            = @event.title
+        tr
+          th.active
+            | スケジュール内容
+          td
+            = @event.body
+        tr
+          th.active
+            | 開始日時
+          td
+            = @event.start_date.to_s(:datetime_jp)
+        tr
+          th.active
+            | 終了日時
+          td
+            = @event.end_date.to_s(:datetime_jp)
+
+.row
+  - if @event.user === current_user
+    .pull-right
+      = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success'
+      = link_to '編集', edit_user_event_path(@event), class: 'btn btn-primary margin-left--10px'
+      = link_to '削除', user_event_path(@event), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'

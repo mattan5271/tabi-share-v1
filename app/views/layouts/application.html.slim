@@ -74,6 +74,7 @@ html
                       = link_to user_user_path(current_user) do
                         i.fas.fa-user
                         |  マイページ
+
                     li
                       - if unchecked_notifications(current_user).present?
                         i.fa.fa-circle.header__notifications-icon--2 style='color: gold;'
@@ -96,11 +97,15 @@ html
                       = link_to user_user_went_tourist_spots_path(current_user) do
                         i.fas.fa-check-circle
                         |  行った観光スポット
-                    li role='presentation'
+                    li
+                      = link_to user_my_calendar_path do
+                        i.fas.fa-calendar-alt
+                        |  マイカレンダー
+                    li
                       = link_to edit_user_user_path(current_user) do
                         i.fas.fa-user-cog
                         |  プロフィール編集
-                    li role='presentation'
+                    li
                       = link_to destroy_user_session_path, method: :delete do
                         i.fas.fa-sign-out-alt
                         |  ログアウト

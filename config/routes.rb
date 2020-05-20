@@ -14,22 +14,17 @@ Rails.application.routes.draw do
 
 	namespace :admin do
 		get 'top' => 'homes#top'
-		resources :users, only: [:index, :show, :edit, :update]
 		resources :tourist_spots, only: [:index, :show, :edit, :update, :destroy] do
 			resources :reviews, only: [:index, :show, :edit, :update, :destroy]
 		end
+		resources :users, only: [:index, :show, :edit, :update]
 		resources :genres, only: [:new, :create, :index, :edit, :update, :destroy]
 		resources :scenes, only: [:new, :create, :index, :edit, :update, :destroy]
 		resources :comments, only: [:edit, :update, :destroy]
   end
 
 	namespace :user do
-		resources :users, only: [:show, :edit, :update, :destroy] do
-			get 'favorite_tourist_spots' => 'favorites#index'
-			get 'went_tourist_spots' => 'wents#index'
-		end
-
-		resources :tourist_spots, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+		resources :tourist_spots, only: [:new, :create, :show, :edit, :update, :destroy] do
 			resource :favorites, only: [:create, :destroy]
 			resource :wents, only: [:create, :destroy]
 			resources :reviews do
@@ -41,24 +36,30 @@ Rails.application.routes.draw do
 			put :sort
 		end
 
+		resources :users, only: [:show, :edit, :update, :destroy] do
+			get 'favorite_tourist_spots' => 'favorites#index'
+			get 'went_tourist_spots' => 'wents#index'
+		end
+
     resources :messages, only: [:create]
     resources :rooms, only: [:create, :show, :index]
 		resources :contacts, only: [:new, :create]
 		resources :notifications, only: [:index, :destroy]
 		resources :coupons, only: [:create, :index]
+		resources :events
 
-		get 'user/ranking' => 'users#ranking'
 		get 'user_keyword/search' => 'users#keyword_search'
     post 'follow/:id' => 'relationships#follow', as: 'follow'
     post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
     get 'users/following/:user_id' => 'users#following', as:'following'
 		get 'users/follower/:user_id' => 'users#follower', as:'follower'
 
-		get 'tourist_spot/ranking' => 'tourist_spots#ranking'
 		get 'tourist_spot/keyword/search' => 'tourist_spots#keyword_search'
 		get 'tourist_spot/genre/search' => 'tourist_spots#genre_search'
 		get 'tourist_spot/scene/search' => 'tourist_spots#scene_search'
 		get 'tourist_spot/prefecture/search' => 'tourist_spots#prefecture_search'
 		get 'tourist_spot/tag/search' => 'tourist_spots#tag_search'
+
+		get 'my_calendar' => 'events#my_calendar'
 	end
 end

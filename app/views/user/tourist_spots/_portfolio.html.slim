@@ -1,0 +1,34 @@
+.row
+  .table-responsive
+    table.table.table-bordered.table-hover.table-sortable
+      thead
+        tr.active
+          th.text-center
+            | 写真
+          th.text-center
+            | 観光スポット
+          th.text-center
+            | ジャンル
+          th.text-center
+            | 利用シーン
+          th.text-center
+            | 行きたい！
+          th.text-center
+            | 行った！
+
+      tbody
+        - tourist_spots.each do |tourist_spot|
+          tr.item(data = { model_name: TouristSpot.class.name.underscore, update_url: user_tourist_spot_sort_path(tourist_spot) })
+            td.text-center
+              = image_tag tourist_spot.images[0].to_s, size: '50x50', class: 'img-thumbnail img-responsive img-hover'
+            td.text-center
+              = link_to user_tourist_spot_path(tourist_spot) do
+                = tourist_spot.name
+            td.text-center
+              = tourist_spot.genre.name
+            td.text-center
+              = tourist_spot.scene.name
+            td.text-center
+              = tourist_spot.favorites.count
+            td.text-center
+              = tourist_spot.wents.count

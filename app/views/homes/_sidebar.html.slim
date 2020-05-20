@@ -1,8 +1,21 @@
 .row
-  .row
-    .page-header
-      h4
-        | 観光地ランキング
+  - if user_signed_in?
+    .row
+      .page-header
+        h4
+          | マイカレンダー
+
+    .row
+      #calendar
+      br
+      .pull-right
+        = link_to 'マイカレンダー', user_my_calendar_path, class: 'btn btn-warning'
+        = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success margin-left--10px'
+
+    .row
+      .page-header
+        h4
+          | 観光地ランキング
 
   .row
     .table-responsive
@@ -69,6 +82,53 @@
                 = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag)
               td.text-center
                 = tag.taggings_count
+
+  .row
+    .page-header
+      h4
+        | レビューランキング
+
+  .row
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | レビュー
+            th.text-center
+              | 観光地
+            th.text-center
+              | 投稿者
+
+        tbody
+          - reviews.each.with_index(1) do |review, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown[style='color: gold;']
+                - when 2
+                  i.fas.fa-crown[style='color: silver;']
+                - when 3
+                  i.fas.fa-crown[style='color: #B08A1C;']
+                - else
+                  = index
+              td
+                = link_to user_tourist_spot_review_path(review.tourist_spot, review) do
+                  = image_tag review.images[0].to_s, size: '50x50', class: 'img-thumbnail img-rounded img-responsive img-hover'
+                  br
+                  span
+                    = review.title
+                    br
+                .text-muted
+                  = truncate review.body, length: 20
+              td.text-center
+                = link_to user_tourist_spot_path(review.tourist_spot) do
+                  = review.tourist_spot.name
+              td.text-center
+                = link_to user_user_path(review.user) do
+                  = review.user.name
 
 .row
   .row

@@ -3,7 +3,7 @@ class User::FavoritesController < ApplicationController
 
   def index
     user = User.find(params[:user_id])
-    @tourist_spots = user.favorite_tourist_spots.page(params[:page]).per(40)
+    @tourist_spots = user.favorite_tourist_spots.page(params[:page]).per(20)
   end
 
   def create

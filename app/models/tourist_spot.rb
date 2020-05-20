@@ -13,6 +13,8 @@ class TouristSpot < ApplicationRecord
 
   acts_as_taggable # タグ付け
 
+  is_impressionable
+
   # 並び順を「ranked-model」gemで管理
   include RankedModel
   ranks :row_order

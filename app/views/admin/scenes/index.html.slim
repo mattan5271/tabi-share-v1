@@ -21,11 +21,11 @@
     table.table.table-bordered.table-hover
       thead
         tr.active
-          th
+          th.text-center
             | ID
-          th
+          th.text-center
             | 写真
-          th
+          th.text-center
             | 利用シーン名
           th
           th
@@ -33,16 +33,18 @@
       tbody
         - @scenes.each do |scene|
           tr
-            td
-              = link_to scene.id, admin_scene_path(scene)
-            td
-              = attachment_image_tag scene, :image, size: '100x100', fallback: 'no_image.png', class: 'img-thumbnail img-responsive'
-            td
-              = scene.name
-            td
-              = link_to '編集', edit_admin_scene_path(scene), class: 'btn btn-primary btn-block'
-            td
-              = link_to '削除', admin_scene_path(scene), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-block'
+            td.text-center
+              = scene.id
+            td.text-center
+              = link_to admin_scene_path(scene) do
+                = attachment_image_tag scene, :image, size: '50x50', fallback: 'no_image.png', class: 'img-thumbnail img-responsive'
+            td.text-center
+              = link_to admin_scene_path(scene) do
+                = scene.name
+            td.text-center
+              = link_to '編集', edit_admin_scene_path(scene), class: 'btn btn-primary'
+            td.text-center
+              = link_to '削除', admin_scene_path(scene), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
 
 .row
   = paginate @scenes

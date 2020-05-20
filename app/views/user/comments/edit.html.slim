@@ -5,6 +5,7 @@
 
   .col-xs-6
     = form_with model: @comment, url: user_tourist_spot_review_comment_path(@comment.review.tourist_spot, @comment.review, @comment), local: true, builder: CustomFormBuilder do |f|
+
       = f.label :title, 'タイトル'
       br
       = f.text_field :title, class: 'form-control'

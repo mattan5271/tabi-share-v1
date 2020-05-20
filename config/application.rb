@@ -12,6 +12,7 @@ module TaBiShare
     config.load_defaults 5.2
     config.i18n.default_locale = :ja # 日本語に変換
     config.time_zone = 'Tokyo' # 日本時間に変換
+    config.generators.template_engine = :slim # テンプレートエンジンをslimに変更
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

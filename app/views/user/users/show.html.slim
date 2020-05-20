@@ -6,41 +6,53 @@
   .col-xs-8
     .table-responsive
       table.table
-        tbody
+        tbody.text-center
           tr
             td
               h3
                 - case @user.rank when 'レギュラー'
-                  span.label.label-default
+                  .label.label-default
                     = @user.rank
+                    .badge
+                      = @user.point
                 - when 'シルバー'
-                  span.label.label-primary
+                  .label.label-primary
                     = @user.rank
+                    .badge
+                      = @user.point
                 - when 'ゴールド'
-                  span.label.label-warning
+                  .label.label-warning
                     = @user.rank
+                    .badge
+                      = @user.point
                 - when 'プラチナ'
-                  span.label.label-info
+                  .label.label-info
                     = @user.rank
+                    .badge
+                      = @user.point
                 - when 'ダイヤモンド'
-                  span.label.label-danger
+                  .label.label-danger
                     = @user.rank
+                    .badge
+                      = @user.point
+
               - if @user == current_user
                 p
                   | ( 次のランクまであと
                   = @user.next_rank(@user)
                   | ポイント )
-              br
 
               div
-                = attachment_image_tag @user, :profile_image, size: '100x100', fallback: 'no_image.png', class: 'img-thumbnail img-responsive'
-                span.user__name
-                  = @user.name
-                | (
-                = @user.age
-                | 歳
-                = @user.sex
-                | )
+                = attachment_image_tag @user, :profile_image, size: '400x400', fallback: 'no_image.png', class: 'img-thumbnail img-responsive'
+                br
+                h4
+                  strong
+                    = @user.name
+                  |  (
+                  = @user.age
+                  | 歳
+                  = @user.sex
+                  | )
               br
 
               - if @user == current_user
@@ -83,12 +95,7 @@
   br
 
 .row
-  .col-xs-4
-
-  .col-xs-4
-    = render 'user/reviews/reviews', reviews: @reviews
-
-  .col-xs-4
+  = render 'user/reviews/reviews', reviews: @reviews
 
 .row
   = paginate @reviews

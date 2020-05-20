@@ -3,28 +3,31 @@
     table.table.table-bordered.table-hover
       thead
         tr.active
-          th
+          th.text-center
             | ID
-          th
+          th.text-center
+            | 写真
+          th.text-center
             | 氏名
-          th
+          th.text-center
             | メールアドレス
-          th
+          th.text-center
             | 会員ステータス
 
       tbody
         - @users.each do |user|
           tr
-            td
+            td.text-center
               = user.id
-            td
+            td.text-center
               = link_to admin_user_path(user) do
                 = attachment_image_tag user, :profile_image, size: '50x50', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
-                span.margin-left--10px
-                  = user.name
-            td
+            td.text-center
+              = link_to admin_user_path(user) do
+                = user.name
+            td.text-center
               = user.email
-            td
+            td.text-center
               = user.is_valid
 
   = link_to 'CSV出力', admin_users_path(format: :csv), class: 'btn btn-success'

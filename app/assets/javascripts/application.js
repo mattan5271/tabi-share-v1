@@ -21,6 +21,8 @@
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require tag-it
+//= require moment
+//= require fullcalendar
 //= require_tree .
 
 // トップへ戻る
@@ -50,25 +52,46 @@ $(function () {
   });
 });
 
-// ドラッグ&ドロップ
+// カレンダー
 $(function () {
-  $('.item').sortable({
-    update: function (e, ui) {
-      var item = ui.item;
-      var item_data = item.data();
-      var params = {
-        _method: 'put'
-      };
-      params[item_data.modelName] = {
-        row_order_position: item.index()
-      }
+  function eventCalendar() {
+    return $('#calendar').fullCalendar({});
+  };
 
-      $.ajax({
-        type: 'POST',
-        url: item_data.updateUrl,
-        dataType: 'json',
-        data: params
-      });
-    }
+  function clearCalendar() {
+    $('#calendar').html('');
+  };
+
+  $('#calendar').fullCalendar({
+    events: '/user/events.json',
+
+    //カレンダー上部を年月で表示させる
+    titleFormat: 'YYYY年 M月',
+    //曜日を日本語表示
+    dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+    //ボタンのレイアウト
+    header: {
+      left: '',
+      center: 'title',
+      right: 'today prev,next'
+    },
+    //終了時刻がないイベントの表示間隔
+    defaultTimedEventDuration: '03:00:00',
+    buttonText: {
+      prev: '前',
+      next: '次',
+      prevYear: '前年',
+      nextYear: '翌年',
+      today: '今日',
+      month: '月',
+      week: '週',
+      day: '日'
+    },
+    //イベントの時間表示を２４時間に
+    timeFormat: "HH:mm",
+    //イベントの色を変える
+    eventColor: '#63ceef',
+    //イベントの文字色を変える
+    eventTextColor: '#000000',
   });
 });

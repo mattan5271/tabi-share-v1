@@ -10,11 +10,11 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require bxslider
  *= require_tree .
  *= require jquery.tagit
  *= require tagit.ui-zendesk
  *= require_self
+ *= require fullcalendar
  */
 
 @import "bootstrap-sprockets";
@@ -188,6 +188,12 @@ footer {
   }
 }
 
+// スケジュールの日時入力フォームを横並び
+.datetime-form {
+  display: inline-block;
+  width: auto;
+}
+
 // ランキングリボン
 .ribbon-wrapper {
   display: block;
@@ -342,4 +348,45 @@ h1 {
   -ms-transform: rotateX(0);
   -o-transform: rotateX(0);
   transform: rotateX(0);
+}
+
+.item-num-0 {
+  width: 100%;
+}
+
+.item-num-1 {
+  width: 491px;
+}
+
+.item-num-2 {
+  width: 363px;
+}
+
+.item-num-3 {
+  width: 234px;
+}
+
+.item-num-4 {
+  width: 106px;
+}
+
+//下段のfile_field
+.item-num-5 {
+  width: 100%;
+}
+
+.item-num-6 {
+  width: 491px;
+}
+
+.item-num-7 {
+  width: 363px;
+}
+
+.item-num-8 {
+  width: 234px;
+}
+
+.item-num-9 {
+  width: 106px;
 }
