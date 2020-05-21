@@ -85,7 +85,7 @@
       span.label.label-danger
         | 必須
       br
-      = f.password_field :password, placeholder: "#{@minimum_password_length}~20文字", autocomplete: 'new-password', class: 'form-control'
+      = f.password_field :password, placeholder: '8~20文字', autocomplete: 'new-password', class: 'form-control'
       br
 
       = f.label :password_confirmation, 'パスワード(再確認)'
