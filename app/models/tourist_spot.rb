@@ -155,7 +155,7 @@ class TouristSpot < ApplicationRecord
         tourist_spots.order(id: 'DESC')
       when "6"
         # ランダム表示
-        tourist_spots.order('RANDOM()').limit(1)
+        tourist_spots.order('RAND()').limit(1)
       else
         tourist_spots
       end
