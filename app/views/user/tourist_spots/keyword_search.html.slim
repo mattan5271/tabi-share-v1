@@ -12,7 +12,7 @@
     = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
       .col-xs-9
         = hidden_field_tag :keyword_search, @keyword_search
-        = select_tag 'sort', options_for_select([['おすすめ順', '1'], ['新着順', '2'], ['レビュー数', '3'], ['点数順', '4'], ['ランダム表示', '5']]), include_blank: '-----', class: 'form-control'
+        = select_tag 'sort', options_for_select([['おすすめ順', '1'], ['PV数', '2'], ['点数順', '3'], ['レビュー数', '4'], ['新着順', '5'], ['ランダム表示', '6']]), include_blank: '-----', class: 'form-control'
       .col-xs-3
         = submit_tag '並び替え', class: 'btn btn-success'
 br

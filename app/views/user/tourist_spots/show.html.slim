@@ -1,6 +1,6 @@
 = provide(:title, '観光スポット 詳細')
 
-= @tourist_spot.impressionist_count(:filter=>:session_hash)
+= @tourist_spot.impressionist_count(filter: :session_hash)
 
 .row
   = render 'detail', tourist_spot: @tourist_spot

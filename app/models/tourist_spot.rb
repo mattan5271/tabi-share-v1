@@ -27,7 +27,7 @@ class TouristSpot < ApplicationRecord
 
   acts_as_taggable # タグ付け
 
-  is_impressionable # PV数取得
+  is_impressionable counter_cache: true # PV数取得
 
   #住所自動入力
   include JpPrefecture
@@ -84,6 +84,21 @@ class TouristSpot < ApplicationRecord
     return @sum
   end
 
+  # 「行きたい！」ランキング
+  def self.fav_ranking
+    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').limit(10).pluck(:tourist_spot_id))
+  end
+
+  # PVランキング
+  def self.pv_ranking
+    self.order(impressions_count: 'DESC').limit(10)
+  end
+
+  # タグランキング
+  def self.tag_ranking
+    self.all.tag_counts.order(taggings_count: 'DESC').limit(10)
+  end
+
   #キーワード検索
   def self.keyword_search(search)
     TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
@@ -104,28 +119,26 @@ class TouristSpot < ApplicationRecord
     TouristSpot.where(prefecture_code: search.to_i)
   end
 
-  # ランキング(行きたい！数)
-  def self.ranking
-    self.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) desc').limit(10).pluck(:tourist_spot_id))
-  end
-
   # 並び替え
   def self.sort(sort, tourist_spots)
     if tourist_spots.present?
       case sort
       when "1"
         # おすすめ順
-        tourist_spots.find(Went.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
+        tourist_spots.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
       when "2"
-        # 新着順
-        tourist_spots.order(id: 'DESC')
+        # PV数順
+        tourist_spots.order(impressions_count: 'DESC')
       when "3"
-        # レビュー数順
-        tourist_spots.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
-      when "4"
         # 点数順
         tourist_spots.find(Review.group(:tourist_spot_id).order('avg(score) DESC').pluck(:tourist_spot_id))
+      when "4"
+        # レビュー数順
+        tourist_spots.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
       when "5"
+        # 新着順
+        tourist_spots.order(id: 'DESC')
+      when "6"
         # ランダム表示
         tourist_spots.order('RANDOM()').limit(1)
       else

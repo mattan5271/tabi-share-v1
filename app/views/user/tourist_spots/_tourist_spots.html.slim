@@ -58,8 +58,8 @@
           - break
 
 
-    = render '/homes/sidebar',  tourist_spots: TouristSpot.ranking,
-                                tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
+    = render '/homes/sidebar',  tourist_spots_fav: TouristSpot.fav_ranking,
+                                tourist_spots_pv: TouristSpot.pv_ranking,
+                                tags: TouristSpot.tag_ranking,
                                 reviews: Review.ranking,
-                                users: User.all.order(point: 'DESC').limit(10),
-                                my_rank: @my_rank
+                                users: User.ranking

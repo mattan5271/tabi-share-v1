@@ -40,11 +40,11 @@
   .col-xs-1
 
   .col-xs-4
-    = render 'sidebar', tourist_spots: @tourist_spots,
+    = render 'sidebar', tourist_spots_fav: @tourist_spots_fav,
+                        tourist_spots_pv: @tourist_spots_pv,
                         tags: @tags,
                         reviews: @reviews,
-                        users: @users,
-                        my_rank: @my_rank
+                        users: @users
 
 .row
   .page-header

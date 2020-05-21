@@ -3,15 +3,14 @@
 .row
   .page-header
     h3
-      | 利用シーン別
+      | タグ別
 
 .row
   - @tags.each do |tag|
-    .badge
-      = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag), class: 'margin-left--10px'
+    = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag.name), class: 'label label-default margin-left--10px'
+br
 
   = render 'tourist_spots', tourist_spots: @tourist_spots
 
 .row
-  - if @tourist_spots
-    = paginate @tourist_spots
+  = paginate @tourist_spots

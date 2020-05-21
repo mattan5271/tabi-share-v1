@@ -16,7 +16,7 @@
   .row
     .page-header
       h4
-        | 観光地ランキング
+        | 観光スポット 「行きたい！」ランキング
 
   .row
     .table-responsive
@@ -31,7 +31,7 @@
               | 行きたい！
 
         tbody
-          - tourist_spots.each.with_index(1) do |tourist_spot, index|
+          - tourist_spots_fav.each.with_index(1) do |tourist_spot, index|
             tr
               td.text-center
                 - case index when 1
@@ -49,6 +49,44 @@
                     = tourist_spot.name
               td.text-center
                 = tourist_spot.favorites.count
+
+.row
+  .row
+    .page-header
+      h4
+        | 観光スポット PVランキング
+
+  .row
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | 観光地スポット
+            th.text-center
+              | PV
+
+        tbody
+          - tourist_spots_pv.each.with_index(1) do |tourist_spot, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown[style='color: gold;']
+                - when 2
+                  i.fas.fa-crown[style='color: silver;']
+                - when 3
+                  i.fas.fa-crown[style='color: #B08A1C;']
+                - else
+                  = index
+              td
+                = link_to user_tourist_spot_path(tourist_spot) do
+                  = image_tag tourist_spot.images[0].to_s, size: '50x50', class: 'img-thumbnail img-rounded img-responsive img-hover'
+                  span.margin-left--10px
+                    = tourist_spot.name
+              td.text-center
+                = tourist_spot.impressions_count
 
 .row
   .row
@@ -80,7 +118,7 @@
                 - else
                   = index
               td
-                = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag)
+                = link_to tag, user_tourist_spot_tag_search_path(tag_name: tag.name)
               td.text-center
                 = tag.taggings_count
 
@@ -152,7 +190,7 @@
       = users.count
       | 人中
       strong
-        = my_rank
+        = current_user.my_rank(current_user)
         | 位
       | です
 

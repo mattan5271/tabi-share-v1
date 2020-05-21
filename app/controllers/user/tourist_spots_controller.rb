@@ -89,6 +89,7 @@ class User::TouristSpotsController < ApplicationController
   def tag_search
     @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).page(params[:page]).per(20)
     @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
+    # binding.pry
   end
 
   # 行きたい！一覧

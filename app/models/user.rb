@@ -110,6 +110,24 @@ class User < ApplicationRecord
     end
   end
 
+  # ランキング
+  def self.ranking
+    self.all.order(point: 'DESC').limit(10)
+  end
+
+  # ログインユーザーの順位を計算
+  def my_rank(current_user)
+    users = User.ranking
+    @my_rank = 0
+    users.each do |user|
+      @my_rank += 1
+      if user.id == current_user.id
+        break
+      end
+    end
+    return @my_rank
+  end
+
   # Facebookログイン用
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
