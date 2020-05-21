@@ -64,6 +64,7 @@ class User::TouristSpotsController < ApplicationController
     @genre_search = params[:genre_search]
     # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    #binding.pry
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 

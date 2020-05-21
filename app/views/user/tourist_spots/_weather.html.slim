@@ -44,7 +44,7 @@ javascript:
     var icon = data.list[i].weather[0].icon;
     var html =
       '<div class="weather-report">' +
-        '<img src="https://openweathermap.org/img/w/" + icon + ".png">' +
+        '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
         '<span class="weather-date">' + day + "</span>" +
         '<div class="weather-temp-max">' + '最高：' + Math.round(data.list[i].main.temp_max) + "℃</div>" +
         '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +

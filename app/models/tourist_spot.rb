@@ -100,13 +100,13 @@ class TouristSpot < ApplicationRecord
   end
 
   #キーワード検索
-  def self.keyword_search(search)
-    TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+  def self.keyword_search(keyword_search)
+    TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?', "%#{keyword_search}%", "%#{keyword_search}%", "%#{keyword_search}%", "%#{keyword_search}%"])
   end
 
   # ジャンル検索
-  def self.genre_search(search)
-    TouristSpot.where(genre_id: search.to_i)
+  def self.genre_search(genre_search)
+    TouristSpot.where(genre_id: genre_search.to_i)
   end
 
   # 利用シーン検索
@@ -115,8 +115,8 @@ class TouristSpot < ApplicationRecord
   end
 
   # 都道府県検索
-  def self.prefecture_search(search)
-    TouristSpot.where(prefecture_code: search.to_i)
+  def self.prefecture_search(prefecture_search)
+    TouristSpot.where(prefecture_code: prefecture_search.to_i)
   end
 
   # 並び替え
@@ -125,16 +125,31 @@ class TouristSpot < ApplicationRecord
       case sort
       when "1"
         # おすすめ順
-        tourist_spots.find(Favorite.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
+        TouristSpot.find(
+          Favorite.where(tourist_spot_id: tourist_spots.pluck(:id))
+            .group(:tourist_spot_id)
+            .order('count(tourist_spot_id) DESC')
+            .pluck(:tourist_spot_id)
+        )
       when "2"
         # PV数順
         tourist_spots.order(impressions_count: 'DESC')
       when "3"
         # 点数順
-        tourist_spots.find(Review.group(:tourist_spot_id).order('avg(score) DESC').pluck(:tourist_spot_id))
+        TouristSpot.find(
+          Review.where(tourist_spot_id: tourist_spots.pluck(:id))
+            .group(:tourist_spot_id)
+            .order('avg(score) DESC')
+            .pluck(:tourist_spot_id)
+        )
       when "4"
         # レビュー数順
-        tourist_spots.find(Review.group(:tourist_spot_id).order('count(tourist_spot_id) DESC').pluck(:tourist_spot_id))
+        TouristSpot.find(
+          Review.where(tourist_spot_id: tourist_spots.pluck(:id))
+            .group(:tourist_spot_id)
+            .order('count(tourist_spot_id) DESC')
+            .pluck(:tourist_spot_id)
+        )
       when "5"
         # 新着順
         tourist_spots.order(id: 'DESC')
