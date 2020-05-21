@@ -85,9 +85,9 @@
     li role='presentation'
       = link_to 'ユーザートップ', user_user_path(@user)
     li role='presentation'
-      = link_to '行った観光地', user_user_went_tourist_spots_path(@user)
+      = link_to '行った観光地', user_wents_path(@user)
     li role='presentation'
-      = link_to '行きたい観光地', user_user_favorite_tourist_spots_path(@user)
+      = link_to '行きたい観光地', user_favorites_path(@user)
     li role='presentation'
       = link_to "#{@user.follower.count}フォロー中", user_following_path(@user)
     li role='presentation' id='follower-link_#{@user.id}'
