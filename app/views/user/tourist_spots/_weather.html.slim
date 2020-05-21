@@ -11,7 +11,7 @@ javascript:
 
   $(function () {
     var API_KEY = "#{ENV['OPEN_WEATHER_MAP_API']}";
-    var city = "<%= tourist_spot.prefecture_name %>";
+    var city = "#{tourist_spot.prefecture_name}";
     var url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY;
 
     $.ajax({
