@@ -93,4 +93,16 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.serve_static_assets = true # Carrierwaveが表示されない問題
+
+  # mail setting
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :user_name => ENV['GMAIL_ADDRESS'],
+    :password => ENV['GMAIL_PASSWORD'],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
