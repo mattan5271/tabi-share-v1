@@ -58,9 +58,9 @@ class Review < ApplicationRecord
   #ユーザーのポイントによってランク付け
   def user_rank_update(user)
     case user.point
-    when 0
+    when 0..9
       user.rank = 'レギュラー'
-    when 1
+    when 10..29
       user.rank = 'シルバー'
       Coupon.coupon_create(user)
     when 30..49

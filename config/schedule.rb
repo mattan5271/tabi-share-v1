@@ -29,6 +29,6 @@ every 1.minute do
   runner "Coupon.coupon_destroy"
 end
 
-every 1.month do
+every 1.minute do
   runner "User::RemindMailer.send_when_unchecked_notification"
 end
