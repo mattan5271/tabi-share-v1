@@ -24,7 +24,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
   validates :age, presence: true
-  validates :postcode, allow_blank: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
+  validates :postcode, allow_blank: true, format: { with: /\A[0-9]{ 3 }-[0-9]{ 4 }\z/ }
   validates :address_city, length: { maximum: 50 }
   validates :address_street, allow_blank: true, length: { maximum: 50 }
   validates :address_building, allow_blank: true, length: { maximum: 50 }
@@ -87,7 +87,7 @@ class User < ApplicationRecord
   def self.keyword_search(search)
     if search.present?
       p '成功'
-      User.where(['name LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
+      User.where(['name LIKE ? OR introduction LIKE ?', "%#{ search }%", "%#{ search }%"])
     end
   end
 

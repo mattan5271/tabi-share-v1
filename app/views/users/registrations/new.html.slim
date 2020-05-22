@@ -29,7 +29,7 @@
       span.label.label-danger
         | 必須
       br
-      = f.select :sex, User.sexes.keys, {prompt: '選択してください'}, class: 'form-control'
+      = f.select :sex, User.sexes.keys, { prompt: '選択してください' }, class: 'form-control'
       br
 
       = f.label :introduction, '自己紹介文'
@@ -50,7 +50,7 @@
       span.label.label-default
         | 任意
       br
-      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-control'
       br
 
       = f.label :address_city, '市区町村'

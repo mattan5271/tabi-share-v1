@@ -36,7 +36,6 @@ class Admin::TouristSpotsController < ApplicationController
         :genre_id,
         :scene_id,
         :name,
-        :images,
         :postcode,
         :prefecture_code,
         :address_city,
@@ -46,7 +45,8 @@ class Admin::TouristSpotsController < ApplicationController
         :access,
         :phone_number,
         :business_hour,
-        :is_parking
+        :is_parking,
+        {images: []}
       )
     end
 end

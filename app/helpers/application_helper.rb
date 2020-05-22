@@ -4,7 +4,7 @@ module ApplicationHelper
     if page_title.empty?
       base_title
     else
-      "#{page_title} | #{base_title}"
+      "#{ page_title } | #{ base_title }"
     end
   end
 
@@ -19,7 +19,7 @@ module ApplicationHelper
     messages = resource.errors.full_messages.each do |msg|
       html += <<-EOF
         <div class="error_field alert alert-danger" role="alert">
-          <p class="error_msg">#{msg}</p>
+          <p class="error_msg">#{ msg }</p>
         </div>
       EOF
     end

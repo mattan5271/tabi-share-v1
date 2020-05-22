@@ -35,14 +35,14 @@
       span.label.label-danger
         | 必須
       br
-      = f.collection_select :genre_id, Genre.all, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select :genre_id, Genre.all, :id, :name, { prompt: '選択してください' }, class: 'form-control'
       br
 
       = f.label :scene_id, '利用シーン'
       span.label.label-danger
         | 必須
       br
-      = f.collection_select :scene_id, Scene.all, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select :scene_id, Scene.all, :id, :name, { prompt: '選択してください' }, class: 'form-control'
       br
 
 
@@ -57,7 +57,7 @@
       span.label.label-danger
         | 必須
       br
-      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-control'
       br
 
       = f.label :address_city, '市区町村'

@@ -10,7 +10,7 @@
   .col-xs-9
     #map style='height: 550px; width: 100%; margin-top: 30px;'
 
-    - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API']}&callback=initMap".html_safe
+    - google_api = "https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_MAP_API'] }&callback=initMap".html_safe
     script{ async src=google_api }
 
     javascript:

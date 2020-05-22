@@ -65,7 +65,7 @@
 
             - if user_signed_in?
               - unless @user == current_user
-                span id='followbutton_#{@user.id}'
+                span id='followbutton_#{ @user.id }'
                   = render 'user/users/followbutton', user: @user
         tr
           td

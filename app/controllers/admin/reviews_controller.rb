@@ -35,6 +35,6 @@ class Admin::ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(:review).permit(:tourist_spot, :title, :body, :score, {images: []})
+      params.require(:review).permit(:tourist_spot, :title, :body, :score, { images: [] })
     end
 end

@@ -10,10 +10,10 @@
   .col-xs-7
     .pull-right
       - if user_signed_in?
-        span id='favoritebutton_#{tourist_spot.id}'
+        span id='favoritebutton_#{ tourist_spot.id }'
           = render 'user/tourist_spots/favoritebutton', tourist_spot: tourist_spot
 
-        span id='wentbutton_#{tourist_spot.id}' class='margin-left--10px'
+        span id='wentbutton_#{ tourist_spot.id }' class='margin-left--10px'
           = render 'user/tourist_spots/wentbutton', tourist_spot: tourist_spot
 
       = link_to "https://twitter.com/share?url=#{ request.url }&text=#{ tourist_spot.name }を、Twitterでみんなに広めよう！", class: 'btn btn-info margin-left--10px', data: { show_count: false }, title: 'Twitter', target: '_blank' do

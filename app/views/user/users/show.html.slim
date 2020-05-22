@@ -61,7 +61,7 @@
 
               - if user_signed_in?
                 - unless @user == current_user
-                  div id='followbutton_#{@user.id}'
+                  div id='followbutton_#{ @user.id }'
                     = render 'user/users/followbutton', user: @user
                   br
 
@@ -89,9 +89,9 @@
     li role='presentation'
       = link_to '行きたい観光地', user_favorites_path(@user)
     li role='presentation'
-      = link_to "#{@user.follower.count}フォロー中", user_following_path(@user)
-    li role='presentation' id='follower-link_#{@user.id}'
-      = link_to "#{@user.followed.count}フォロワー", user_follower_path(@user)
+      = link_to "#{ @user.follower.count }フォロー中", user_following_path(@user)
+    li role='presentation' id='follower-link_#{ @user.id }'
+      = link_to "#{ @user.followed.count }フォロワー", user_follower_path(@user)
   br
 
 .row

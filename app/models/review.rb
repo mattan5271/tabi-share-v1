@@ -42,10 +42,10 @@ class Review < ApplicationRecord
         reviews.order(score: 'DESC')
       when '5'
         # 男性のみ
-        reviews.includes(:user).where(users: {sex:'男性'})
+        reviews.includes(:user).where(users: { sex:'男性' })
       when '6'
         # 女性のみ
-        reviews.includes(:user).where(users: {sex:'女性'})
+        reviews.includes(:user).where(users: { sex:'女性' })
       else
         reviews
       end

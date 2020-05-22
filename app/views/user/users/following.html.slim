@@ -10,15 +10,15 @@
               = link_to user_user_path(user)
                 = attachment_image_tag user, :profile_image, fallback: 'no_image.jpg', class: 'img-responsive img-hover'
               = user.name
-            = link_to "#{user.follower.count}フォロー中", user_following_path(user)
+            = link_to "#{ user.follower.count }フォロー中", user_following_path(user)
             br
 
-            span id='follower-link_#{user.id}'
-              = link_to "#{user.followed.count}フォロワー", user_follower_path(user)
+            span id='follower-link_#{ user.id }'
+              = link_to "#{ user.followed.count }フォロワー", user_follower_path(user)
 
             - if user_signed_in?
               - unless user == current_user
-                span id='followbutton_#{user.id}'
+                span id='followbutton_#{ user.id }'
                   = render 'user/users/followbutton', user: user
 
   - else

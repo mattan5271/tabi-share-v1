@@ -64,12 +64,12 @@
                     = truncate(user.introduction, length: 20)
 
                   p
-                    span id='follower-link_#{user.id}'
-                      = link_to "#{user.followed.count}フォロワー", user_follower_path(user)
+                    span id='follower-link_#{ user.id }'
+                      = link_to "#{ user.followed.count }フォロワー", user_follower_path(user)
 
                     - if user_signed_in?
                       - unless user == current_user
-                        span id='followbutton_#{user.id}' class='margin-left--10px'
+                        span id='followbutton_#{ user.id }' class='margin-left--10px'
                           = render 'user/users/followbutton', user: user
 
         - else

@@ -31,7 +31,7 @@
                 = review.body
 
               - if user_signed_in?
-                span id='likebutton_#{review.id}'
+                span id='likebutton_#{ review.id }'
                   = render 'user/reviews/likebutton', review: review
 
                 = link_to user_tourist_spot_review_path(review.tourist_spot, review), class: 'margin-left--10px' do
