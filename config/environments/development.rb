@@ -70,7 +70,7 @@ Rails.application.configure do
     :port => 587,
     :user_name => ENV['GMAIL_ADDRESS'],
     :password => ENV['GMAIL_PASSWORD'],
-    :authentication => :plain,
+    :authentication => :login,
     :enable_starttls_auto => true
   }
 end
