@@ -89,7 +89,7 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
 gem 'carrierwave'
-gem 'fog'
+# gem 'fog'
 gem 'mini_magick'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem 'refile-mini_magick'
