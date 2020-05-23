@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
 ruby '2.5.7'
 
@@ -75,7 +75,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'recaptcha', require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -92,7 +92,7 @@ gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
-gem "refile-mini_magick"
+gem 'refile-mini_magick'
 gem 'refile-s3'
 
 gem 'acts-as-taggable-on'
