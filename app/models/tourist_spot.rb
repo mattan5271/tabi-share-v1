@@ -19,7 +19,7 @@ class TouristSpot < ApplicationRecord
   validates :introduction, presence: true, length: { maximum: 200 }
   validates :access, presence: true, length: { maximum: 200 }
   validates :business_hour, presence: true, length: { maximum: 100 }
-  validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{ 1,4 }-[0-9]{ 1,4 }-[0-9]{ 4 }\z/ }
+  #validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{ 1,4 }-[0-9]{ 1,4 }-[0-9]{ 4 }\z/ }
 
   enum is_parking: { '有': true, '無': false }
 
