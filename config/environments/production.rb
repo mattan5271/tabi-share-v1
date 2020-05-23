@@ -95,6 +95,8 @@ Rails.application.configure do
   config.serve_static_assets = true # Carrierwaveが表示されない問題
 
   # mail setting
+  host = 'tabi-share.work'
+  config.action_mailer.default_url_options = { host: host }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
