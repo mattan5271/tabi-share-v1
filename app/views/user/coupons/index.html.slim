@@ -9,7 +9,7 @@
 
           .caption
             p.text-center
-              - limit = coupon.created_at + coupon.limit.days
+              - limit = coupon.created_at + coupon.limit.limites
               |  有効期限 :
               = limit.to_s(:datetime_jp)
 
