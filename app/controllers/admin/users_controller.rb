@@ -1,11 +1,9 @@
-require 'csv' # CSVエクスポート
-
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 	before_action :set_user, only: [:show, :edit, :update]
 
 	def index
-    @users = User.all.order(created_at: 'DESC').page(params[:page]).per(20)
+    @users = User.all.page(params[:page]).per(20)
     respond_to do |format|
       format.html
       format.csv do |csv|
@@ -41,6 +39,13 @@ class Admin::UsersController < ApplicationController
 
     end
     send_data(csv_data, filename: 'ユーザー一覧情報')
+  end
+
+  # CSVインポート
+  def import
+    # fileはtmpに自動で一時保存される
+    User.import(params[:file])
+    redirect_to admin_users_path
   end
 
 	private

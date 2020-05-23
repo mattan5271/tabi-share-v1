@@ -101,6 +101,8 @@ gem 'ranked-model'
 
 gem 'impressionist', '~>1.6.1'
 
+gem 'roo'
+
 gem 'kaminari'
 
 gem 'rails-i18n'

@@ -11,7 +11,7 @@ class TouristSpot < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :genre_id, presence: true
   validates :scene_id, presence: true
-  validates :postcode, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+  validates :postcode, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :prefecture_code, presence: true
   validates :address_city, presence: true, length: { maximum: 50 }
   validates :address_street, presence: true, length: { maximum: 50 }
@@ -19,7 +19,7 @@ class TouristSpot < ApplicationRecord
   validates :introduction, presence: true, length: { maximum: 200 }
   validates :access, presence: true, length: { maximum: 200 }
   validates :business_hour, presence: true, length: { maximum: 100 }
-  #validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{ 1,4 }-[0-9]{ 1,4 }-[0-9]{ 4 }\z/ }
+  validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{1,4}-[0-9]{1,4}-[0-9]{4}\z/ }
 
   enum is_parking: { '有': true, '無': false }
 

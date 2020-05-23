@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 		resources :tourist_spots, only: [:index, :show, :edit, :update, :destroy] do
 			resources :reviews, only: [:index, :show, :edit, :update, :destroy]
 		end
-		resources :users, only: [:index, :show, :edit, :update]
+		resources :users, only: [:index, :show, :edit, :update] do
+			collection { post :import }
+		end
 		resources :genres, only: [:new, :create, :index, :edit, :update, :destroy]
 		resources :scenes, only: [:new, :create, :index, :edit, :update, :destroy]
 		resources :comments, only: [:edit, :update, :destroy]

@@ -24,7 +24,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :sex, presence: true
   validates :age, presence: true
-  validates :postcode, allow_blank: true, format: { with: /\A[0-9]{ 3 }-[0-9]{ 4 }\z/ }
+  validates :postcode, allow_blank: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :address_city, length: { maximum: 50 }
   validates :address_street, allow_blank: true, length: { maximum: 50 }
   validates :address_building, allow_blank: true, length: { maximum: 50 }
@@ -144,5 +144,19 @@ class User < ApplicationRecord
     end
 
     user
+  end
+
+  # CSVインポート
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      user = find_by(id: row["id"]) || new # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
+      user.attributes = row.to_hash.slice(*updatable_attributes) # CSVからデータを取得し、設定する
+      user.save!(validate: false)
+    end
+  end
+
+  # CSVインポートで許可するカラムを定義
+  def self.updatable_attributes
+    ['id', 'name', 'email']
   end
 end
