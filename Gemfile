@@ -89,9 +89,11 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
 gem 'carrierwave'
+gem 'fog'
 gem 'mini_magick'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem "refile-mini_magick"
+gem 'refile-s3'
 
 gem 'acts-as-taggable-on'
 
@@ -108,8 +110,6 @@ gem 'whenever', require: false
 gem 'pry-byebug'
 
 gem 'dotenv-rails'
-
-gem 'activesupport'
 
 group :production do
   gem 'mysql2'
