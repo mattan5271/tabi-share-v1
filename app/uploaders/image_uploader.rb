@@ -12,7 +12,6 @@ class ImageUploader < CarrierWave::Uploader::Base
     storage :file
   else
     storage :fog
-    config.fog_provider = 'fog/aws'
   end
 
   # Override the directory where uploaded files will be stored.
