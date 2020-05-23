@@ -1,13 +1,9 @@
-require 'carrierwave/storage/abstract'
-require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog'
-
 unless Rails.env.development? || Rails.env.test?
   CarrierWave.configure do |config|
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory  = 'tabi-share'
-    config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/tabi-share'
+    # config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/tabi-share'
     config.fog_public = false
     config.fog_credentials = {
       provider: 'AWS',
