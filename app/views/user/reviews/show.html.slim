@@ -6,15 +6,8 @@
       = @review.title
 
       - if user_signed_in?
-        span.margin-left--10px
-          - if @review.liked_by?(current_user)
-            = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :delete do
-              i.fa.fa-heart aria-hidden='true' style='color: red;'
-              = @review.likes.count
-          - else
-            = link_to user_tourist_spot_review_likes_path(@review.tourist_spot, @review), method: :post do
-              i.fa.fa-heart-o aria-hidden='true'
-              = @review.likes.count
+        span id='likebutton_#{ @review.id }'
+          = render 'user/reviews/likebutton', review: @review
 
       .score.margin-left--10px
         = @review.score
@@ -65,7 +58,7 @@
 
             - if user_signed_in?
               - unless @user == current_user
-                span id='followbutton_#{ @user.id }'
+                span id='followbutton_#{ @user.id }' class='margin-left--10px'
                   = render 'user/users/followbutton', user: @user
         tr
           td
