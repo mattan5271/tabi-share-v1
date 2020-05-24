@@ -32,8 +32,9 @@
               p.text-muted
                 = tourist_spot.prefecture_name
                 | /
-                = tourist_spot.genre.name
-                | /
+                - tourist_spot.genres.each do |genre|
+                  = genre.name
+                  | /
                 = tourist_spot.scene.name
               p
                 - tourist_spot.tag_list.each do |tag|

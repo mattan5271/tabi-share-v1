@@ -1,5 +1,7 @@
 class Genre < ApplicationRecord
-  has_many :tourist_spots, dependent: :destroy
+  has_ancestry
+  has_many :tourist_spot_genres
+  has_many :tourist_spots, through: :tourist_spot_genres
 
   attachment :image
 

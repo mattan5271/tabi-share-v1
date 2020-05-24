@@ -12,7 +12,7 @@
       br
       p
         = f.file_field :images, multiple: true, class: 'img_field', style: 'display:none;'
-      .btn.btn-warning onclick='$('.img_field').click()'
+      .btn.btn-warning onclick="$('.img_field').click()"
         | 写真アップロード
       br
       br
@@ -31,11 +31,15 @@
       = f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: 'tags'
       br
 
-      = f.label :genre_id, 'ジャンル'
-      span.label.label-danger
-        | 必須
-      br
-      = f.collection_select :genre_id, Genre.all, :id, :name, { prompt: '選択してください' }, class: 'form-control'
+      .listing-form-box
+        .listing-product-detail__category
+          = label_tag :ジャンル
+          span.label.label-danger
+            | 必須
+          .listing-select-wrapper
+            .listing-select-wrapper__box
+              = select_tag 'parent_name', options_for_select(@category_parent_array), class: 'form-control listing-select-wrapper__box--select', id: 'parent_category'
+              i.fas.fa-chevron-down.listing-select-wrapper__box--arrow-down
       br
 
       = f.label :scene_id, '利用シーン'

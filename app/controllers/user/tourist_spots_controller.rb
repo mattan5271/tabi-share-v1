@@ -4,16 +4,48 @@ class User::TouristSpotsController < ApplicationController
 
   def new
     @tourist_spot = TouristSpot.new
+
+    @category_parent_array = ["---"]
+    # データベースから、親カテゴリーのみ抽出し、配列化
+    Genre.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    end
+  end
+
+  # 親カテゴリーが選択された後に動くアクション
+  def get_category_children
+    @category_children = Genre.find_by(name: params[:parent_name], ancestry: nil).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
+  end
+
+  # 子カテゴリーが選択された後に動くアクション
+  def get_category_grandchildren
+    @category_grandchildren = Genre.find(params[:child_id]).children # 選択された子カテゴリーに紐付く孫カテゴリーの配列を取得
   end
 
   def create
     @tourist_spot = TouristSpot.new(tourist_spot_params)
     @tourist_spot.user_id = current_user.id
-		if @tourist_spot.save
-			redirect_to user_tourist_spot_path(@tourist_spot)
+		if @tourist_spot.save!
+      redirect_to user_tourist_spot_path(@tourist_spot)
     else
 			render 'new'
-		end
+    end
+
+    genre = Genre.find_by(name: params[:grandchild_name])
+    tourist_spot_genre = TouristSpotGenre.new
+    tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+    tourist_spot_genre.genre_id = genre.parent.parent.id
+    tourist_spot_genre.save!
+
+    tourist_spot_genre = TouristSpotGenre.new
+    tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+    tourist_spot_genre.genre_id = genre.parent.id
+    tourist_spot_genre.save!
+
+    tourist_spot_genre = TouristSpotGenre.new
+    tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+    tourist_spot_genre.genre_id = genre.id
+    tourist_spot_genre.save!
   end
 
   def show
@@ -53,8 +85,7 @@ class User::TouristSpotsController < ApplicationController
   def keyword_search
     tourist_spots = TouristSpot.keyword_search(params[:keyword_search])
     @keyword_search = params[:keyword_search]
-    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
@@ -62,9 +93,8 @@ class User::TouristSpotsController < ApplicationController
   def genre_search
     tourist_spots = TouristSpot.genre_search(params[:genre_search])
     @genre_search = params[:genre_search]
-    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
-    #binding.pry
+    @genre = Genre.find_by(id: @genre_search)
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
@@ -72,8 +102,7 @@ class User::TouristSpotsController < ApplicationController
   def scene_search
     tourist_spots = TouristSpot.scene_search(params[:scene_search])
     @scene_search = params[:scene_search]
-    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)# kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
@@ -81,8 +110,7 @@ class User::TouristSpotsController < ApplicationController
   def prefecture_search
     tourist_spots = TouristSpot.prefecture_search(params[:prefecture_search])
     @prefecture_search = params[:prefecture_search]
-    # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 

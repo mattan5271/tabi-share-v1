@@ -1,5 +1,8 @@
 = provide(:title, '観光スポット ジャンル別')
 
+- @genre.children.each do |child|
+  = link_to child.name, user_tourist_spot_genre_search_path(genre_search: child.id)
+
 .row
   .page-header
     h3

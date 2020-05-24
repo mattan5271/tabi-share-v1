@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_021915) do
+ActiveRecord::Schema.define(version: 2020_05_24_115043) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 2020_05_24_021915) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_id"
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_genres_on_ancestry"
   end
 
   create_table "impressions", force: :cascade do |t|
@@ -194,9 +196,15 @@ ActiveRecord::Schema.define(version: 2020_05_24_021915) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "tourist_spot_genres", force: :cascade do |t|
+    t.integer "tourist_spot_id", null: false
+    t.integer "genre_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tourist_spots", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "genre_id", null: false
     t.integer "scene_id", null: false
     t.string "name", null: false
     t.json "images", null: false

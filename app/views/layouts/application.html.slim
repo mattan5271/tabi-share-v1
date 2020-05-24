@@ -44,9 +44,12 @@ html
                     span.caret
                   ul.dropdown-menu role='menu'
                     li role='presentation'
-                      - Genre.all.each do |genre|
-                        = link_to  genre.name, user_tourist_spot_genre_search_path(search: genre.id)
-                        br
+                      - Genre.where(ancestry: nil).each do |parent|
+                        = link_to  parent.name, user_tourist_spot_genre_search_path(search: parent.id), class: "parent_category",id: "#{parent.id}"
+                    br
+                    li role='presentation' class='children_list'
+                    br
+                    li role='presentation' class='grand_children_list'
 
                 li.dropdown role='presentation'
                   a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'

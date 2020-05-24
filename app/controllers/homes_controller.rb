@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @genres = Genre.all
+    @genres = Genre.where(ancestry: nil)
     @scenes = Scene.all
     @tourist_spots_fav = TouristSpot.fav_ranking # 観光スポット「行きたい!」ランキング
     @tourist_spots_pv = TouristSpot.pv_ranking # 観光スポットPVランキング
@@ -11,5 +11,9 @@ class HomesController < ApplicationController
   end
 
   def about
+  end
+
+  def new
+    @children = Genre.find(params[:parent_id]).children
   end
 end

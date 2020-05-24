@@ -28,7 +28,9 @@
             th.active
               | ジャンル
             td
-              = @tourist_spot.genre.name
+              - @tourist_spot.genres.each do |genre|
+                = genre.name
+                | /
           tr
             th.active
               | 利用シーン
