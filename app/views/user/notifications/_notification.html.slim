@@ -14,9 +14,11 @@
 
           - case notification.action when 'follow'
             = 'あなたをフォローしました'
+
           - when 'like'
             = link_to 'あなたの投稿', user_tourist_spot_review_path(notification.review, notification.review.tourist_spot), style: 'font-weight: bold;'
             = 'にいいねしました'
+
           - when 'comment'
             - if notification.review.user_id == visited.id
               = link_to 'あなたの投稿', user_tourist_spot_review_path(notification.review, notification.review.tourist_spot), style: 'font-weight: bold;'
@@ -26,3 +28,9 @@
             = 'にコメントしました'
             p.text-muted.text-center
               = Comment.find_by(id: notification.comment_id)&.body
+
+          - when 'message'
+            = 'あなたにメッセージを送信しました'
+            = link_to user_room_path(notification.message.room) do
+              p.text-muted.text-center
+                = Message.find_by(id: notification.message_id)&.body
