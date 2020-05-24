@@ -44,8 +44,8 @@ html
                     span.caret
                   ul.dropdown-menu role='menu'
                     li role='presentation'
-                      - Genre.where(ancestry: nil).each do |parent|
-                        = link_to  parent.name, user_tourist_spot_genre_search_path(search: parent.id), class: "parent_category",id: "#{parent.id}"
+                      - Genre.where(ancestry: nil).each do |genre|
+                        = link_to  genre.name, user_tourist_spot_genre_search_path(genre_search: genre.id), class: 'parent_category',id: "#{genre.id}"
                     br
                     li role='presentation' class='children_list'
                     br
@@ -60,8 +60,7 @@ html
                   ul.dropdown-menu role='menu'
                     li role='presentation'
                       - Scene.all.each do |scene|
-                        = link_to  scene.name, user_tourist_spot_scene_search_path(search: scene.id)
-                        br
+                        = link_to  scene.name, user_tourist_spot_scene_search_path(scene_search: scene.id)
 
               - if user_signed_in?
                 li.dropdown role='presentation'

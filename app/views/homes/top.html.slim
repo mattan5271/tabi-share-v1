@@ -1,22 +1,5 @@
 = provide(:title, 'トップ')
 
-ul.nav.nav-tabs
-  - @genres.each do |parent|
-    li
-      = link_to "#{parent.name}", root_path, class: "parent_category",id: "#{parent.id}", data: { toggle: "tab" }
-
-.tab-content
-  p.children_list
-  p.grand_children_list
-
-
-/.category_list
-  .parents_list
-    - @genres.each do |parent|
-      = link_to "#{parent.name}", root_path, class: "parent_category",id: "#{parent.id}"
-  .children_list
-  .grand_children_list
-
 .row
   .col-xs-7
     .row

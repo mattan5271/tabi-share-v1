@@ -219,14 +219,12 @@ $(function () {
   // 子カテゴリーを追加するための処理です。
   function buildChildHTML(child) {
     var html = `<a class="child_category" id="${child.id}"
-                href="/category/${child.id}">${child.name}</a>`;
+                href="/user/tourist_spot/genre/search?genre_search=${child.id}">${child.name}</a>`;
     return html;
   }
 
   $(".parent_category").on("mouseover", function () {
     var id = this.id //どのリンクにマウスが乗ってるのか取得します
-    $(".now-selected-red").removeClass("now-selected-red") //赤色のcssのためです
-    $('#' + id).addClass("now-selected-red"); //赤色のcssのためです
     $(".child_category").remove(); //一旦出ている子カテゴリ消します！
     $(".grand_child_category").remove(); //孫、てめえもだ！
     $.ajax({
@@ -247,14 +245,12 @@ $(function () {
   // 孫カテゴリを追加する処理です。基本的に子要素と同じです！
   function buildGrandChildHTML(child) {
     var html = `<a class="grand_child_category" id="${child.id}"
-                href="/category/${child.id}">${child.name}</a>`;
+                href="/user/tourist_spot/genre/search?genre_search=${child.id}">${child.name}</a>`;
     return html;
   }
 
   $(document).on("mouseover", ".child_category", function () { //子カテゴリーのリストは動的に追加されたHTMLのため
     var id = this.id
-    $(".now-selected-gray").removeClass("now-selected-gray"); //灰色のcssのため
-    $('#' + id).addClass("now-selected-gray"); //灰色のcssのため
     $.ajax({
       type: 'GET',
       url: '/category/new',
