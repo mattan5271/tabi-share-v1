@@ -11,9 +11,9 @@ Admin.create(email: 'admin@admin', password: 'adminadmin')
 
 # 利用シーン
 Scene.create(name: 'デート', image: File.open('./app/assets/images/scenes/date.jpg'))
-Scene.create(name: '一人旅', image: File.open('./app/assets/images/scenes/一人旅.jpg'))
-Scene.create(name: '家族旅行', image: File.open('./app/assets/images/scenes/家族旅行.jpg'))
-Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/ドライブ.jpg'))
+Scene.create(name: '一人旅', image: File.open('./app/assets/images/scenes/traveling_alone.jpg'))
+Scene.create(name: '家族旅行', image: File.open('./app/assets/images/scenes/family_trip.jpg'))
+Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/drive.jpg'))
 
 # ジャンル
 
@@ -21,7 +21,7 @@ Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/
 genre1_child_array = ['遊び', '学び', '体験', '食べ物']
 genre1_grandchild_array = [['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内']]
 
-parent = Genre.create(name: 'テーマパーク・レジャーランド', image: File.open('./app/assets/images/genres/テマパク.jpg'))
+parent = Genre.create(name: 'テーマパーク・レジャーランド', image: File.open('./app/assets/images/genres/theme_park.jpg'))
 genre1_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   genre1_grandchild_array[i].each do |grandchild|
@@ -33,7 +33,7 @@ end
 genre2_child_array = ['動物園', '水族館', '植物園']
 genre2_grandchild_array = [['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内']]
 
-parent = Genre.create(name: '動物園・水族館', image: File.open('./app/assets/images/genres/動物園・水族館.jpg'))
+parent = Genre.create(name: '動物園・水族館', image: File.open('./app/assets/images/genres/leisure_land.jpg'))
 genre2_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   genre2_grandchild_array[i].each do |grandchild|
@@ -45,7 +45,7 @@ end
 genre3_child_array = ['山', '海', 'その他']
 genre3_grandchild_array = [['昼', '夜'], ['昼', '夜'], ['昼', '夜']]
 
-parent = Genre.create(name: '景観', image: File.open('./app/assets/images/genres/景観.jpg'))
+parent = Genre.create(name: '景観', image: File.open('./app/assets/images/genres/landscape.jpg'))
 genre3_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   genre3_grandchild_array[i].each do |grandchild|
@@ -56,7 +56,7 @@ end
 # 社寺
 genre4_child_array = ['神宮', '神社', '寺院']
 
-parent = Genre.create(name: '社寺', image: File.open('./app/assets/images/genres/社寺.jpg'))
+parent = Genre.create(name: '社寺', image: File.open('./app/assets/images/genres/shrine.jpg'))
 genre4_child_array.each do |child|
   child = parent.children.create(name: child)
 end
@@ -65,7 +65,7 @@ end
 genre5_child_array = ['温泉', '銭湯', '足湯']
 genre5_grandchild_array = [['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内']]
 
-parent = Genre.create(name: '温泉', image: File.open('./app/assets/images/genres/温泉.jpg'))
+parent = Genre.create(name: '温泉', image: File.open('./app/assets/images/genres/hot_spring.jpg'))
 genre5_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   genre5_grandchild_array[i].each do |grandchild|
@@ -76,7 +76,7 @@ end
 # 公園・庭園
 genre6_child_array = ['公園', '庭園']
 
-parent = Genre.create(name: '公園・庭園', image: File.open('./app/assets/images/genres/公園・庭園.jpg'))
+parent = Genre.create(name: '公園・庭園', image: File.open('./app/assets/images/genres/garden.jpg'))
 genre6_child_array.each do |child|
   child = parent.children.create(name: child)
 end
