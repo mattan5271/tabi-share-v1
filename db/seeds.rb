@@ -10,7 +10,7 @@
 Admin.create(email: 'admin@admin', password: 'adminadmin')
 
 # 利用シーン
-Scene.create(name: 'デート', image: Rails.root.join('app/assets/images/scenes/date.jpg').open)
+Scene.create(name: 'デート', image: File.open('./app/assets/images/scenes/date.jpg'))
 Scene.create(name: '一人旅', image: File.open('./app/assets/images/scenes/一人旅.jpg'))
 Scene.create(name: '家族旅行', image: File.open('./app/assets/images/scenes/家族旅行.jpg'))
 Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/ドライブ.jpg'))
@@ -21,7 +21,7 @@ Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/
 genre1_child_array = ['遊び', '学び', '体験', '食べ物']
 genre1_grandchild_array = [['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内'], ['屋外', '屋内']]
 
-parent = Genre.create(name: 'テーマパーク・レジャーランド', image: File.open('./app/assets/images/genres/テーマパーク.jpg'))
+parent = Genre.create(name: 'テーマパーク・レジャーランド', image: File.open('./app/assets/images/genres/テマパク.jpg'))
 genre1_child_array.each_with_index do |child, i|
   child = parent.children.create(name: child)
   genre1_grandchild_array[i].each do |grandchild|
