@@ -21,7 +21,7 @@
               - if tourist_spot.images.present?
                 = image_tag tourist_spot.images[0].to_s, class: 'img-responsive img-hover'
               - else
-                = image_tag 'no_image.png', class: 'img-responsive img-hover'
+                = image_tag 'others/no_image.png', class: 'img-responsive img-hover'
 
             .caption
               p.score

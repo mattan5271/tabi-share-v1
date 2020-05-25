@@ -24,7 +24,7 @@
             th.active
               | プロフィール画像
             td
-              = attachment_image_tag @user, :profile_image, size: '100x100', fallback: 'no_image.jpg', class: 'img-thumbnail img-responsive'
+              = attachment_image_tag @user, :profile_image, size: '100x100', fallback: 'others/no_image.jpg', class: 'img-thumbnail img-responsive'
           tr
             th.active
               | 氏名

@@ -205,7 +205,7 @@
                   = index
               td
                 = link_to user_user_path(user) do
-                  = attachment_image_tag user, :profile_image, size: '50x50', fallback: 'no_image.png', class: 'img-thumbnail img-responsive img-hover'
+                  = attachment_image_tag user, :profile_image, size: '50x50', fallback: 'others/no_image.png', class: 'img-thumbnail img-responsive img-hover'
                   span.margin-left--10px
                     = user.name
               td.text-center

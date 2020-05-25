@@ -9,9 +9,10 @@
       - @genres.each do |genre|
         .col-xs-4
           = link_to user_tourist_spot_genre_search_path(genre_search: genre.id) do
-            = attachment_image_tag genre, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
-            p
-              = genre.name
+            = attachment_image_tag genre, :image, fallback: 'others/no_image.png', class: 'img-responsive img-rounded img-hover top-image'
+          p
+            = genre.name
+          br
 
     .row
       .page-header
@@ -21,9 +22,10 @@
       - @scenes.each do |scene|
         .col-xs-4
           = link_to user_tourist_spot_scene_search_path(scene_search: scene.id) do
-            = attachment_image_tag scene, :image, fallback: 'no_image.png', class: 'img-responsive img-rounded img-hover top-image'
-            p
-              = scene.name
+            = attachment_image_tag scene, :image, fallback: 'others/no_image.png', class: 'img-responsive img-rounded img-hover top-image'
+          p
+            = scene.name
+          br
 
     .row
       .page-header
@@ -36,6 +38,7 @@
             = image_tag "prefectures/#{ prefecture.name }.jpg", size: '100x100', class: 'img-responsive img-rounded img-hover top-image'
           p
             = prefecture.name
+          br
 
   .col-xs-1
 

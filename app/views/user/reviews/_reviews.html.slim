@@ -9,14 +9,14 @@
             - if review.images.present?
               = image_tag review.images[0].to_s, class: 'img-responsive img-hover'
             - else
-              = image_tag 'no_image.png', class: 'img-responsive img-hover'
+              = image_tag 'others/no_image.png', class: 'img-responsive img-hover'
 
           .caption
               p.score
                 = review.score
                 | 点
               p
-                = attachment_image_tag review.user, :profile_image, fallback: 'no_image.png', size: '50x50', class: 'img-thumbnail img-responsive img-hover'
+                = attachment_image_tag review.user, :profile_image, fallback: 'others/no_image.png', size: '50x50', class: 'img-thumbnail img-responsive img-hover'
                 = link_to review.user.name, user_user_path(review.user), class: 'margin-left--10px'
                 | (
                 = review.user.age

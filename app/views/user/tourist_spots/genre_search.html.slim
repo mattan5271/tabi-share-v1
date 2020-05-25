@@ -5,11 +5,11 @@
   = link_to 'ジャンル一覧', root_path, class: 'margin-left--10px'
   i.fas.fa-angle-right.margin-left--10px
 
-  - unless @genre.has_children?
+  - if @genre.childless?
     = link_to @genre.root.name, user_tourist_spot_genre_search_path(genre_search: @genre.root.id), class: 'margin-left--10px'
     i.fas.fa-angle-right.margin-left--10px
 
-  - if @genre.parent.present?
+  - if @genre.has_parent?
     = link_to @genre.parent.name, user_tourist_spot_genre_search_path(genre_search: @genre.parent.id), class: 'margin-left--10px'
     i.fas.fa-angle-right.margin-left--10px
 

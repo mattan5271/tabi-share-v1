@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = favicon_link_tag('favicon.ico')
+    = favicon_link_tag('others/favicon.ico')
     title
       = full_title(yield(:title))
     = csrf_meta_tags
@@ -24,7 +24,7 @@ html
               span.icon-bar
               span.icon-bar
             = link_to root_path, class: 'navbar-brand' do
-              = image_tag asset_path('logo.png'), class: 'header__logo'
+              = image_tag ('others/logo.png'), class: 'header__logo'
 
           #navbarEexample7.collapse.navbar-collapse
             - if user_signed_in?
@@ -67,7 +67,7 @@ html
                   - if unchecked_notifications(current_user).present?
                     i.fa.fa-circle.header__notifications-icon--1 style='color: gold;'
                   a.dropdown-toggle.header__acount-link data-toggle='dropdown' href='#' role='button' aria-expanded='false'
-                    = attachment_image_tag current_user, :profile_image, size:'30x30', fallback: 'no_image.jpg', class: 'img-thumbnail img-responsive img-hover'
+                    = attachment_image_tag current_user, :profile_image, size:'30x30', fallback: 'others/no_image.jpg', class: 'img-thumbnail img-responsive img-hover'
                     span
                       |  アカウント
                     span.caret
@@ -152,7 +152,7 @@ html
 
         span#back
           a href='#'
-            = image_tag 'arrow.png'
+            = image_tag 'others/arrow.png'
 
     footer
       .container

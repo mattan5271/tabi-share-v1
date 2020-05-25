@@ -5,7 +5,7 @@
     = form_with model: @user, url: admin_user_path(@user), local: true, builder: CustomFormBuilder do |f|
 
       = f.file_field :image, class: 'img_field', style: 'display:none;'
-      = attachment_image_tag @user, :profile_image, fallback: 'no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
+      = attachment_image_tag @user, :profile_image, fallback: 'others/no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
       br
 
       = f.label :name, '氏名'
