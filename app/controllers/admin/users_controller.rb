@@ -57,13 +57,16 @@ class Admin::UsersController < ApplicationController
 		def user_params
       params.require(:user).permit(
         :name,
+        :sex,
+        :age,
+        :email,
         :postcode,
         :prefecture_code,
         :address_city,
         :address_street,
         :address_building,
-        :introduction, :profile_image_id,
-        :header_image_id,
+        :introduction,
+        :profile_image,
         :point,
         :rank,
         :is_valid

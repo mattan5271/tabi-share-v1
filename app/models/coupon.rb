@@ -18,7 +18,7 @@ class Coupon < ApplicationRecord
     time = Time.now
     coupons = Coupon.all
     coupons.each do |coupon|
-      if coupon.created_at + coupon.limit.days < time && coupon.is_valid == '有効'
+      if coupon.created_at + coupon.limit.minites < time && coupon.is_valid == '有効'
         coupon.is_valid = '無効'
         coupon.save
       end

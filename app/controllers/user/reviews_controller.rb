@@ -12,9 +12,9 @@ class User::ReviewsController < ApplicationController
     @review.user_id = current_user.id
     @review.tourist_spot_id = tourist_spot.id
     if @review.save
-      if current_user.provider.present?
-        current_user.point += 1 # 本名でレビューを投稿していれば、ポイントを与える
-        @review.user_rank_update(current_user) # レビューを投稿したユーザーのランクをアップデート
+      if @review.user.provider.present?
+        @review.user.point += 1 # 本名でレビューを投稿していれば、ポイントを与える
+        @review.user_rank_update(@review.user) # レビューを投稿したユーザーのランクをアップデート
         @review.is_value = '本名' # レビューが本名で投稿された事を定義する
       else
         @review.is_value = '仮名' # レビューが仮名で投稿された事を定義する

@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
         :prefecture_code,
         :address_city,
         :address_street,
-        :address_building
+        :address_building,
+        :introduction
         ]
       )
     end

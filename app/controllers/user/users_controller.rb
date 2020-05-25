@@ -79,10 +79,7 @@ class User::UsersController < ApplicationController
         :address_street,
         :address_building,
         :introduction,
-        :profile_image,
-        :point,
-        :rank,
-        :is_valid
-        )
+        :profile_image
+      )
 		end
 end

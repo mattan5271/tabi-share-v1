@@ -4,7 +4,7 @@
   .col-xs-6
     = form_with model: @user, url: admin_user_path(@user), local: true, builder: CustomFormBuilder do |f|
 
-      = f.file_field :image, class: 'img_field', style: 'display:none;'
+      = f.file_field :profile_image, class: 'img_field', style: 'display:none;'
       = attachment_image_tag @user, :profile_image, fallback: 'others/no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
       br
 
@@ -70,14 +70,13 @@
 
       = label_tag :会員ステータス
       br
-      form
-      .admin-user__radio
-        = f.label :is_valid, class: 'radio-inline'
-          = f.radio_button :is_valid, '有効'
-          | 有効
-        = f.label :is_valid, class: 'radio-inline'
-          = f.radio_button :is_valid, '退会済'
-          | 退会済
+      = f.label :is_valid, class: 'radio-inline'
+        = f.radio_button :is_valid, '有効', checked: true
+        | 有効
+      = f.label :is_valid, class: 'radio-inline'
+        = f.radio_button :is_valid, '退会済'
+        | 退会済
+      br
       br
 
       = f.submit '保存', class: 'btn btn-primary btn-block'

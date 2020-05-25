@@ -25,7 +25,9 @@
               = link_to user_tourist_spot_path(tourist_spot) do
                 = tourist_spot.name
             td.text-center
-              = tourist_spot.genre.name
+              - tourist_spot.genres.each do |genre|
+                = genre.name
+                | /
             td.text-center
               = tourist_spot.scene.name
             td.text-center

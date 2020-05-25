@@ -10,6 +10,8 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     script src='https://kit.fontawesome.com/c51513dd6c.js' crossorigin='anonymous'
+    link href='https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css' rel='stylesheet'
+    script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
     script src='https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js' type='text/javascript'
 
   body
@@ -140,13 +142,14 @@ html
     main
     br
       .container
-        = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
-          .row
-            .col-xs-10
-              = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
-            .col-xs-2
-              = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
-          br
+        - unless request.path.include?('admin') || request.path.include?('sign')
+          = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
+            .row
+              .col-xs-10
+                = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
+              .col-xs-2
+                = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+            br
 
         = yield
 

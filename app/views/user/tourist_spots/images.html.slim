@@ -1,15 +1,14 @@
-= provide(:title, "観光スポット 写真一覧")
+= provide(:title, '観光スポット 写真一覧')
 
 .row
   = render 'detail', tourist_spot: @tourist_spot
 
   - @reviews.each do |review|
     - review.images.each do |image|
-      .col-xs-2
-        .img-thumbnail
-          = link_to image.url, 'data-lightbox': image, class: "tourist-spot__images" do
-            = image_tag image.to_s, size: "150x100"
-          .caption
-            p
-              | 投稿者:
-              = link_to review.user.name, user_user_path(review.user)
+      .col-xs-3
+        = link_to image.url, 'data-lightbox': image do
+          = image_tag image.to_s, class: 'img-responsive img-rounded img-hover top-image'
+        p
+          | 投稿者:
+          = link_to review.user.name, user_user_path(review.user)
+        br
