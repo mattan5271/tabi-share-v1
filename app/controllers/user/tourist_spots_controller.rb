@@ -6,7 +6,7 @@ class User::TouristSpotsController < ApplicationController
     @tourist_spot = TouristSpot.new
 
     @genre_parent_array = ["---"]
-    # データベースから、親カテゴリーのみ抽出し、配列化
+    # データベースから親カテゴリーのみを抽出し配列化
     Genre.where(ancestry: nil).each do |parent|
       @genre_parent_array << parent.name
     end
@@ -31,6 +31,7 @@ class User::TouristSpotsController < ApplicationController
 			render 'new'
     end
 
+    # 中間テーブルにレコードを作成
     genre = Genre.find_by(name: params[:grandchild_name])
     tourist_spot_genre = TouristSpotGenre.new
     tourist_spot_genre.tourist_spot_id = @tourist_spot.id

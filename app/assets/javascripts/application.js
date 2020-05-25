@@ -213,7 +213,7 @@ $(function () {
     return html;
   }
 
-  // どの親ジャンルにマウスが乗っているかによって子ジャンルの表示を変える
+  // どの親ジャンルにマウスが乗っているかによって子ジャンルの表示を変更
   $(".parent-genre").on("mouseover", function () {
     var id = this.id
     $(".children-genre").remove();
