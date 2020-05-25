@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 	root 'homes#top'
 	get 'about' => 'homes#about'
-	get 'category/new' => 'homes#new', defaults: { format: 'json' }
+	get 'genre/new' => 'homes#new', defaults: { format: 'json' }
 
 	devise_for :admins, controllers: {
 		sessions:      'admins/sessions',
@@ -38,8 +38,8 @@ Rails.application.routes.draw do
 			get 'images' => 'tourist_spots#images'
 			put :sort
 			collection do
-				get 'get_category_children', defaults: { format: 'json' }
-				get 'get_category_grandchildren', defaults: { format: 'json' }
+				get 'get_genre_children', defaults: { format: 'json' }
+				get 'get_genre_grandchildren', defaults: { format: 'json' }
 			end
 		end
 

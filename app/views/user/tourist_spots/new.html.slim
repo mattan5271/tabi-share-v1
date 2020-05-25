@@ -31,15 +31,12 @@
       = f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: 'tags'
       br
 
-      .listing-form-box
-        .listing-product-detail__category
-          = label_tag :ジャンル
-          span.label.label-danger
-            | 必須
-          .listing-select-wrapper
-            .listing-select-wrapper__box
-              = select_tag 'parent_name', options_for_select(@category_parent_array), class: 'form-control listing-select-wrapper__box--select', id: 'parent_category'
-              i.fas.fa-chevron-down.listing-select-wrapper__box--arrow-down
+      .genre-form
+        = label_tag :ジャンル
+        span.label.label-danger
+          | 必須
+        = select_tag '', options_for_select(@genre_parent_array), class: 'form-control', id: 'parent-genre'
+        i.fas.fa-chevron-down
       br
 
       = f.label :scene_id, '利用シーン'

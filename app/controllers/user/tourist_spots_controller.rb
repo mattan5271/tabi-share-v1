@@ -5,21 +5,21 @@ class User::TouristSpotsController < ApplicationController
   def new
     @tourist_spot = TouristSpot.new
 
-    @category_parent_array = ["---"]
+    @genre_parent_array = ["---"]
     # データベースから、親カテゴリーのみ抽出し、配列化
     Genre.where(ancestry: nil).each do |parent|
-      @category_parent_array << parent.name
+      @genre_parent_array << parent.name
     end
   end
 
   # 親カテゴリーが選択された後に動くアクション
-  def get_category_children
-    @category_children = Genre.find_by(name: params[:parent_name], ancestry: nil).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
+  def get_genre_children
+    @genre_children = Genre.find_by(name: params[:parent_name], ancestry: nil).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
   end
 
   # 子カテゴリーが選択された後に動くアクション
-  def get_category_grandchildren
-    @category_grandchildren = Genre.find(params[:child_id]).children # 選択された子カテゴリーに紐付く孫カテゴリーの配列を取得
+  def get_genre_grandchildren
+    @genre_grandchildren = Genre.find(params[:child_id]).children # 選択された子カテゴリーに紐付く孫カテゴリーの配列を取得
   end
 
   def create

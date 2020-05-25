@@ -27,7 +27,6 @@
 
 // トップへ戻る
 $(function () {
-
   $('#back a').on('click', function () {
     $('body, html').animate({
       scrollTop: 0
@@ -35,6 +34,7 @@ $(function () {
     return false;
   });
 });
+
 
 // 画像アップロード時にプレビュー
 $(function () {
@@ -47,10 +47,12 @@ $(function () {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
   $('.img_field').change(function () {
     readURL(this);
   });
 });
+
 
 // カレンダー
 $(function () {
@@ -67,14 +69,17 @@ $(function () {
 
     // カレンダー上部を年月で表示させる
     titleFormat: 'YYYY年 M月',
+
     // 曜日を日本語表示
     dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+
     // ボタンのレイアウト
     header: {
       left: '',
       center: 'title',
       right: 'today prev,next'
     },
+
     // 終了時刻がないイベントの表示間隔
     defaultTimedEventDuration: '03:00:00',
     buttonText: {
@@ -87,82 +92,70 @@ $(function () {
       week: '週',
       day: '日'
     },
-    // イベントの時間表示を２４時間に
+
+    // イベントの時間表示を24時間に
     timeFormat: "HH:mm",
+
     // イベントの色を変える
     eventColor: '#63ceef',
+
     // イベントの文字色を変える
     eventTextColor: '#000000',
   });
 });
 
+
 // 多階層ジャンルフォーム
 $(function () {
-  $(".toppage__footer-nav-category").hover(function () {
-    $("ul.category1").toggle();
-  });
-  $(".toppage__footer-nav-category li ul").hide();
-  $(".toppage__footer-nav-category li").hover(function () {
-    $(">ul:not(:animated)", this).stop(true, true).slideDown("fast");
-    $(">a", this).addClass("active");
-  }, function () {
-    $(">ul:not(:animated)", this).stop(true, true).slideUp("fast");
-    $(">a", this).removeClass("active");
-  });
-});
 
-$(function () {
-  // カテゴリーセレクトボックスのオプションを作成
-  function appendOption(category) {
-    var html = `<option value="${category.name}" data-category="${category.id}">${category.name}</option>`;
+  // ジャンルセレクトボックスのオプションを作成
+  function appendOption(genre) {
+    var html = `<option value="${genre.name}" data-genre="${genre.id}">${genre.name}</option>`;
     return html;
   }
-  // 子カテゴリーの表示作成
+
+  // 子ジャンルの表示作成
   function appendChidrenBox(insertHTML) {
     var childSelectHtml = '';
-    childSelectHtml = `<div class='listing-select-wrapper__added' id='children_wrapper'>
-                        <div class='listing-select-wrapper__box'>
-                          <select class="listing-select-wrapper__box--select form-control" id="child_category" name="[child_name]">
-                            <option value="---" data-category="---">---</option>
-                            ${insertHTML}
-                          </select>
-                          <i class='fas fa-chevron-down listing-select-wrapper__box--arrow-down'></i>
-                        </div>
+    childSelectHtml = `<div id='children_wrapper'>
+                        <select id='child_genre' class='form-control'>
+                          <option value='---' data-genre='---'>---</option>
+                          ${insertHTML}
+                        </select>
+                        <i class='fas fa-chevron-down'></i>
                       </div>`;
-    $('.listing-product-detail__category').append(childSelectHtml);
+    $('.genre-form').append(childSelectHtml);
   }
-  // 孫カテゴリーの表示作成
+
+  // 孫ジャンルの表示作成
   function appendGrandchidrenBox(insertHTML) {
     var grandchildSelectHtml = '';
-    grandchildSelectHtml = `<div class='listing-select-wrapper__added' id='grandchildren_wrapper'>
-                              <div div class='listing-select-wrapper__box'>
-                                <select select class="listing-select-wrapper__box--select form-control" id="grandchild_category" name="[grandchild_name]">
-                                  <option value="---" data-category="---">---</option>
-                                  ${insertHTML}
-                                </select>
-                                <i class='fas fa-chevron-down listing-select-wrapper__box--arrow-down'></i>
-                              </div>
+    grandchildSelectHtml = `<div id='grandchildren_wrapper'>
+                              <select id='grandchild_genre' class='form-control' name='[grandchild_name]'>
+                                <option value='---' data-genre='---'>---</option>
+                                ${insertHTML}
+                              </select>
+                              <i class='fas fa-chevron-down'></i>
                             </div>`;
-    $('.listing-product-detail__category').append(grandchildSelectHtml);
+    $('.genre-form').append(grandchildSelectHtml);
   }
-  // 親カテゴリー選択後のイベント
-  $('#parent_category').on('change', function () {
-    var parentCategory = document.getElementById('parent_category').value; //選択された親カテゴリーの名前を取得
-    console.log(parentCategory)
-    if (parentCategory != "---") { //親カテゴリーが初期値でないことを確認
+
+  // 親ジャンル選択後のイベント
+  $('#parent-genre').on('change', function () {
+    var parentGenre = document.getElementById('parent-genre').value; // 選択された親ジャンルの名前を取得
+    console.log(parentGenre)
+    if (parentGenre != "---") { // 親ジャンルが初期値でないことを確認
       $.ajax({
-          url: 'get_category_children',
+          url: 'get_genre_children',
           type: 'GET',
           data: {
-            parent_name: parentCategory
+            parent_name: parentGenre
           },
           dataType: 'json'
         })
         .done(function (children) {
-          $('#children_wrapper').remove(); //親が変更された時、子以下を削除するする
+          $('#children_wrapper').remove(); // 親が変更された時、子以下を初期値にする
           $('#grandchildren_wrapper').remove();
-          $('#size_wrapper').remove();
-          $('#brand_wrapper').remove();
           var insertHTML = '';
           children.forEach(function (child) {
             insertHTML += appendOption(child);
@@ -170,21 +163,20 @@ $(function () {
           appendChidrenBox(insertHTML);
         })
         .fail(function () {
-          alert('カテゴリー取得に失敗しました');
+          alert('ジャンル取得に失敗しました');
         })
     } else {
-      $('#children_wrapper').remove(); //親カテゴリーが初期値になった時、子以下を削除するする
+      $('#children_wrapper').remove(); // 親ジャンルが初期値になった時、子以下を削除
       $('#grandchildren_wrapper').remove();
-      $('#size_wrapper').remove();
-      $('#brand_wrapper').remove();
     }
   });
-  // 子カテゴリー選択後のイベント
-  $('.listing-product-detail__category').on('change', '#child_category', function () {
-    var childId = $('#child_category option:selected').data('category'); //選択された子カテゴリーのidを取得
-    if (childId != "---") { //子カテゴリーが初期値でないことを確認
+
+  // 子ジャンル選択後のイベント
+  $('.genre-form').on('change', '#child_genre', function () {
+    var childId = $('#child_genre option:selected').data('genre'); // 選択された子ジャンルのidを取得
+    if (childId != "---") { // 子ジャンルが初期値でないことを確認
       $.ajax({
-          url: 'get_category_grandchildren',
+          url: 'get_genre_grandchildren',
           type: 'GET',
           data: {
             child_id: childId
@@ -193,9 +185,7 @@ $(function () {
         })
         .done(function (grandchildren) {
           if (grandchildren.length != 0) {
-            $('#grandchildren_wrapper').remove(); //子が変更された時、孫以下を削除するする
-            $('#size_wrapper').remove();
-            $('#brand_wrapper').remove();
+            $('#grandchildren_wrapper').remove(); // 子が変更された時、孫以下を初期値にする
             var insertHTML = '';
             grandchildren.forEach(function (grandchild) {
               insertHTML += appendOption(grandchild);
@@ -204,56 +194,58 @@ $(function () {
           }
         })
         .fail(function () {
-          alert('カテゴリー取得に失敗しました');
+          alert('ジャンル取得に失敗しました');
         })
     } else {
-      $('#grandchildren_wrapper').remove(); //子カテゴリーが初期値になった時、孫以下を削除する
-      $('#size_wrapper').remove();
-      $('#brand_wrapper').remove();
+      $('#grandchildren_wrapper').remove(); // 子ジャンルが初期値になった時、孫以下を削除
     }
   });
 });
 
+
 // 多階層ジャンル検索ウィンドウ
 $(function () {
-  // 子カテゴリーを追加するための処理です。
+
+  // 子ジャンルを作成
   function buildChildHTML(child) {
-    var html = `<a class="child_category" id="${child.id}"
+    var html = `<a class="children-genre" id="${child.id}"
                 href="/user/tourist_spot/genre/search?genre_search=${child.id}">${child.name}</a>`;
     return html;
   }
 
-  $(".parent_category").on("mouseover", function () {
-    var id = this.id //どのリンクにマウスが乗ってるのか取得します
-    $(".child_category").remove(); //一旦出ている子カテゴリ消します！
-    $(".grand_child_category").remove(); //孫、てめえもだ！
+  // どの親ジャンルにマウスが乗っているかによって子ジャンルの表示を変える
+  $(".parent-genre").on("mouseover", function () {
+    var id = this.id
+    $(".children-genre").remove();
+    $(".grand_children-genre").remove();
     $.ajax({
-      type: 'GET',
-      url: '/category/new', //とりあえずここでは、newアクションに飛ばしてます
-      data: {
-        parent_id: id
-      }, //どの親の要素かを送ります。params[:parent_id]で送られる
-      dataType: 'json'
-    }).done(function (children) {
-      children.forEach(function (child) { //帰ってきた子カテゴリー（配列）
-        var html = buildChildHTML(child); //HTMLにして
-        $(".children_list").append(html); //リストに追加します
+        type: 'GET',
+        url: '/genre/new',
+        data: {
+          parent_id: id
+        },
+        dataType: 'json'
       })
-    });
+      .done(function (children) {
+        children.forEach(function (child) {
+          var html = buildChildHTML(child);
+          $(".children-list").append(html);
+        })
+      });
   });
 
-  // 孫カテゴリを追加する処理です。基本的に子要素と同じです！
+  // どの子ジャンルにマウスが乗っているかによって孫ジャンルの表示を変える
   function buildGrandChildHTML(child) {
-    var html = `<a class="grand_child_category" id="${child.id}"
-                href="/user/tourist_spot/genre/search?genre_search=${child.id}"agr>${child.name}</a>`;
+    var html = `<a class="grand_children-genre" id="${child.id}"
+                href="/user/tourist_spot/genre/search?genre_search=${child.id}">${child.name}</a>`;
     return html;
   }
 
-  $(document).on("mouseover", ".child_category", function () { //子カテゴリーのリストは動的に追加されたHTMLのため
+  $(document).on("mouseover", ".children-genre", function () {
     var id = this.id
     $.ajax({
       type: 'GET',
-      url: '/category/new',
+      url: '/genre/new',
       data: {
         parent_id: id
       },
@@ -261,10 +253,10 @@ $(function () {
     }).done(function (children) {
       children.forEach(function (child) {
         var html = buildGrandChildHTML(child);
-        $(".grand_children_list").append(html);
+        $(".grand_children-list").append(html);
       })
-      $(document).on("mouseover", ".child_category", function () {
-        $(".grand_child_category").remove();
+      $(document).on("mouseover", ".children-genre", function () {
+        $(".grand_children-genre").remove();
       });
     });
   });
