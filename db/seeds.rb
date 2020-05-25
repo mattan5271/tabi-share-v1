@@ -10,7 +10,7 @@
 Admin.create(email: 'admin@admin', password: 'adminadmin')
 
 # 利用シーン
-Scene.create(name: 'デート', image: Rails.root.join('app/assets/images/scenes/date.jpg')).open
+Scene.create(name: 'デート', image: Rails.root.join('app/assets/images/scenes/date.jpg').open)
 Scene.create(name: '一人旅', image: File.open('./app/assets/images/scenes/一人旅.jpg'))
 Scene.create(name: '家族旅行', image: File.open('./app/assets/images/scenes/家族旅行.jpg'))
 Scene.create(name: 'ドライブ', image: File.open('./app/assets/images/scenes/ドライブ.jpg'))
