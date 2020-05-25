@@ -10,10 +10,10 @@
 Admin.create(email: 'admin@admin', password: 'adminadmin')
 
 # 利用シーン
-Scene.create(name: 'デート', image: open('#{Rails.root}/app/assets/images/scenes/デート.jpg'))
-Scene.create(name: '一人旅', image: open('#{Rails.root}/app/assets/images/scenes/一人旅.jpg'))
-Scene.create(name: '家族旅行', image: open('#{Rails.root}/app/assets/images/scenes/家族旅行.jpg'))
-Scene.create(name: 'ドライブ', image: open('#{Rails.root}/app/assets/images/scenes/ドライブ.jpg'))
+Scene.create(name: 'デート', image: open("#{Rails.root}/app/assets/images/scenes/デート.jpg"))
+Scene.create(name: '一人旅', image: open("#{Rails.root}/app/assets/images/scenes/一人旅.jpg"))
+Scene.create(name: '家族旅行', image: open("#{Rails.root}/app/assets/images/scenes/家族旅行.jpg"))
+Scene.create(name: 'ドライブ', image: open("#{Rails.root}/app/assets/images/scenes/ドライブ.jpg"))
 
 # ジャンル
 
