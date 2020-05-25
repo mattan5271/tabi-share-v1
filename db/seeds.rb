@@ -84,7 +84,7 @@ end
 # アウトドア
 genre7_child_array = ['キャンプ場', 'バーベキュー場',  'スキー場', 'ゴルフ場', 'ハイキングコース', 'サイクリングコース']
 
-parent = Genre.create(name: 'アウトドア', image: File.open('./app/assets/images/genres/アウトドア.jpg'))
+parent = Genre.create(name: 'アウトドア', image: File.open('./app/assets/images/genres/outdoor.jpg'))
 genre7_child_array.each do |child|
   child = parent.children.create(name: child)
 end
