@@ -92,7 +92,7 @@ end
 # ショッピング
 genre8_child_array = ['屋外', '屋内']
 
-parent = Genre.create(name: 'ショッピング', image: File.open('./app/assets/images/genres/ショッピング.jpg'))
+parent = Genre.create(name: 'ショッピング', image: File.open('./app/assets/images/genres/shopping.jpg'))
 genre8_child_array.each do |child|
   child = parent.children.create(name: child)
 end
@@ -100,7 +100,7 @@ end
 # その他
 genre9_child_array = ['城', '建造物', '祭り', 'その他']
 
-parent = Genre.create(name: 'その他', image: File.open('./app/assets/images/genres/その他.jpg'))
+parent = Genre.create(name: 'その他', image: File.open('./app/assets/images/genres/other.jpg'))
 genre9_child_array.each do |child|
   child = parent.children.create(name: child)
 end
