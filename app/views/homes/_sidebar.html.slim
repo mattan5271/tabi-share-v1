@@ -1,18 +1,4 @@
 .row
-  - if user_signed_in?
-    .row
-      .page-header
-        h4
-          | マイカレンダー
-
-    .row
-      #calendar
-      br
-      .pull-right
-        = link_to 'マイカレンダー', user_my_calendar_path, class: 'btn btn-warning'
-        = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success margin-left--10px'
-
-.row
   .row
     .page-header
       h4
@@ -224,3 +210,17 @@
                     = user.name
               td.text-center
                 = user.point
+
+.row
+  - if user_signed_in?
+    .row
+      .page-header
+        h4
+          | マイカレンダー
+
+    .row
+      #calendar
+      br
+      .pull-right
+        = link_to 'マイカレンダー', user_my_calendar_path, class: 'btn btn-warning'
+        = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success margin-left--10px'

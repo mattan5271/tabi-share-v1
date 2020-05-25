@@ -102,6 +102,7 @@ class User::TouristSpotsController < ApplicationController
   def scene_search
     tourist_spots = TouristSpot.scene_search(params[:scene_search])
     @scene_search = params[:scene_search]
+    @scene = Scene.find_by(id: @scene_search)
     kaminari = TouristSpot.sort(params[:sort], tourist_spots)# kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
@@ -110,6 +111,7 @@ class User::TouristSpotsController < ApplicationController
   def prefecture_search
     tourist_spots = TouristSpot.prefecture_search(params[:prefecture_search])
     @prefecture_search = params[:prefecture_search]
+    @prefecture = JpPrefecture::Prefecture.find(code: @prefecture_search)
     kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end

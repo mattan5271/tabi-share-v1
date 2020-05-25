@@ -113,12 +113,12 @@ class TouristSpot < ApplicationRecord
 
   # 利用シーン検索
   def self.scene_search(scene_search)
-    TouristSpot.where(scene_id: scene_search.to_i)
+    TouristSpot.where(scene_id: scene_search)
   end
 
   # 都道府県検索
   def self.prefecture_search(prefecture_search)
-    TouristSpot.where(prefecture_code: prefecture_search.to_i)
+    TouristSpot.where(prefecture_code: prefecture_search)
   end
 
   # 並び替え
