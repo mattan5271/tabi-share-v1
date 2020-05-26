@@ -21,8 +21,7 @@ class TouristSpot < ApplicationRecord
   validates :access, presence: true, length: { maximum: 200 }
   validates :business_hour, presence: true, length: { maximum: 100 }
   validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{1,4}-[0-9]{1,4}-[0-9]{4}\z/ }
-
-  enum is_parking: { '有': true, '無': false }
+  validates :is_parking, presence: true, length: { maximum: 50 }
 
   mount_uploaders :images, ImageUploader # Carrierwave画像アップロード
 
@@ -92,7 +91,7 @@ class TouristSpot < ApplicationRecord
 
   # PVランキング
   def self.pv_ranking
-    self.order(impressions_count: 'DESC').limit(10)
+    self.order(impressionist_count: 'DESC').limit(10)
   end
 
   # タグランキング

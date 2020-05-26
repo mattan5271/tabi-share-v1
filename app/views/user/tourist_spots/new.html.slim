@@ -24,7 +24,7 @@
       = f.text_field :name, placeholder: '例) 梅田スカイビル・空中庭園展望台', autofocus: true, class: 'form-control'
       br
 
-      = f.label :tag_list, 'タグ'
+      = f.label :tag_list, 'タグ(カンマ区切り)'
       span.label.label-default
         | 任意
       br
@@ -110,15 +110,11 @@
       = f.text_field :phone_number, placeholder: '例) 06-6440-3855', class: 'form-control'
       br
 
-      = label_tag :駐車場
+      = f.label :is_parking, '駐車場'
+      span.label.label-danger
+        | 必須
       br
-      = f.label :is_parking, class: 'radio-inline'
-        = f.radio_button :is_parking, '有', checked: true
-        | 有
-      = f.label :is_parking, class: 'radio-inline'
-        = f.radio_button :is_parking, '無'
-        | 無
-      br
+      = f.text_area :is_parking, placeholder: '例) 有 (敷地内に200台)', class: 'form-control'
       br
 
       = f.submit '新規登録', class: 'btn btn-success btn-lg btn-block'

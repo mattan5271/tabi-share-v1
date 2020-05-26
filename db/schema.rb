@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_115043) do
+ActiveRecord::Schema.define(version: 2020_05_26_014409) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -209,13 +209,13 @@ ActiveRecord::Schema.define(version: 2020_05_24_115043) do
     t.text "access", null: false
     t.string "phone_number", null: false
     t.string "business_hour", null: false
-    t.boolean "is_parking", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
     t.integer "row_order"
     t.integer "impressions_count", default: 0
+    t.text "is_parking", null: false
   end
 
   create_table "users", force: :cascade do |t|

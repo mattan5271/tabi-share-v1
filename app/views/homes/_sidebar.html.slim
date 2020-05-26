@@ -72,7 +72,7 @@
                   span.margin-left--10px
                     = tourist_spot.name
               td.text-center
-                = tourist_spot.impressions_count
+                = tourist_spot.impressionist_count(filter: :session_hash)
 
 .row
   .row

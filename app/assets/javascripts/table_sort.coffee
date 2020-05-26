@@ -9,10 +9,11 @@ $ ->
       params = { _method: 'put' }
       params[item_data.model_name] = { row_order_position: item.index() }
       $.ajax
-        type: 'PUT'
+        type: 'POST'
         url: item_data.update_url
         dataType: 'json'
         data: params
+        console.log(params)
 
     # ドラッグ幅をテーブルに合わせる
     start: (e, ui) ->

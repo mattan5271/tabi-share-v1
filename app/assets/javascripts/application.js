@@ -143,10 +143,9 @@ $(function () {
   // 親ジャンル選択後のイベント
   $('#parent-genre').on('change', function () {
     var parentGenre = document.getElementById('parent-genre').value; // 選択された親ジャンルの名前を取得
-    console.log(parentGenre)
-    if (parentGenre != "---") { // 親ジャンルが初期値でないことを確認
+    if (parentGenre != '---') { // 親ジャンルが初期値でないことを確認
       $.ajax({
-          url: 'get_genre_children',
+          url: '/user/get_genre/children',
           type: 'GET',
           data: {
             parent_name: parentGenre
@@ -174,9 +173,9 @@ $(function () {
   // 子ジャンル選択後のイベント
   $('.genre-form').on('change', '#child_genre', function () {
     var childId = $('#child_genre option:selected').data('genre'); // 選択された子ジャンルのidを取得
-    if (childId != "---") { // 子ジャンルが初期値でないことを確認
+    if (childId != '---') { // 子ジャンルが初期値でないことを確認
       $.ajax({
-          url: 'get_genre_grandchildren',
+          url: '/user/get_genre/grandchildren',
           type: 'GET',
           data: {
             child_id: childId
@@ -220,7 +219,7 @@ $(function () {
     $(".grand_children-genre").remove();
     $.ajax({
         type: 'GET',
-        url: '/genre/new',
+        url: '/get_genre/new',
         data: {
           parent_id: id
         },
@@ -245,7 +244,7 @@ $(function () {
     var id = this.id
     $.ajax({
       type: 'GET',
-      url: '/genre/new',
+      url: '/get_genre/new',
       data: {
         parent_id: id
       },

@@ -24,9 +24,11 @@
                 = image_tag 'others/no_image.png', class: 'img-responsive img-hover'
 
             .caption
-              p.score
-                = tourist_spot.average_score
-                | 点
+              p
+                .score
+                  = tourist_spot.average_score
+                  | 点
+                = link_to "#{ tourist_spot.reviews.count }レビュー", user_tourist_spot_reviews_path(tourist_spot), class: 'btn btn-default margin-left--10px'
               p
                 = link_to tourist_spot.name, user_tourist_spot_path(tourist_spot)
               p.text-muted

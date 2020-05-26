@@ -64,15 +64,11 @@
       = f.text_field :phone_number, class: 'form-control'
       br
 
-      = label_tag :駐車場
+      = f.label :is_parking, '駐車場'
+      span.label.label-danger
+        | 必須
       br
-      form
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '有', checked: true
-          | 有
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '無'
-          | 無
+      = f.text_area :is_parking, class: 'form-control'
       br
 
       = f.submit '保存', class: 'btn btn-primary btn-lg btn-block'

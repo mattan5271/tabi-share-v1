@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 	root 'homes#top'
 	get 'about' => 'homes#about'
-	get 'genre/new' => 'homes#new', defaults: { format: 'json' }
+	get 'get_genre/new' => 'homes#new', defaults: { format: 'json' }
 
 	devise_for :admins, controllers: {
 		sessions:      'admins/sessions',
@@ -37,10 +37,6 @@ Rails.application.routes.draw do
 			get 'map' => 'tourist_spots#map'
 			get 'images' => 'tourist_spots#images'
 			put :sort
-			collection do
-				get 'get_genre_children', defaults: { format: 'json' }
-				get 'get_genre_grandchildren', defaults: { format: 'json' }
-			end
 		end
 
 		resources :users, only: [:show, :edit, :update, :destroy]
@@ -66,5 +62,7 @@ Rails.application.routes.draw do
 		get 'tourist_spot/tag/search' => 'tourist_spots#tag_search'
 
 		get 'my_calendar' => 'events#my_calendar'
+		get 'get_genre/children' => 'tourist_spots#get_genre_children', defaults: { format: 'json' }
+		get 'get_genre/grandchildren' => 'tourist_spots#get_genre_grandchildren', defaults: { format: 'json' }
 	end
 end

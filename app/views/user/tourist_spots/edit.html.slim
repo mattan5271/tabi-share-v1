@@ -4,7 +4,7 @@
   .col-xs-3
 
   .col-xs-6
-    = form_with model: @tourist_spot, url: edit_user_tourist_spot_path(@tourist_spot), local: true, builder: CustomFormBuilder do |f|
+    = form_with model: @tourist_spot, url: user_tourist_spot_path(@tourist_spot), local: true, builder: CustomFormBuilder do |f|
 
       = f.label :images, '写真(複数選択可)'
       span.label.label-danger
@@ -31,11 +31,12 @@
       = f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: 'tags', class: 'form-control'
       br
 
-      = f.label :genre_id, 'ジャンル'
-      span.label.label-danger
-        | 必須
-      br
-      = f.collection_select :genre_id, Genre.all, :id, :name, { prompt: '選択してください' }, class: 'form-control'
+      .genre-form
+        = label_tag :ジャンル
+        span.label.label-danger
+          | 必須
+        = select_tag '', options_for_select(@genre_parent_array), class: 'form-control', id: 'parent-genre'
+        i.fas.fa-chevron-down
       br
 
       = f.label :scene_id, '利用シーン'
@@ -109,15 +110,11 @@
       = f.text_field :phone_number, placeholder: '例) 06-6440-3855', class: 'form-control'
       br
 
-      = label_tag :駐車場
+      = f.label :is_parking, '駐車場'
+      span.label.label-danger
+        | 必須
       br
-      form
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '有', checked: true
-          | 有
-        = f.label :is_parking, class: 'radio-inline'
-          = f.radio_button :is_parking, '無'
-          | 無
+      = f.text_area :is_parking, placeholder: '例) 有 (敷地内に200台)', class: 'form-control'
       br
 
       = f.submit '保存', class: 'btn btn-primary btn-lg btn-block'
