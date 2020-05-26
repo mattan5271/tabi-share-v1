@@ -144,10 +144,9 @@ class User::TouristSpotsController < ApplicationController
 
   # ドラッグ&ドロップ
   def sort
-    binding.pry
+    # binding.pry
     tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    tourist_spot.row_order = params[:row_order_position]
-    tourist_spot.save!
+    tourist_spot.update(tourist_spot_params)
     render body: nil
   end
 

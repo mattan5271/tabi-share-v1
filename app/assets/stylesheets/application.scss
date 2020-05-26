@@ -20,9 +20,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 // ボディー
 body {
-  padding-top: 70px;
+  padding-top: 80px;
   background-color: #FFFAFA;
   // フッター固定
   display: flex;
@@ -388,4 +394,50 @@ h1 {
 
 .item-num-9 {
   width: 106px;
+}
+
+
+// メインビジュアル
+.main-visual {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 50px;
+  // background-color: #3498db;
+  background-image: image-url('others/main-visual.jpg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+
+  h1 {
+    font-size: 60px;
+    color: #fff;
+    line-height: 330px;
+    text-align: center;
+    font-weight: 100;
+  }
+
+  nav {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    a {
+      color: #fff;
+      display: inline-block;
+      padding: 10px 15px;
+      line-height: 1;
+      text-decoration: none;
+      border-radius: 2px;
+
+      &:hover {
+        box-shadow: 0 0 0 1px #fff;
+      }
+    }
+  }
 }

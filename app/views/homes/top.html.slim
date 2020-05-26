@@ -2,7 +2,7 @@
 
 .row
   .col-xs-7
-    .row
+    .row id='genre-search'
       .page-header
         h3
           | ジャンルから探す
@@ -14,7 +14,7 @@
             = genre.name
           br
 
-    .row
+    .row id='scene-search'
       .page-header
         h3
           | 利用シーンから探す
@@ -27,7 +27,7 @@
             = scene.name
           br
 
-    .row
+    .row id='prefecture-search'
       .page-header
         h3
           | 都道府県から探す
@@ -49,10 +49,10 @@
                         reviews: @reviews,
                         users: @users
 
-.row
+.row id='location-search'
   .page-header
     h3
-      | 周辺の観光地
+      | 現在地から探す
 
   #map style='height: 800px; width: 100%;'
 

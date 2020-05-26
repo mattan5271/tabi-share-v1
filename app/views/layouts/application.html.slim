@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = favicon_link_tag('others/favicon.ico')
+    = favicon_link_tag 'others/favicon.ico'
     title
       = full_title(yield(:title))
     = csrf_meta_tags
@@ -25,7 +25,7 @@ html
               span.icon-bar
               span.icon-bar
             = link_to root_path, class: 'navbar-brand' do
-              = image_tag ('others/logo.png'), class: 'header__logo'
+              = image_tag 'others/logo.png', class: 'header__logo'
 
           #navbarEexample7.collapse.navbar-collapse
             - if user_signed_in?
@@ -139,7 +139,20 @@ html
                     |  サイト説明
 
     main
-    br
+      - if current_page?(root_path)
+        .main-visual
+          h1
+            | TaBi Share
+          nav
+            a href='' id='go-genre-search'
+              | ジャンルから探す
+            a href='' id='go-scene-search'
+              | 利用シーンから探す
+            a href='' id='go-prefecture-search'
+              | 都道府県から探す
+            a href='' id='go-location-search'
+              | 現在地から探す
+
       .container
         - unless request.path.include?('admin') || request.path.include?('sign')
           = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
