@@ -45,8 +45,10 @@
       tbody
         tr
           td
-            = attachment_image_tag @review.user, :profile_image, fallback: 'others/no_image.jpg',size: '100x100', class: 'img-thumbnail img-responsive img-hover'
-            = link_to @review.user.name, user_user_path(@review.user)
+            = link_to user_user_path(@review.user) do
+              = attachment_image_tag @review.user, :profile_image, fallback: 'others/no_image.jpg',size: '100x100', class: 'img-thumbnail img-responsive img-hover'
+              span.margin-left--10px
+                = @review.user.name
             | (
             = @review.user.age
             | 歳
@@ -124,8 +126,8 @@
                     = link_to '削除', user_tourist_spot_review_comment_path(@review.tourist_spot, @review, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
 
     - else
-      p.review__text
-        | コメントはありません。
+      p.centered
+        | コメントは存在しません
 
   .col-xs-3
 
