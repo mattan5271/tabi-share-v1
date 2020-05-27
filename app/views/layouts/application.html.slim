@@ -64,6 +64,17 @@ html
                       - Scene.all.each do |scene|
                         = link_to  scene.name, user_tourist_spot_scene_search_path(scene_search: scene.id)
 
+                li.dropdown role='presentation'
+                  a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
+                    i.fas.fa-map-marker-alt
+                    span
+                      |  都道府県から探す
+                    span.caret
+                  ul.dropdown-menu role='menu'
+                    li role='presentation'
+                      - JpPrefecture::Prefecture.all.each do |prefecture|
+                        = link_to prefecture.name, user_tourist_spot_prefecture_search_path(prefecture_search: prefecture.code)
+
               - if user_signed_in?
                 li.dropdown role='presentation'
                   - if unchecked_notifications(current_user).present?
@@ -167,7 +178,7 @@ html
 
         = yield
 
-        span id='go-top'
+        span#go-top
           a href='#'
             = image_tag 'others/arrow.png'
 

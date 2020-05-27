@@ -235,6 +235,13 @@ footer {
   margin: 0 auto;
 }
 
+// Bootstrap3のドロップダウンをスクロール
+.dropdown-menu {
+  height: auto;
+  max-height: 500px;
+  overflow-x: hidden;
+}
+
 // トップ画面の画像の高さ調節
 .top-image {
   width: 100%;
