@@ -2,7 +2,9 @@
 
 .row
   .col-xs-7
-    .row id='genre-search'
+
+    #genre-search
+    .row
       .page-header
         h3
           | ジャンルから探す
@@ -14,7 +16,8 @@
             = genre.name
           br
 
-    .row id='scene-search'
+    #scene-search
+    .row
       .page-header
         h3
           | 利用シーンから探す
@@ -27,7 +30,8 @@
             = scene.name
           br
 
-    .row id='prefecture-search'
+    #prefecture-search
+    .row
       .page-header
         h3
           | 都道府県から探す
@@ -48,8 +52,8 @@
                         tags: @tags,
                         reviews: @reviews,
                         users: @users
-
-.row id='location-search'
+#location-search
+.row
   .page-header
     h3
       | 現在地から探す

@@ -263,6 +263,13 @@ footer {
   box-sizing: border-box;
 }
 
+#genre-search,
+#scene-search,
+#prefecture-search,
+#location-search {
+  margin-bottom: 50px;
+}
+
 .ribbon {
   display: inline-block;
   position: absolute;
