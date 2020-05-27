@@ -95,6 +95,18 @@ Rails.application.configure do
 
   # config.serve_static_assets = true # Carrierwaveが表示されない問題
 
+  #JSファイルの設定
+  config.assets.precompile += ['tag-it.js']
+  config.assets.precompile += ['scroll.js']
+  config.assets.precompile += ['calendar.js']
+  config.assets.precompile += ['table_sort.js']
+  config.assets.precompile += ['genre_form.js']
+  config.assets.precompile += ['genre_window.js']
+  config.assets.precompile += ['image_preview.js']
+  config.assets.precompile += ['jquery.jpostal.js']
+  config.assets.precompile += ['user_address_autofill.js']
+  config.assets.precompile += ['tourist_spot_address_autofill.js']
+
   # ActionMailerの設定
   config.action_mailer.default_url_options = { host: 'tabi-share.work' }
   config.action_mailer.raise_delivery_errors = true
