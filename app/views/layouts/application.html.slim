@@ -141,17 +141,18 @@ html
     main
       - if current_page?(root_path)
         .main-visual
-          h1
-            | TaBi Share
-          nav
-            a href='' id='go-genre-search'
-              | ジャンルから探す
-            a href='' id='go-scene-search'
-              | 利用シーンから探す
-            a href='' id='go-prefecture-search'
-              | 都道府県から探す
-            a href='' id='go-location-search'
-              | 現在地から探す
+          div
+            h1
+              | TaBi Share
+            nav
+              a href='' id='go-genre-search'
+                | ジャンルから探す
+              a href='' id='go-scene-search'
+                | 利用シーンから探す
+              a href='' id='go-prefecture-search'
+                | 都道府県から探す
+              a href='' id='go-location-search'
+                | 現在地から探す
 
       .container
         - unless request.path.include?('admin') || request.path.include?('sign')
