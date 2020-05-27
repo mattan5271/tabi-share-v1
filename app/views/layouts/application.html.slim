@@ -25,7 +25,7 @@ html
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            = link_to root_path, class: 'navbar-brand' do
+            = link_to root_path, class: 'navbar-brand', 'data-turbolinks': false do
               = image_tag 'others/logo.png', class: 'header__logo'
 
           #navbarEexample7.collapse.navbar-collapse
@@ -66,7 +66,7 @@ html
 
                 li.dropdown role='presentation'
                   a.dropdown-toggle data-toggle='dropdown' href='#' role='button' aria-expanded='false'
-                    i.fas.fa-map-marker-alt
+                    i.fas.fa-globe-asia
                     span
                       |  都道府県から探す
                     span.caret
@@ -155,16 +155,21 @@ html
         .main-visual
           div
             h1
-              | TaBi Share
+              i.fas.fa-piggy-bank
+              |  TaBi Share
             nav
               a href='' id='go-genre-search'
-                | ジャンルから探す
+                i.fas.fa-list-ul
+                  |  ジャンルから探す
               a href='' id='go-scene-search'
-                | 利用シーンから探す
+                i.fas.fa-bullseye
+                  |  利用シーンから探す
               a href='' id='go-prefecture-search'
-                | 都道府県から探す
+                i.fas.fa-globe-asia
+                  |  都道府県から探す
               a href='' id='go-location-search'
-                | 現在地から探す
+                i.fas.fa-map-marker-alt
+                  |  現在地から探す
 
       .container
         - unless request.path.include?('admin') || request.path.include?('sign')
@@ -173,7 +178,9 @@ html
               .col-xs-10
                 = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
               .col-xs-2
-                = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+                = button_tag type: 'submit', name: nil, class: 'btn btn-info btn-block' do
+                  i.fas.fa-search
+                  |  検索
             br
 
         = yield
@@ -185,16 +192,17 @@ html
     footer
       .container
         .row
-          .col-xs-2
+          .col-xs-4
             span.logo
-              | TaBi Share
+              i.fas.fa-piggy-bank
+              |  TaBi Share
 
-          .col-xs-5
+          .col-xs-4
             ul.menu
               span
                 | Menu
               li
-                = link_to root_path do
+                = link_to root_path, 'data-turbolinks': false do
                   i.fas.fa-home
                   |  トップ
               li
@@ -210,7 +218,7 @@ html
                   i.fas.fa-file-alt
                   |  利用規約
 
-          .col-xs-5
+          .col-xs-4
             ul.address
               span
                 | Contact

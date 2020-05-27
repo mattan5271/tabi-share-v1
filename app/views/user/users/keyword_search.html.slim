@@ -3,14 +3,15 @@
 .row
   .col-xs-7
     .row
-      .col-xs-7
-        = form_with url: user_user_keyword_search_path, method: :get, local: true do
-          .col-xs-9
-            = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
+      = form_with url: user_user_keyword_search_path, method: :get, local: true do
+        .col-xs-9
+          = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
 
-          .col-xs-3
-            = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
-            br
+        .col-xs-3
+          = button_tag type: 'submit', name: nil, class: 'btn btn-info btn-block'
+            i.fas.fa-search
+            |  検索
+          br
 
     .row
       .col-xs-2
@@ -74,7 +75,7 @@
 
         - else
           p.centered
-            | 観光スポットは存在しません
+            | ユーザーは存在しません
 
       .col-xs-2
 
@@ -91,8 +92,8 @@
           - break
 
 
-    = render '/homes/sidebar',  tourist_spots: TouristSpot.top_ranking.limit(10),
-                                reviews: Review.recommended_order.limit(10),
-                                tags: TouristSpot.all.tag_counts.order(taggings_count: 'DESC').limit(10),
-                                users: User.all.order(point: 'DESC').limit(10),
-                                my_rank: @my_rank
+    = render '/homes/sidebar',  tourist_spots_fav: TouristSpot.fav_ranking,
+                                tourist_spots_pv: TouristSpot.pv_ranking,
+                                tags: TouristSpot.tag_ranking,
+                                reviews: Review.ranking,
+                                users: User.ranking

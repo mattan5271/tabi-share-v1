@@ -1,12 +1,12 @@
 - if tourist_spot.favorited_by?(current_user)
   = link_to user_tourist_spot_favorites_path(tourist_spot), method: :delete, remote: true, class: 'btn btn-default', style: 'border-color: #FF9933;' do
-    i.fas.fa-star aria-hidden='true' style='color: #FF9933;'
+    i.fas.fa-star style='color: #FF9933;'
     = tourist_spot.favorites.count
     |  行きたい！
 
 - else
   = link_to user_tourist_spot_favorites_path(tourist_spot), method: :post, remote: true, class: 'btn btn-default' do
-    i.far.fa-star aria-hidden='true'
+    i.far.fa-star
     = tourist_spot.favorites.count
     |  行きたい！
 

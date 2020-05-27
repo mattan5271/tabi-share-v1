@@ -2,7 +2,8 @@
   .row
     .page-header
       h4
-        | 観光スポット 「行きたい！」ランキング
+        i.fas.fa-star
+        |  観光スポット 「行きたい！」ランキング
 
   .row
     .table-responsive
@@ -40,7 +41,8 @@
   .row
     .page-header
       h4
-        | 観光スポット PVランキング
+        i.fas.fa-eye
+        |  観光スポット PVランキング
 
   .row
     .table-responsive
@@ -78,7 +80,8 @@
   .row
     .page-header
       h4
-        | タグランキング
+        i.fas.fa-tag
+        |  タグランキング
 
   .row
     .table-responsive
@@ -111,6 +114,7 @@
   .row
     .page-header
       h4
+        i.fas.fa-edit
         | レビューランキング
 
   .row
@@ -159,15 +163,18 @@
   .row
     .page-header
       h4
-        | ユーザーランキング
+        i.fas.fa-users
+        |  ユーザーランキング
 
   .row
     = form_with url: user_user_keyword_search_path, method: :get, local: true do
-      .col-xs-9
+      .col-xs-8
           = text_field_tag :search, '', placeholder: 'ユーザーキーワード検索', class: 'form-control'
 
-      .col-xs-3
-          = submit_tag '検索', name: nil, class: 'btn btn-info btn-block'
+      .col-xs-4
+          = button_tag type: 'submit', name: nil, class: 'btn btn-info btn-block'
+            i.fas.fa-search
+            |  検索
           br
 
   .row
@@ -216,7 +223,8 @@
     .row
       .page-header
         h4
-          | マイカレンダー
+          i.fas.fa-calendar-alt
+          |  マイカレンダー
 
     .row
       #calendar

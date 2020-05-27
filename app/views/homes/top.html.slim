@@ -7,7 +7,8 @@
     .row
       .page-header
         h3
-          | ジャンルから探す
+          i.fas.fa-list-ul
+          |  ジャンルから探す
       - @genres.each do |genre|
         .col-xs-4
           = link_to user_tourist_spot_genre_search_path(genre_search: genre.id) do
@@ -20,7 +21,8 @@
     .row
       .page-header
         h3
-          | 利用シーンから探す
+          i.fas.fa-bullseye
+          |  利用シーンから探す
 
       - @scenes.each do |scene|
         .col-xs-4
@@ -34,7 +36,8 @@
     .row
       .page-header
         h3
-          | 都道府県から探す
+          i.fas.fa-globe-asia
+          |  都道府県から探す
 
       - JpPrefecture::Prefecture.all.each do |prefecture|
         .col-xs-4
@@ -56,7 +59,8 @@
 .row
   .page-header
     h3
-      | 現在地から探す
+      i.fas.fa-map-marker-alt
+      |  現在地から探す
 
   #map style='height: 800px; width: 100%;'
 
