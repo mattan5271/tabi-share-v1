@@ -8,13 +8,14 @@ class User::TouristSpotsController < ApplicationController
     @genre_parent_array = ['---']
     # データベースから親カテゴリーのみを抽出し配列化
     Genre.where(ancestry: nil).each do |parent|
-      @genre_parent_array << parent.name
+      @genre_parent_array << [parent.name, parent.id]
     end
+    # binding.pry
   end
 
   # 親カテゴリーが選択された後に動くアクション
   def get_genre_children
-    @genre_children = Genre.find_by(name: params[:parent_name], ancestry: nil).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
+    @genre_children = Genre.find(params[:parent_id]).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
   end
 
   # 子カテゴリーが選択された後に動くアクション
@@ -26,28 +27,37 @@ class User::TouristSpotsController < ApplicationController
     @tourist_spot = TouristSpot.new(tourist_spot_params)
     @tourist_spot.user_id = current_user.id
     if @tourist_spot.save
-    # 中間テーブルにレコードを作成
-      genre = Genre.find_by(name: params[:grandchild_name])
-      tourist_spot_genre = TouristSpotGenre.new
-      tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-      tourist_spot_genre.genre_id = genre.parent.parent.id
-      tourist_spot_genre.save
+      # 中間テーブルにレコードを選択した分作成
+      if params[:parent_id].present?
+        genre = Genre.find(params[:parent_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
 
-      tourist_spot_genre = TouristSpotGenre.new
-      tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-      tourist_spot_genre.genre_id = genre.parent.id
-      tourist_spot_genre.save
+      if params[:children_id].present?
+        genre = Genre.find(params[:children_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
 
-      tourist_spot_genre = TouristSpotGenre.new
-      tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-      tourist_spot_genre.genre_id = genre.id
-      tourist_spot_genre.save
+      if params[:grandchildren_id].present?
+        genre = Genre.find(params[:grandchildren_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
+
       redirect_to user_tourist_spot_path(@tourist_spot)
     else
       @genre_parent_array = ['---']
       # データベースから親カテゴリーのみを抽出し配列化
       Genre.where(ancestry: nil).each do |parent|
-        @genre_parent_array << parent.name
+        @genre_parent_array << [parent.name, parent.id]
       end
 			render 'new'
     end
@@ -61,14 +71,49 @@ class User::TouristSpotsController < ApplicationController
     @genre_parent_array = ['---']
     # データベースから親カテゴリーのみを抽出し配列化
     Genre.where(ancestry: nil).each do |parent|
-      @genre_parent_array << parent.name
+      @genre_parent_array << [parent.name, parent.id]
     end
   end
 
   def update
-		if @tourist_spot.update(tourist_spot_params)
-			redirect_to user_tourist_spot_path(@tourist_spot)
+    if @tourist_spot.update(tourist_spot_params)
+      # 登録されているジャンル(中間テーブルのレコード)を一旦全削除
+      tourist_spot_genres = TouristSpotGenre.where(tourist_spot_id: @tourist_spot.id)
+      # binding.pry
+      tourist_spot_genres.destroy_all
+
+      # 再度中間テーブルのレコードを作成
+      if params[:parent_id].present?
+        genre = Genre.find(params[:parent_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
+
+      if params[:children_id].present?
+        genre = Genre.find(params[:children_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
+
+      if params[:grandchildren_id].present?
+        genre = Genre.find(params[:grandchildren_id])
+        tourist_spot_genre = TouristSpotGenre.new
+        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
+        tourist_spot_genre.genre_id = genre.id
+        tourist_spot_genre.save
+      end
+
+      redirect_to user_tourist_spot_path(@tourist_spot)
     else
+      @genre_parent_array = ['---']
+      # データベースから親カテゴリーのみを抽出し配列化
+      Genre.where(ancestry: nil).each do |parent|
+        @genre_parent_array << [parent.name, parent.id]
+      end
 			render 'edit'
 		end
   end

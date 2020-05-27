@@ -35,7 +35,7 @@
         = label_tag :ジャンル
         span.label.label-danger
           | 必須
-        = select_tag '', options_for_select(@genre_parent_array), class: 'form-control', id: 'parent-genre'
+        = select_tag 'parent_id', options_for_select(@genre_parent_array), class: 'form-control', id: 'parent-genre'
         i.fas.fa-chevron-down
       br
 

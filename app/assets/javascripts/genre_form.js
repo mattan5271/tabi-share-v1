@@ -2,7 +2,7 @@ $(function () {
 
   // ジャンルセレクトボックスのオプションを作成
   function appendOption(genre) {
-    var html = `<option value="${genre.name}" data-genre="${genre.id}">${genre.name}</option>`;
+    var html = `<option value="${genre.id}" data-genre="${genre.id}">${genre.name}</option>`;
     return html;
   }
 
@@ -10,7 +10,7 @@ $(function () {
   function appendChidrenBox(insertHTML) {
     var childSelectHtml = '';
     childSelectHtml = `<div id='children_wrapper'>
-                        <select id='child_genre' class='form-control'>
+                        <select id='child_genre' class='form-control' name='[children_id]'>
                           <option value='---' data-genre='---'>---</option>
                           ${insertHTML}
                         </select>
@@ -23,7 +23,7 @@ $(function () {
   function appendGrandchidrenBox(insertHTML) {
     var grandchildSelectHtml = '';
     grandchildSelectHtml = `<div id='grandchildren_wrapper'>
-                              <select id='grandchild_genre' class='form-control' name='[grandchild_name]'>
+                              <select id='grandchild_genre' class='form-control' name='[grandchildren_id]'>
                                 <option value='---' data-genre='---'>---</option>
                                 ${insertHTML}
                               </select>
@@ -40,7 +40,7 @@ $(function () {
           url: '/user/get_genre/children',
           type: 'GET',
           data: {
-            parent_name: parentGenre
+            parent_id: parentGenre
           },
           dataType: 'json'
         })
@@ -51,6 +51,7 @@ $(function () {
           children.forEach(function (child) {
             insertHTML += appendOption(child);
           });
+          console.log(insertHTML)
           appendChidrenBox(insertHTML);
         })
         .fail(function () {
