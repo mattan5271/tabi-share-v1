@@ -91,8 +91,8 @@ class TouristSpot < ApplicationRecord
 
   # PVランキング
   def self.pv_ranking
-    # self.order(impressionist_count: 'DESC').limit(10)
-    self.order(impressions_count: 'DESC').limit(10)
+    self.order(impressionist_count: 'DESC').limit(10)
+    # self.order(impressions_count: 'DESC').limit(10)
   end
 
   # タグランキング
