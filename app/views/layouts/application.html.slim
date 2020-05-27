@@ -9,6 +9,7 @@ html
     = include_gon
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'genre_window.js'
     link href='https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css' rel='stylesheet'
     script src='https://kit.fontawesome.com/c51513dd6c.js' crossorigin='anonymous'
     script src='https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js' type='text/javascript'
@@ -190,11 +191,11 @@ html
                   i.fas.fa-info-circle
                   |  サイト説明
               li
-                = link_to new_user_tourist_spot_path do
+                = link_to new_user_tourist_spot_path, 'data-turbolinks': false do
                   i.fas.fa-pen-square
                   |  観光地登録
               li
-                a href='https://drive.google.com/open?id=1KmU9uDuqijgmknv4Lf1kwfN0jB6YAOqe' target="_blank"
+                a href='https://drive.google.com/open?id=1KmU9uDuqijgmknv4Lf1kwfN0jB6YAOqe' target='_blank'
                   i.fas.fa-file-alt
                   |  利用規約
 

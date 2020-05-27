@@ -40,3 +40,5 @@
       = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success'
       = link_to '編集', edit_user_event_path(@event), class: 'btn btn-primary margin-left--10px'
       = link_to '削除', user_event_path(@event), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'
+
+= javascript_include_tag 'calendar.js'

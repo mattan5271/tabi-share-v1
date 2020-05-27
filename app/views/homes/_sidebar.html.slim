@@ -72,8 +72,7 @@
                   span.margin-left--10px
                     = tourist_spot.name
               td.text-center
-                = tourist_spot.impressionist_count(filter: :session_hash)
-                / = tourist_spot.impressions_count
+                = tourist_spot.impressions_count
 
 .row
   .row
@@ -225,3 +224,5 @@
       .pull-right
         = link_to 'マイカレンダー', user_my_calendar_path, class: 'btn btn-warning'
         = link_to 'スケジュール登録', new_user_event_path, class: 'btn btn-success margin-left--10px'
+
+= javascript_include_tag 'calendar.js'

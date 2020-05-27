@@ -18,11 +18,9 @@
             td.text-center
               = scene.id
             td.text-center
-              = link_to admin_scene_path(scene) do
-                = attachment_image_tag scene, :image, size: '50x50', fallback: 'others/no_image.png', class: 'img-thumbnail img-responsive'
+              = attachment_image_tag scene, :image, size: '50x50', fallback: 'others/no_image.png', class: 'img-thumbnail img-responsive'
             td.text-center
-              = link_to admin_scene_path(scene) do
-                = scene.name
+              = scene.name
             td.text-center
               = link_to '編集', edit_admin_scene_path(scene), class: 'btn btn-primary'
             td.text-center

@@ -41,7 +41,9 @@
             th.active
               | ジャンル
             td
-              = @tourist_spot.genre.name
+              - @tourist_spot.genres.each do |genre|
+                = genre.name
+                | /
           tr
             th.active
               | 利用シーン
@@ -82,7 +84,7 @@
     = link_to "レビュー一覧", admin_tourist_spot_reviews_path(@tourist_spot), class: "btn btn-success btn-block"
     br
 
-    = link_to "編集", edit_admin_tourist_spot_path(@tourist_spot), class: "btn btn-primary btn-block"
+    = link_to "編集", edit_admin_tourist_spot_path(@tourist_spot), class: "btn btn-primary btn-block", 'data-turbolinks': false
     br
 
     = link_to "削除", admin_tourist_spot_path(@tourist_spot), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-block"

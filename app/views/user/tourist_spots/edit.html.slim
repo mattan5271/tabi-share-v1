@@ -28,7 +28,7 @@
       span.label.label-default
         | 任意
       br
-      = f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: 'tags', class: 'form-control'
+      = f.text_field :tag_list, value: @tourist_spot.tag_list.join(','), id: 'tags'
       br
 
       .genre-form
@@ -120,3 +120,8 @@
       = f.submit '保存', class: 'btn btn-primary btn-lg btn-block'
 
   .col-xs-3
+
+= javascript_include_tag 'tag-it.js'
+= javascript_include_tag 'genre_form.js'
+= javascript_include_tag 'jquery.jpostal.js'
+= javascript_include_tag 'tourist_spot_address_autofill.js'

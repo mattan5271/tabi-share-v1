@@ -10,6 +10,11 @@ class Admin::TouristSpotsController < ApplicationController
   end
 
   def edit
+    @genre_parent_array = ['---']
+    # データベースから親カテゴリーのみを抽出し配列化
+    Genre.where(ancestry: nil).each do |parent|
+      @genre_parent_array << parent.name
+    end
   end
 
   def update

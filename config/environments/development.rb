@@ -59,10 +59,20 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # default url
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  #JSファイルの設定
+  config.assets.precompile += ['tag-it.js']
+  config.assets.precompile += ['scroll.js']
+  config.assets.precompile += ['calendar.js']
+  config.assets.precompile += ['table_sort.js']
+  config.assets.precompile += ['genre_form.js']
+  config.assets.precompile += ['genre_window.js']
+  config.assets.precompile += ['image_preview.js']
+  config.assets.precompile += ['jquery.jpostal.js']
+  config.assets.precompile += ['user_address_autofill.js']
+  config.assets.precompile += ['tourist_spot_address_autofill.js']
 
-  # mail setting
+  # ActionMailerの設定
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
