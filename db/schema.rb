@@ -214,8 +214,8 @@ ActiveRecord::Schema.define(version: 2020_05_26_014409) do
     t.float "latitude"
     t.float "longitude"
     t.integer "row_order"
+    t.integer "impressions_count", default: 0
     t.text "is_parking", null: false
-    t.integer "impressions_count"
   end
 
   create_table "users", force: :cascade do |t|
