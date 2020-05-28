@@ -86,7 +86,7 @@
             th.active
               | ホームページ
             td
-              = @tourist_spot.home_page
+              = link_to @tourist_spot.home_page, @tourist_spot.home_page, target: '_blank'
           tr
             th.active
               | 駐車場

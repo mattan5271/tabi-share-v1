@@ -218,7 +218,7 @@ html
                   i.fas.fa-pen-square
                   |  観光地登録
               li
-                a href='https://drive.google.com/open?id=1KmU9uDuqijgmknv4Lf1kwfN0jB6YAOqe' target='_blank'
+                = link_to 'https://drive.google.com/open?id=1KmU9uDuqijgmknv4Lf1kwfN0jB6YAOqe', target: '_blank' do
                   i.fas.fa-file-alt
                   |  利用規約
 
@@ -227,18 +227,18 @@ html
               span
                 | Contact
               li
-                a href='#'
-                  i.fa.fa-twitter aria-hidden='true'
+                = link_to root_path, 'data-turbolinks': false do
+                  i.fa.fa-twitter
                   |  Twitter
               li
-                a href='#'
-                  i.fab.fa-instagram-square aria-hidden='true'
+                = link_to root_path, 'data-turbolinks': false do
+                  i.fab.fa-instagram-square
                   |  Instagram
               li
-                a href='#'
-                  i.fab.fa-github aria-hidden='true'
+                = link_to root_path, 'data-turbolinks': false do
+                  i.fab.fa-github
                   |  GitHub
               li
                 = link_to new_user_contact_path do
-                  i.fa.fa-envelope aria-hidden='true'
+                  i.fa.fa-envelope
                   |  お問い合わせ
