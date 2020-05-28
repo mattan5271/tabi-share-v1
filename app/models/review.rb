@@ -30,13 +30,26 @@ class Review < ApplicationRecord
       case sort
       when '1'
         # おすすめ順
-        reviews.find(Like.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
+        Review.find(
+          Like.where(review_id: reviews.pluck(:id))
+            .group(:review_id)
+            .order('count(review_id) DESC')
+            .pluck(:review_id)
+        )
+        # reviews.find(Like.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
       when '2'
         # 新着順
         reviews.order(id: 'DESC')
       when '3'
         # コメント数順
-        reviews.find(Comment.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
+        # おすすめ順
+        Review.find(
+          Comment.where(review_id: reviews.pluck(:id))
+            .group(:review_id)
+            .order('count(review_id) DESC')
+            .pluck(:review_id)
+        )
+        # reviews.find(Comment.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
       when '4'
         # 点数順
         reviews.order(score: 'DESC')

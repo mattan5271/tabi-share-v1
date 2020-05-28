@@ -23,7 +23,7 @@ class TouristSpot < ApplicationRecord
   validates :business_hour, presence: true, length: { maximum: 100 }
   validates :phone_number, presence: true, uniqueness: true, format: { with: /\A[0-9]{1,4}-[0-9]{1,4}-[0-9]{4}\z/ }
   validates :home_page, presence: true, length: { maximum: 100 }
-  validates :parking, presence: true, length: { maximum: 50 }
+  validates :parking, presence: true, length: { maximum: 100 }
 
   mount_uploaders :images, ImageUploader # Carrierwave画像アップロード
 

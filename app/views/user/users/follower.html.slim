@@ -8,7 +8,7 @@
           .caption
             p
               = link_to user_user_path(user)
-                = attachment_image_tag user, :profile_image, fallback: 'others/no_image.jpg', class: 'img-responsive img-hover'
+                = attachment_image_tag user, :profile_image, fallback: 'others/no_image.png', class: 'img-responsive img-hover'
               = user.name
 
             = link_to "#{ user.follower.count }フォロー中", user_following_path(user)
