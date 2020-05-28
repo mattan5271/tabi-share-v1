@@ -27,7 +27,9 @@
                 = genre.name
                 | /
             td.text-center
-              = tourist_spot.scene.name
+              - tourist_spot.scenes.each do |scene|
+                = scene.name
+                | /
             td.text-center
               = tourist_spot.favorites.count
             td.text-center
