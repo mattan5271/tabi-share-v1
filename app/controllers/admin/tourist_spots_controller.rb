@@ -53,7 +53,9 @@ class Admin::TouristSpotsController < ApplicationController
         :access,
         :phone_number,
         :business_hour,
-        :is_parking,
+        :home_page,
+        :parking,
+        :tag_list,
         {images: []},
         { scene_ids: [] }
       )

@@ -4,7 +4,7 @@ class TouristSpotGenre < ApplicationRecord
 
   # 多階層ジャンルの作成
   def self.maltilevel_genre_create(tourist_spot, parent_id, children_id, grandchildren_id)
-    if parent_id.present?
+    if parent_id.present? && parent_id != '---'
       genre = Genre.find(parent_id)
       tourist_spot_genre = TouristSpotGenre.new
       tourist_spot_genre.tourist_spot_id = tourist_spot.id

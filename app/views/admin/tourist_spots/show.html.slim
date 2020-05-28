@@ -79,9 +79,19 @@
               = @tourist_spot.business_hour
           tr
             th.active
+              | 電話番号
+            td
+              = @tourist_spot.phone_number
+          tr
+            th.active
+              | ホームページ
+            td
+              = @tourist_spot.home_page
+          tr
+            th.active
               | 駐車場
             td
-              = @tourist_spot.is_parking
+              = @tourist_spot.parking
 
     = link_to "レビュー一覧", admin_tourist_spot_reviews_path(@tourist_spot), class: "btn btn-success btn-block"
     br

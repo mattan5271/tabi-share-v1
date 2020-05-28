@@ -20,7 +20,7 @@
         tbody
           tr
             th.active
-              | 説明文
+              | 紹介文
             td
               = @tourist_spot.introduction
           tr
@@ -60,9 +60,19 @@
               = @tourist_spot.business_hour
           tr
             th.active
+              | 電話番号
+            td
+              = @tourist_spot.phone_number
+          tr
+            th.active
+              | ホームページ
+            td
+              = @tourist_spot.home_page
+          tr
+            th.active
               | 駐車場
             td
-              = @tourist_spot.is_parking
+              = @tourist_spot.parking
 
     - if @tourist_spot.user === current_user
       .pull-right

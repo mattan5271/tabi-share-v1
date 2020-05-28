@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_054014) do
+ActiveRecord::Schema.define(version: 2020_05_28_070321) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -221,7 +221,8 @@ ActiveRecord::Schema.define(version: 2020_05_28_054014) do
     t.float "longitude"
     t.integer "row_order"
     t.integer "impressions_count", default: 0
-    t.text "is_parking", null: false
+    t.text "parking", null: false
+    t.string "home_page", null: false
   end
 
   create_table "users", force: :cascade do |t|
