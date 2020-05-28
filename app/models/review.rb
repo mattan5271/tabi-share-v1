@@ -79,7 +79,10 @@ class Review < ApplicationRecord
   # いいね通知
   def create_notification_like!(current_user)
     # すでにいいねされているかを確認
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and review_id = ? and action = ? ', current_user.id, user_id, id, 'like'])
+    temp = Notification.where([
+      'visitor_id = ? and visited_id = ? and review_id = ? and action = ? ',
+      current_user.id, user_id, id, 'like'
+    ])
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_user.active_notifications.new(

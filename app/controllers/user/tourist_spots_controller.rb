@@ -4,61 +4,33 @@ class User::TouristSpotsController < ApplicationController
 
   def new
     @tourist_spot = TouristSpot.new
-
-    @genre_parent_array = ['---']
-    # データベースから親カテゴリーのみを抽出し配列化
-    Genre.where(ancestry: nil).each do |parent|
-      @genre_parent_array << [parent.name, parent.id]
-    end
-    # binding.pry
+    @genre_parent_array = Genre.genre_parent_array_create # 親ジャンルのみを抽出し配列化
   end
 
-  # 親カテゴリーが選択された後に動くアクション
+  # 親ジャンルが選択された後に動くアクション
   def get_genre_children
-    @genre_children = Genre.find(params[:parent_id]).children # 選択された親カテゴリーに紐付く子カテゴリーの配列を取得
+    @genre_children = Genre.find(params[:parent_id]).children # 選択された親ジャンルに紐付く子ジャンルの配列を取得
   end
 
-  # 子カテゴリーが選択された後に動くアクション
+  # 子ジャンルが選択された後に動くアクション
   def get_genre_grandchildren
-    @genre_grandchildren = Genre.find(params[:child_id]).children # 選択された子カテゴリーに紐付く孫カテゴリーの配列を取得
+    @genre_grandchildren = Genre.find(params[:child_id]).children # 選択された子ジャンルに紐付く孫ジャンルの配列を取得
   end
 
   def create
     @tourist_spot = TouristSpot.new(tourist_spot_params)
     @tourist_spot.user_id = current_user.id
     if @tourist_spot.save
-      # 中間テーブルにレコードを選択した分作成
-      if params[:parent_id].present?
-        genre = Genre.find(params[:parent_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
-      if params[:children_id].present?
-        genre = Genre.find(params[:children_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
-      if params[:grandchildren_id].present?
-        genre = Genre.find(params[:grandchildren_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
+      # 中間テーブルにレコードを作成
+      TouristSpotGenre.maltilevel_genre_create(
+        @tourist_spot,
+        params[:parent_id],
+        params[:children_id],
+        params[:grandchildren_id]
+      )
       redirect_to user_tourist_spot_path(@tourist_spot)
     else
-      @genre_parent_array = ['---']
-      # データベースから親カテゴリーのみを抽出し配列化
-      Genre.where(ancestry: nil).each do |parent|
-        @genre_parent_array << [parent.name, parent.id]
-      end
+      @genre_parent_array = Genre.genre_parent_array_create
 			render 'new'
     end
   end
@@ -68,52 +40,22 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def edit
-    @genre_parent_array = ['---']
-    # データベースから親カテゴリーのみを抽出し配列化
-    Genre.where(ancestry: nil).each do |parent|
-      @genre_parent_array << [parent.name, parent.id]
-    end
+    @genre_parent_array = Genre.genre_parent_array_create
   end
 
   def update
     if @tourist_spot.update(tourist_spot_params)
-      # 登録されているジャンル(中間テーブルのレコード)を一旦全削除
       tourist_spot_genres = TouristSpotGenre.where(tourist_spot_id: @tourist_spot.id)
-      # binding.pry
-      tourist_spot_genres.destroy_all
-
-      # 再度中間テーブルのレコードを作成
-      if params[:parent_id].present?
-        genre = Genre.find(params[:parent_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
-      if params[:children_id].present?
-        genre = Genre.find(params[:children_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
-      if params[:grandchildren_id].present?
-        genre = Genre.find(params[:grandchildren_id])
-        tourist_spot_genre = TouristSpotGenre.new
-        tourist_spot_genre.tourist_spot_id = @tourist_spot.id
-        tourist_spot_genre.genre_id = genre.id
-        tourist_spot_genre.save
-      end
-
+      tourist_spot_genres.destroy_all # ジャンル(中間テーブルのレコード)を一旦全削除
+      TouristSpotGenre.maltilevel_genre_create(
+        @tourist_spot,
+        params[:parent_id],
+        params[:children_id],
+        params[:grandchildren_id]
+      )
       redirect_to user_tourist_spot_path(@tourist_spot)
     else
-      @genre_parent_array = ['---']
-      # データベースから親カテゴリーのみを抽出し配列化
-      Genre.where(ancestry: nil).each do |parent|
-        @genre_parent_array << [parent.name, parent.id]
-      end
+      @genre_parent_array = Genre.genre_parent_array_create
 			render 'edit'
 		end
   end
@@ -149,7 +91,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots = TouristSpot.genre_search(params[:genre_search])
     @genre_search = params[:genre_search]
     @genre = Genre.find_by(id: @genre_search)
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
@@ -158,7 +100,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots = TouristSpot.scene_search(params[:scene_search])
     @scene_search = params[:scene_search]
     @scene = Scene.find_by(id: @scene_search)
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots)# kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
@@ -167,7 +109,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots = TouristSpot.prefecture_search(params[:prefecture_search])
     @prefecture_search = params[:prefecture_search]
     @prefecture = JpPrefecture::Prefecture.find(code: @prefecture_search)
-    kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
+    kaminari = TouristSpot.sort(params[:sort], tourist_spots)
     @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 

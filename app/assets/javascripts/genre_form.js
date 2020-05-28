@@ -2,7 +2,7 @@ $(function () {
 
   // ジャンルセレクトボックスのオプションを作成
   function appendOption(genre) {
-    var html = `<option value="${genre.id}" data-genre="${genre.id}">${genre.name}</option>`;
+    var html = `<option value='${genre.id}' data-genre='${genre.id}'>${genre.name}</option>`;
     return html;
   }
 

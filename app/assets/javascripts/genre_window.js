@@ -12,7 +12,7 @@ $(document).on('turbolinks:load', function () {
     $(".parent-genre").on("mouseover", function () {
       var id = this.id
       $(".children-genre").remove();
-      $(".grand_children-genre").remove();
+      $(".grandchildren-genre").remove();
       $.ajax({
           type: 'GET',
           url: '/get_genre/new',
@@ -31,7 +31,7 @@ $(document).on('turbolinks:load', function () {
 
     // どの子ジャンルにマウスが乗っているかによって孫ジャンルの表示を変える
     function buildGrandChildHTML(child) {
-      var html = `<a class="grand_children-genre" id="${child.id}"
+      var html = `<a class="grandchildren-genre" id="${child.id}"
                   href="/user/tourist_spot/genre/search?genre_search=${child.id}">${child.name}</a>`;
       return html;
     }
@@ -48,10 +48,10 @@ $(document).on('turbolinks:load', function () {
       }).done(function (children) {
         children.forEach(function (child) {
           var html = buildGrandChildHTML(child);
-          $(".grand_children-list").append(html);
+          $(".grandchildren-list").append(html);
         })
         $(document).on("mouseover", ".children-genre", function () {
-          $(".grand_children-genre").remove();
+          $(".grandchildren-genre").remove();
         });
       });
     });

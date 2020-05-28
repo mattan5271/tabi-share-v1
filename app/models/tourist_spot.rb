@@ -101,8 +101,10 @@ class TouristSpot < ApplicationRecord
 
   #キーワード検索
   def self.keyword_search(keyword_search)
-    TouristSpot.where(['name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?',
-                      "%#{ keyword_search }%", "%#{ keyword_search }%", "%#{ keyword_search }%", "%#{ keyword_search }%"])
+    TouristSpot.where([
+      'name LIKE ? OR introduction LIKE ? OR address_city LIKE ? OR address_street LIKE ?',
+      "%#{ keyword_search }%", "%#{ keyword_search }%", "%#{ keyword_search }%", "%#{ keyword_search }%"
+    ])
   end
 
   # ジャンル検索
