@@ -36,7 +36,6 @@ class Review < ApplicationRecord
             .order('count(review_id) DESC')
             .pluck(:review_id)
         )
-        # reviews.find(Like.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
       when '2'
         # 新着順
         reviews.order(id: 'DESC')
@@ -49,7 +48,6 @@ class Review < ApplicationRecord
             .order('count(review_id) DESC')
             .pluck(:review_id)
         )
-        # reviews.find(Comment.group(:review_id).order('count(review_id) DESC').pluck(:review_id))
       when '4'
         # 点数順
         reviews.order(score: 'DESC')
@@ -73,16 +71,16 @@ class Review < ApplicationRecord
     case user.point
     when 0
       user.rank = 'レギュラー'
-    when 1..29
+    when 1
       user.rank = 'シルバー'
       Coupon.coupon_create(user)
-    when 30..49
+    when 2
       user.rank = 'ゴールド'
       Coupon.coupon_create(user)
-    when 50..99
+    when 3
       user.rank = 'プラチナ'
       Coupon.coupon_create(user)
-    when 100..9999
+    when 4
       user.rank = 'ダイヤモンド'
       Coupon.coupon_create(user)
     end
