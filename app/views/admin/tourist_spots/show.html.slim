@@ -48,7 +48,9 @@
             th.active
               | 利用シーン
             td
-              = @tourist_spot.scene.name
+              - @tourist_spot.scenes.each do |scene|
+                = scene.name
+                | /
           tr
             th.active
               | 紹介文

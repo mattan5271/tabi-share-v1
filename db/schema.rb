@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_014409) do
+ActiveRecord::Schema.define(version: 2020_05_28_054014) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -195,9 +195,15 @@ ActiveRecord::Schema.define(version: 2020_05_26_014409) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tourist_spot_scenes", force: :cascade do |t|
+    t.integer "tourist_spot_id", null: false
+    t.integer "scene_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tourist_spots", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "scene_id", null: false
     t.string "name", null: false
     t.json "images", null: false
     t.string "postcode", null: false

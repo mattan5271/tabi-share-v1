@@ -10,17 +10,22 @@ class Admin::TouristSpotsController < ApplicationController
   end
 
   def edit
-    @genre_parent_array = ['---']
-    # データベースから親カテゴリーのみを抽出し配列化
-    Genre.where(ancestry: nil).each do |parent|
-      @genre_parent_array << parent.name
-    end
+    @genre_parent_array = Genre.genre_parent_array_create
   end
 
   def update
-		if @tourist_spot.update(tourist_spot_params)
-			redirect_to admin_tourist_spot_path(@tourist_spot)
+    if @tourist_spot.update(tourist_spot_params)
+      tourist_spot_genres = TouristSpotGenre.where(tourist_spot_id: @tourist_spot.id)
+      tourist_spot_genres.destroy_all # ジャンル(中間テーブルのレコード)を一旦全削除
+      TouristSpotGenre.maltilevel_genre_create(
+        @tourist_spot,
+        params[:parent_id],
+        params[:children_id],
+        params[:grandchildren_id]
+      )
+      redirect_to admin_tourist_spot_path(@tourist_spot)
     else
+      @genre_parent_array = Genre.genre_parent_array_create
 			render 'edit'
 		end
   end
@@ -38,8 +43,6 @@ class Admin::TouristSpotsController < ApplicationController
 
     def tourist_spot_params
 			params.require(:tourist_spot).permit(
-        :genre_id,
-        :scene_id,
         :name,
         :postcode,
         :prefecture_code,
@@ -51,7 +54,8 @@ class Admin::TouristSpotsController < ApplicationController
         :phone_number,
         :business_hour,
         :is_parking,
-        {images: []}
+        {images: []},
+        { scene_ids: [] }
       )
     end
 end

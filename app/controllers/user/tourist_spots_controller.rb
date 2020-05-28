@@ -21,7 +21,7 @@ class User::TouristSpotsController < ApplicationController
     @tourist_spot = TouristSpot.new(tourist_spot_params)
     @tourist_spot.user_id = current_user.id
     if @tourist_spot.save
-      # 中間テーブルにレコードを作成
+      # ジャンル(中間テーブルのレコード)を作成
       TouristSpotGenre.maltilevel_genre_create(
         @tourist_spot,
         params[:parent_id],
@@ -145,8 +145,6 @@ class User::TouristSpotsController < ApplicationController
 
     def tourist_spot_params
 			params.require(:tourist_spot).permit(
-        :genre_id,
-        :scene_id,
         :name,
         :postcode,
         :prefecture_code,
@@ -162,7 +160,8 @@ class User::TouristSpotsController < ApplicationController
         :is_parking,
         :tag_list,
         :row_order_position,
-        { images: [] }
+        { images: [] },
+        { scene_ids: [] }
       )
     end
 end

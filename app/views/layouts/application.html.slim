@@ -129,6 +129,8 @@ html
 
               - elsif admin_signed_in?
                 li
+                  = link_to '管理者画面トップ', admin_top_path
+                li
                   = link_to 'ユーザー一覧', admin_users_path
                 li
                   = link_to '観光スポット一覧', admin_tourist_spots_path

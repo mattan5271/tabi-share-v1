@@ -1,6 +1,5 @@
 class TouristSpot < ApplicationRecord
   belongs_to :user
-  belongs_to :scene
 
   has_many :favorites, dependent: :destroy
   has_many :wents, dependent: :destroy
@@ -8,10 +7,12 @@ class TouristSpot < ApplicationRecord
   has_many :tourist_spot_genres, dependent: :destroy
   has_many :genres, through: :tourist_spot_genres
   accepts_nested_attributes_for :tourist_spot_genres, allow_destroy: true
+  has_many :tourist_spot_scenes, dependent: :destroy
+  has_many :scenes, through: :tourist_spot_scenes
+  accepts_nested_attributes_for :tourist_spot_scenes, allow_destroy: true
 
   validates :images, presence: true
   validates :name, presence: true, length: { maximum: 50 }
-  validates :scene_id, presence: true
   validates :postcode, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :prefecture_code, presence: true
   validates :address_city, presence: true, length: { maximum: 50 }
@@ -114,7 +115,7 @@ class TouristSpot < ApplicationRecord
 
   # 利用シーン検索
   def self.scene_search(scene_search)
-    TouristSpot.where(scene_id: scene_search)
+    TouristSpot.joins(:tourist_spot_scenes).where("tourist_spot_scenes.scene_id = #{scene_search}")
   end
 
   # 都道府県検索

@@ -39,13 +39,15 @@
         i.fas.fa-chevron-down
       br
 
-      = f.label :scene_id, '利用シーン'
+      = f.label :scenes, '利用シーン'
       span.label.label-danger
         | 必須
       br
-      = f.collection_select :scene_id, Scene.all, :id, :name, { prompt: '選択してください' }, class: 'form-control'
+      = collection_check_boxes(:tourist_spot, :scene_ids, Scene.all, :id, :name) do |b|
+        span.margin-left--10px
+          = b.label { b.check_box + ' ' + b.text }
       br
-
+      br
 
       = f.label :postcode, '郵便番号'
       span.label.label-danger
