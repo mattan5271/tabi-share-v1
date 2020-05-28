@@ -4,6 +4,7 @@ html
     = favicon_link_tag 'others/favicon.ico'
     title
       = full_title(yield(:title))
+
     = csrf_meta_tags
     = csp_meta_tag
     / ブラウザバックでJSのレイアウト崩れるのを防止
