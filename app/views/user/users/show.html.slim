@@ -65,7 +65,7 @@
                 - unless @user == current_user
                   div id='followbutton_#{ @user.id }'
                     = render 'user/users/followbutton', user: @user
-                  br
+                br
 
               - if user_signed_in?
                 - unless @user.id == current_user.id
@@ -76,7 +76,7 @@
                       = fields_for @entry do |e|
                         = e.hidden_field :user_id, value: @user.id
                       = f.submit 'メッセージ', class: 'btn btn-success'
-                    br
+                  br
               p
                 = @user.introduction
 

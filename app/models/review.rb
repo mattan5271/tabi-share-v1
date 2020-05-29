@@ -80,7 +80,7 @@ class Review < ApplicationRecord
     when 3
       user.rank = 'プラチナ'
       Coupon.coupon_create(user)
-    when 6
+    when 4
       user.rank = 'ダイヤモンド'
       Coupon.coupon_create(user)
     end
