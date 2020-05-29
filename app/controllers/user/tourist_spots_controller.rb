@@ -40,6 +40,9 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def edit
+    unless @tourist_spot.user == current_user
+      redirect_to root_path
+    end
     @genre_parent_array = Genre.genre_parent_array_create
   end
 

@@ -24,6 +24,9 @@ class User::EventsController < ApplicationController
   end
 
   def edit
+    unless @event.user == current_user
+      redirect_to root_path
+    end
   end
 
   def update

@@ -16,7 +16,9 @@ class User::CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+    unless @comment.user == current_user
+      redirect_to root_path
+    end
   end
 
   def update
