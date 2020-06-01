@@ -69,8 +69,8 @@
 
               - if user_signed_in?
                 - unless @user.id == current_user.id
-                  - if @isRoom == true
-                    = link_to 'メッセージ',user_room_path(@roomId), class: 'btn btn-success'
+                  - if @is_room == true
+                    = link_to 'メッセージ',user_room_path(@room_id), class: 'btn btn-success'
                   - else
                     = form_with model: @room, url: user_rooms_path, local: true do |f|
                       = fields_for @entry do |e|

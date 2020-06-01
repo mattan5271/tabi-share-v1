@@ -1,23 +1,22 @@
 class User::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    @user = User.find(params[:id])
     @reviews = @user.reviews.page(params[:page]).per(10)
     if user_signed_in?
-      @currentUserEntry = Entry.where(user_id: current_user.id) # ログインしているユーザーを検索
-      @userEntry = Entry.where(user_id: @user.id) # メッセージ相手のユーザーを検索
+      @current_entry = Entry.where(user_id: current_user.id) # Entryモデルからログインユーザーのレコードを抽出
+      @another_entry = Entry.where(user_id: @user.id) # Entryモデルからメッセージ相手のレコードを抽出
       unless @user.id == current_user.id
-        @currentUserEntry.each do |cu|
-          @userEntry.each do |u|
-            if cu.room_id == u.room_id then # room_idが一致するユーザー同士を探す
-              @isRoom = true
-              @roomId = cu.room_id
+        @current_entry.each do |current|
+          @another_entry.each do |another|
+            if current.room_id == another.room_id # ルームが存在する場合
+              @is_room = true
+              @room_id = current.room_id
             end
           end
         end
-        unless @isRoom
+        unless @is_room # ルームが存在しない場合は新規作成
           @room = Room.new
           @entry = Entry.new
         end

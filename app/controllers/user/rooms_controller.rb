@@ -2,35 +2,28 @@ class User::RoomsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @room = Room.create
-    @entry1 = Entry.create(room_id: @room.id, user_id: current_user.id) # ログインしているユーザー
-    @entry2 = Entry.create(entry2_params) # メッセージ相手となるユーザー
-    redirect_to user_room_path(@room.id)
+    room = Room.create
+    # Entryモデルにログインユーザーのレコードを作成
+    current_entry = Entry.create(user_id: current_user.id, room_id: room.id)
+    # Entryモデルにメッセージ相手のレコードを作成
+    another_entry = Entry.create(user_id: params[:entry][:user_id], room_id: room.id)
+    redirect_to user_room_path(room)
+  end
+
+  def index
+    # ログインユーザーが属しているルームのIDを全て抽出して配列化
+    current_entries = current_user.entries
+    my_room_ids = []
+    current_entries.each do |entry|
+      my_room_ids << entry.room.id
+    end
+    # さらにuser_idがログインユーザーでは無いレコードを抽出
+    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id).page(params[:page]).per(10)
   end
 
   def show
     @room = Room.find(params[:id])
-    if Entry.where(user_id: current_user.id, room_id: @room.id).present? # ルームが存在するか確認
-      @messages = @room.messages
-      @message = Message.new
-      @entries = @room.entries.where.not(user_id: current_user.id)
-    else
-      redirect_to user_users_path
-    end
+    @message = Message.new
+    @another_entry = @room.entries.find_by('user_id != ?', current_user.id)
   end
-
-  def index
-    currentEntries = current_user.entries
-    myRoomIds = []
-    currentEntries.each do |entry|
-      myRoomIds << entry.room.id
-    end
-    @anotherEntries = Entry.where(room_id: myRoomIds).where('user_id != ?', current_user.id).page(params[:page]).per(10)
-  end
-
-  private
-
-    def entry2_params
-      params.require(:entry).permit(:user_id, :room_id).merge(room_id: @room.id)
-    end
 end

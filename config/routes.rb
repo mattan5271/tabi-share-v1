@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 	root 'homes#top'
-	get 'about' => 'homes#about'
-	get 'get_genre/new' => 'homes#new', defaults: { format: 'json' }
+	get 'about', to: 'homes#about'
+	get 'get_genre/new', to: 'homes#new', defaults: { format: 'json' }
 
 	devise_for :admins, controllers: {
 		sessions:      'admins/sessions',
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   }
 
 	namespace :admin do
-		get 'top' => 'homes#top'
+		get 'top', to: 'homes#top'
 		resources :tourist_spots, only: [:index, :show, :edit, :update, :destroy] do
 			resources :reviews, only: [:index, :show, :edit, :update, :destroy]
 		end
@@ -34,35 +34,35 @@ Rails.application.routes.draw do
 				resource :likes, only: [:index, :create, :destroy]
 				resources :comments, only: [:create, :edit, :update, :destroy]
 			end
-			get 'map' => 'tourist_spots#map'
-			get 'images' => 'tourist_spots#images'
+			get 'map', to: 'tourist_spots#map'
+			get 'images', to: 'tourist_spots#images'
 			put :sort
 		end
 
 		resources :users, only: [:show, :edit, :update, :destroy]
-    resources :messages, only: [:create]
+    resources :messages, only: [:create, :destroy]
     resources :rooms, only: [:create, :show, :index]
 		resources :contacts, only: [:new, :create]
 		resources :notifications, only: [:index, :destroy]
 		resources :coupons, only: [:create, :index]
 		resources :events
 
-		get 'user/keyword/search' => 'users#keyword_search'
-    post 'follow/:id' => 'relationships#follow', as: 'follow'
-    post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
-    get 'users/following/:user_id' => 'users#following', as:'following'
-		get 'users/follower/:user_id' => 'users#follower', as:'follower'
+		get 'user/keyword/search', to: 'users#keyword_search'
+    post 'follow/:id', to: 'relationships#follow', as: 'follow'
+    post 'unfollow/:id', to: 'relationships#unfollow', as: 'unfollow'
+    get 'users/following/:user_id', to: 'users#following', as:'following'
+		get 'users/follower/:user_id', to: 'users#follower', as:'follower'
 
-		get 'favorites' => 'tourist_spots#favorites'
-		get 'wents' => 'tourist_spots#wents'
-		get 'tourist_spot/keyword/search' => 'tourist_spots#keyword_search'
-		get 'tourist_spot/genre/search' => 'tourist_spots#genre_search'
-		get 'tourist_spot/scene/search' => 'tourist_spots#scene_search'
-		get 'tourist_spot/prefecture/search' => 'tourist_spots#prefecture_search'
-		get 'tourist_spot/tag/search' => 'tourist_spots#tag_search'
+		get 'favorites', to: 'tourist_spots#favorites'
+		get 'wents', to: 'tourist_spots#wents'
+		get 'tourist_spot/keyword/search', to: 'tourist_spots#keyword_search'
+		get 'tourist_spot/genre/search', to: 'tourist_spots#genre_search'
+		get 'tourist_spot/scene/search', to: 'tourist_spots#scene_search'
+		get 'tourist_spot/prefecture/search', to: 'tourist_spots#prefecture_search'
+		get 'tourist_spot/tag/search', to: 'tourist_spots#tag_search'
 
-		get 'my_calendar' => 'events#my_calendar'
-		get 'get_genre/children' => 'tourist_spots#get_genre_children', defaults: { format: 'json' }
-		get 'get_genre/grandchildren' => 'tourist_spots#get_genre_grandchildren', defaults: { format: 'json' }
+		get 'my_calendar', to: 'events#my_calendar'
+		get 'get_genre/children', to: 'tourist_spots#get_genre_children', defaults: { format: 'json' }
+		get 'get_genre/grandchildren', to: 'tourist_spots#get_genre_grandchildren', defaults: { format: 'json' }
 	end
 end

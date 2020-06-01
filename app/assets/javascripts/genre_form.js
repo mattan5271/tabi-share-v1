@@ -7,7 +7,7 @@ $(function () {
   }
 
   // 子ジャンルの表示作成
-  function appendChidrenBox(insertHTML) {
+  function appendChidrenBox(insertHTML) {va
     var childSelectHtml = '';
     childSelectHtml = `<div id='children_wrapper'>
                         <select id='child_genre' class='form-control' name='[children_id]'>
