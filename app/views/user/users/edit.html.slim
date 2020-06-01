@@ -6,6 +6,14 @@
   .col-xs-6
     = form_with model: @user, url: user_user_path(@user), local: true, builder: CustomFormBuilder do |f|
 
+      - if flash.present?
+        .alert.alert-danger.alert-dismissible.fade.in role='alert'
+          button.close type='button' data-dismiss='alert'
+            span aria-hidden='true'
+              | ×
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => 'flash_#{ name }' if msg.is_a?(String)
+
       = f.file_field :profile_image, class: 'img_field', style: 'display:none;'
       = attachment_image_tag @user, :profile_image, fallback: 'others/no_image.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev'
       br

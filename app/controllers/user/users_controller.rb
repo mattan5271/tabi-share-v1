@@ -30,10 +30,19 @@ class User::UsersController < ApplicationController
     end
   end
 
-	def update
-		if @user.update(user_params)
-			redirect_to user_user_path(@user)
-		else
+  def update
+    if params[:user][:profile_image].present?
+      upload_file = params[:user][:profile_image]
+      profile_image = File.open(upload_file.tempfile)
+      result = Vision.image_analysis(profile_image) # Vision APIで画像分析
+    else
+      result = true
+    end
+    if result == true
+      @user.update(user_params)
+      redirect_to user_user_path(@user)
+    elsif result == false
+      flash[:notice] = '画像が不適切です'
 			render 'edit'
 		end
   end
