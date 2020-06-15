@@ -32,8 +32,7 @@ class User::UsersController < ApplicationController
 
   def update
     if params[:user][:profile_image].present?
-      upload_file = params[:user][:profile_image]
-      profile_image = File.open(upload_file.tempfile)
+      profile_image = File.open(params[:user][:profile_image].tempfile)
       result = Vision.image_analysis(profile_image) # Vision APIで画像分析
     else
       result = true

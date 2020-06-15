@@ -21,10 +21,8 @@ module Vision
       # binding.pry
       # 不適切な画像の疑いがある場合は保存しない
       if result.values.include?(:LIKELY) || result.values.include?(:VERY_LIKELY)
-        p "成功"
         return false
       else
-        p "失敗"
         return true
       end
     end
