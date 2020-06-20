@@ -2,7 +2,7 @@
   .col-xs-3
 
   .col-xs-6
-    = form_with model: @review, url: edit_admin_tourist_spot_review_path(@review), local: true, builder: CustomFormBuilder do |f|
+    = form_with model: @review, url: admin_tourist_spot_review_path(@review), local: true, builder: CustomFormBuilder do |f|
 
       = f.label :images, '写真(複数選択可)'
       span.label.label-danger
