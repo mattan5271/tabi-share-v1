@@ -31,5 +31,5 @@
 /config/master.key
 
 /.env
-
+/public/uploads
 /tabishare-276013-04d50c9c7865.json
