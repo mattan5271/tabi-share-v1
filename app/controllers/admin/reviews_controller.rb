@@ -16,9 +16,7 @@ class Admin::ReviewsController < ApplicationController
   end
 
   def update
-    @review.update(review_params)
-      ? (redirect_to admin_tourist_spot_review_path(@review.tourist_spot, @review))
-      : (render 'edit')
+    @review.update(review_params) ? (redirect_to admin_tourist_spot_review_path(@review.tourist_spot, @review)) : (render 'edit')
   end
 
   def destroy

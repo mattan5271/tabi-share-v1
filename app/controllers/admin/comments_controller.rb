@@ -6,9 +6,7 @@ class Admin::CommentsController < ApplicationController
   end
 
   def update
-    @comment.update(comment_params)
-      ? (redirect_to admin_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review))
-      : (rendef 'edit')
+    @comment.update(comment_params) ? (redirect_to admin_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review)) : (rendef 'edit')
   end
 
   def destroy
