@@ -3,23 +3,19 @@ class User::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    @reviews = @user.reviews.page(params[:page]).per(10)
+    @reviews = @user.reviews.paginate(params)
     if user_signed_in?
-      @current_entry = Entry.where(user_id: current_user.id) # Entryモデルからログインユーザーのレコードを抽出
-      @another_entry = Entry.where(user_id: @user.id) # Entryモデルからメッセージ相手のレコードを抽出
-      unless @user.id == current_user.id
-        @current_entry.each do |current|
-          @another_entry.each do |another|
-            if current.room_id == another.room_id # ルームが存在する場合
-              @is_room = true
-              @room_id = current.room_id
-            end
-          end
-        end
-        unless @is_room # ルームが存在しない場合は新規作成
-          @room = Room.new
-          @entry = Entry.new
-        end
+      @room_id = Room.find_by_id(
+        Entry.joins(:room)
+          .where('user_id = ? or user_id = ?' ,current_user.id, @user.id)
+          .group(:room_id)
+          .pluck(:room_id)
+          .first)
+      if @room_id.present?
+        @is_room = true
+      else
+        @room = Room.new
+        @entry = Entry.new
       end
     end
   end
