@@ -34,8 +34,7 @@ class User::UsersController < ApplicationController
       result = true
     end
     if result == true
-      @user.update(user_params)
-      redirect_to user_user_path(@user)
+      @user.update(user_params) ? (redirect_to user_user_path(@user)) : (render 'edit')
     elsif result == false
       flash[:notice] = '画像が不適切です'
 			render 'edit'
