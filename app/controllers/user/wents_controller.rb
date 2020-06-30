@@ -11,7 +11,9 @@ class User::WentsController < ApplicationController
 
   def destroy
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    went = current_user.wents.find_by(tourist_spot_id: @tourist_spot.id)
-    went.destroy
+    if @tourist_spot.wented_by?(current_user)
+      went = current_user.wents.find_by(tourist_spot_id: @tourist_spot.id)
+      went.destroy
+    end
   end
 end

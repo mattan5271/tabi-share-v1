@@ -11,7 +11,9 @@ class User::FavoritesController < ApplicationController
 
   def destroy
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    favorite = current_user.favorites.find_by(tourist_spot_id: @tourist_spot.id)
-    favorite.destroy
+    if @tourist_spot.favorited_by?(current_user)
+      favorite = current_user.favorites.find_by(tourist_spot_id: @tourist_spot.id)
+      favorite.destroy
+    end
   end
 end

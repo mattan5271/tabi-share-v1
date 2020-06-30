@@ -13,6 +13,8 @@ class User::RelationshipsController < ApplicationController
   # アンフォローする
   def unfollow
     @user = User.find(params[:id])
-    current_user.unfollow(params[:id])
+    if current_user.following?(@user)
+      current_user.unfollow(params[:id])
+    end
   end
 end
