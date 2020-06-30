@@ -27,7 +27,6 @@ class User::EventsController < ApplicationController
 
   def update
     @event.update(event_params) ? (redirect_to user_event_path(@event)) : (render 'edit')
-    end
   end
 
   def destroy
