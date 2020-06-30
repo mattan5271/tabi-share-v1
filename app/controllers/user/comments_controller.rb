@@ -22,7 +22,7 @@ class User::CommentsController < ApplicationController
   end
 
   def update
-    @comment.update(comment_params) ? redirect_to user_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review) : render 'edit'
+    @comment.update(comment_params) ? redirect_to user_tourist_spot_review_path(@comment.review.tourist_spot, @comment.review) : (render 'edit')
   end
 
   def destroy
