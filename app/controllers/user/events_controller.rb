@@ -9,11 +9,7 @@ class User::EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user_id = current_user.id
-    if @event.save
-      redirect_to user_event_path(@event)
-    else
-      render 'new'
-    end
+    @event.save ? (redirect_to user_event_path(@event)) : (render 'new')
   end
 
   def index
@@ -30,10 +26,7 @@ class User::EventsController < ApplicationController
   end
 
   def update
-    if @event.update(event_params)
-      redirect_to user_event_path(@event)
-    else
-      render 'edit'
+    @event.update(event_params) ? (redirect_to user_event_path(@event)) : (render 'edit')
     end
   end
 

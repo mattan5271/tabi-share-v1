@@ -21,11 +21,7 @@ class Admin::ScenesController < ApplicationController
   end
 
   def update
-		if @scene.update(scene_params)
-			redirect_to admin_scenes_path
-		else
-			render 'edit'
-		end
+		@scene.update(scene_params) ? redirect_to admin_scenes_path : render 'edit'
   end
 
 	def destroy

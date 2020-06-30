@@ -44,11 +44,9 @@ class User::ReviewsController < ApplicationController
   end
 
   def update
-    if @review.update(review_params)
-      redirect_to user_tourist_spot_review_path(@review.tourist_spot, @review)
-    else
-      render 'edit'
-    end
+    @review.update(review_params)
+      ? (redirect_to user_tourist_spot_review_path(@review.tourist_spot, @review))
+      : render 'edit'
   end
 
   def destroy

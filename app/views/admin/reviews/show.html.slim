@@ -84,7 +84,7 @@
                 = comment.created_at.to_s(:datetime_jp)
               td
                 = link_to '編集', edit_admin_comment_path(comment), class: 'btn btn-primary'
-                = link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger'
+                = link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'
 
   .col-xs-2
 
