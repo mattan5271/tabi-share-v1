@@ -36,7 +36,7 @@ class User::TouristSpotsController < ApplicationController
   end
 
   def show
-    impressionist(@tourist_spot)
+    impressionist(@tourist_spot, nil, unique: [:impressionable_id, :ip_address])
   end
 
   def edit
