@@ -1,6 +1,4 @@
 class Review < ApplicationRecord
-  include Paginate
-
   belongs_to :user
   belongs_to :tourist_spot
 

@@ -86,7 +86,7 @@ class User::TouristSpotsController < ApplicationController
     tourist_spots = TouristSpot.keyword_search(params[:keyword_search])
     @keyword_search = params[:keyword_search]
     kaminari = TouristSpot.sort(params[:sort], tourist_spots) # kaminariの仕様上、Arrayから直接ページネーションをする事が出来ないので一旦変数に代入
-    @tourist_spots = Kaminari.paginate_array(kaminari).paginate(params)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # ジャンル検索
@@ -95,7 +95,7 @@ class User::TouristSpotsController < ApplicationController
     @genre_search = params[:genre_search]
     @genre = Genre.find_by(id: @genre_search)
     kaminari = TouristSpot.sort(params[:sort], tourist_spots)
-    @tourist_spots = Kaminari.paginate_array(kaminari).paginate(params)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # 利用シーン検索
@@ -104,7 +104,7 @@ class User::TouristSpotsController < ApplicationController
     @scene_search = params[:scene_search]
     @scene = Scene.find_by(id: @scene_search)
     kaminari = TouristSpot.sort(params[:sort], tourist_spots)
-    @tourist_spots = Kaminari.paginate_array(kaminari).paginate(params)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # 都道府県検索
@@ -113,23 +113,23 @@ class User::TouristSpotsController < ApplicationController
     @prefecture_search = params[:prefecture_search]
     @prefecture = JpPrefecture::Prefecture.find(code: @prefecture_search)
     kaminari = TouristSpot.sort(params[:sort], tourist_spots)
-    @tourist_spots = Kaminari.paginate_array(kaminari).paginate(params)
+    @tourist_spots = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   # タグ検索
   def tag_search
-    @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).paginate(params)
+    @tourist_spots = TouristSpot.tagged_with(params[:tag_name]).page(params[:page]).per(20)
     @tags = TouristSpot.tag_counts.order(taggings_count: 'DESC').limit(20)
   end
 
   # 行きたい！一覧
   def favorites
-    @tourist_spots = current_user.favorite_tourist_spots.rank(:row_order).paginate(params)
+    @tourist_spots = current_user.favorite_tourist_spots.rank(:row_order).page(params[:page]).per(20)
   end
 
   # 行った！一覧
   def wents
-    @tourist_spots = current_user.went_tourist_spots.rank(:row_order).paginate(params)
+    @tourist_spots = current_user.went_tourist_spots.rank(:row_order).page(params[:page]).per(20)
   end
 
   # ドラッグ&ドロップ

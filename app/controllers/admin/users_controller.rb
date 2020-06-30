@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
 
 	def index
-    @users = User.all.paginate(params)
+    @users = User.all.page(params[:page]).per(20)
     respond_to do |format|
       format.html
       format.csv do |csv|

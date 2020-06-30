@@ -3,7 +3,7 @@ class Admin::TouristSpotsController < ApplicationController
 	before_action :set_tourist_spot, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tourist_spots = TouristSpot.all.paginate(params)
+    @tourist_spots = TouristSpot.all.page(params[:page]).per(20)
   end
 
   def show

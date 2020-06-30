@@ -4,7 +4,7 @@ class Admin::ScenesController < ApplicationController
 
 	def index
 		@scene = Scene.new
-		@scenes = Scene.all.paginate(params)
+		@scenes = Scene.all.page(params[:page]).per(20)
 	end
 
 	def create
@@ -12,7 +12,7 @@ class Admin::ScenesController < ApplicationController
 		if @scene.save
 			redirect_to admin_scenes_path(@scene)
 		else
-			@scenes = Scene.all.paginate(params)
+			@scenes = Scene.all.page(params[:page]).per(20)
 			render 'index'
 		end
 	end

@@ -1,7 +1,3 @@
-recaptcha:
-  errors:
-    verification_failed: "reCAPTCHA認証に失敗しました。"
-
 ja:
   views:
     pagination:
@@ -9,9 +5,12 @@ ja:
       last: <i class="fas fa-angle-double-right"></i>
       previous: <i class="fas fa-angle-left"></i>
       next: <i class="fas fa-angle-right"></i>
-      truncate: "..."
+      truncate: '...'
 
-ja:
+  recaptcha:
+    errors:
+      verification_failed: 'reCAPTCHA認証に失敗しました。'
+
   activerecord:
     attributes:
       comment:

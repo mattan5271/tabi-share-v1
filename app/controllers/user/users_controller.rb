@@ -3,7 +3,7 @@ class User::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
-    @reviews = @user.reviews.paginate(params)
+    @reviews = @user.reviews.page(params[:page]).per(20)
     if user_signed_in?
       @room_id = Room.find_by_id(
         Entry.joins(:room)
@@ -53,13 +53,13 @@ class User::UsersController < ApplicationController
   # 自分がフォローしているユーザー一覧
   def following
     @user = User.find(params[:user_id])
-    @followings = @user.following_user.where.not(id: current_user.id).paginate(params)
+    @followings = @user.following_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
   # 自分をフォローしているユーザー一覧
   def follower
     @user = User.find(params[:user_id])
-    @followers = @user.follower_user.where.not(id: current_user.id).paginate(params)
+    @followers = @user.follower_user.where.not(id: current_user.id).page(params[:page]).per(40)
   end
 
   # キーワード検索

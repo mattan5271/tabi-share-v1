@@ -29,12 +29,12 @@ class User::ReviewsController < ApplicationController
   def index
     @tourist_spot = TouristSpot.find(params[:tourist_spot_id])
     kaminari = Review.sort(params[:sort], @tourist_spot.reviews)
-    @reviews = Kaminari.paginate_array(kaminari).paginate(params)
+    @reviews = Kaminari.paginate_array(kaminari).page(params[:page]).per(20)
   end
 
   def show
     @comment = Comment.new
-    @comments = @review.comments.order(id: 'DESC').paginate(params)
+    @comments = @review.comments.order(id: 'DESC').page(params[:page]).per(20)
   end
 
   def edit

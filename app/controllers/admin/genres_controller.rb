@@ -4,7 +4,7 @@ class Admin::GenresController < ApplicationController
 
 	def index
 		@genre = Genre.new
-		@genres = Genre.all.paginate(params)
+		@genres = Genre.all.page(params[:page]).per(1)
 	end
 
 	def create
@@ -12,7 +12,7 @@ class Admin::GenresController < ApplicationController
 		if @genre.save
 			redirect_to admin_genres_path(@genre)
 		else
-			@genres = Genre.all.paginate(params)
+			@genres = Genre.all.page(params[:page]).per(20)
 			render 'index'
 		end
 	end
