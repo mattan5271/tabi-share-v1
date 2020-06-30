@@ -4,12 +4,12 @@ class Admin::ReviewsController < ApplicationController
 
   def index
     tourist_spot = TouristSpot.find(params[:tourist_spot_id])
-    @reviews = tourist_spot.reviews.page(params[:page]).per(20)
+    @reviews = tourist_spot.reviews.paginate(params)
   end
 
   def show
     @comment = Comment.new
-    @comments = @review.comments.page(params[:page]).per(20)
+    @comments = @review.comments.paginate(params)
   end
 
   def edit

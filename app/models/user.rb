@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Paginate
+
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :omniauthable
 

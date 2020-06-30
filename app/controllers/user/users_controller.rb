@@ -57,13 +57,13 @@ class User::UsersController < ApplicationController
   # 自分がフォローしているユーザー一覧
   def following
     @user = User.find(params[:user_id])
-    @followings = @user.following_user.where.not(id: current_user.id).page(params[:page]).per(40)
+    @followings = @user.following_user.where.not(id: current_user.id).paginate(params)
   end
 
   # 自分をフォローしているユーザー一覧
   def follower
     @user = User.find(params[:user_id])
-    @followers = @user.follower_user.where.not(id: current_user.id).page(params[:page]).per(40)
+    @followers = @user.follower_user.where.not(id: current_user.id).paginate(params)
   end
 
   # キーワード検索

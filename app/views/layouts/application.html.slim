@@ -50,7 +50,7 @@ html
                   ul.dropdown-menu role='menu'
                     li role='presentation'
                       - Genre.where(ancestry: nil).each do |genre|
-                        = link_to  genre.name, user_tourist_spot_genre_search_path(genre_search: genre.id), class: 'parent-genre',id: "#{genre.id}"
+                        = link_to  genre.name, user_tourist_spot_genre_search_path(genre_search: genre.id), class: 'parent-genre', id: "#{genre.id}"
                     br
                     li role='presentation' class='children-list'
                     br

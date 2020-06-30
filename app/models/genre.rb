@@ -1,4 +1,6 @@
 class Genre < ApplicationRecord
+  include Paginate
+
   has_ancestry
   has_many :tourist_spot_genres
   has_many :tourist_spots, through: :tourist_spot_genres

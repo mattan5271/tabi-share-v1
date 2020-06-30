@@ -1,4 +1,6 @@
 class TouristSpot < ApplicationRecord
+  include Paginate
+
   belongs_to :user
 
   has_many :favorites, dependent: :destroy

@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  include Paginate
+
   belongs_to :user
   belongs_to :review
 

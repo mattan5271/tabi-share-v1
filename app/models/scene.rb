@@ -1,4 +1,6 @@
 class Scene < ApplicationRecord
+  include Paginate
+
   has_many :tourist_spot_scenes
   has_many :tourist_spots, through: :tourist_spot_scenes
 
