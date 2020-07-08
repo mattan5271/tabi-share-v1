@@ -26,8 +26,8 @@ class User < ApplicationRecord
   validates :age, presence: true
   validates :postcode, allow_blank: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
   validates :address_city, length: { maximum: 50 }
-  validates :address_street, allow_blank: true, length: { maximum: 50 }
-  validates :address_building, allow_blank: true, length: { maximum: 50 }
+  validates :address_street, length: { maximum: 50 }
+  validates :address_building, length: { maximum: 50 }
   validates :introduction, length: { maximum: 200 }
 
   enum sex: { '男性': 0, '女性': 1, 'ニューハーフ': 2 }
