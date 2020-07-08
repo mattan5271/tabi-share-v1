@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザー権限のテスト', type: :feature do
   let(:current_user) { create(:user) }
-  let(:other_user) { create(:user) }
+  let(:another_user) { create(:user) }
   let(:tourist_spot) { create(:tourist_spot, user: current_user) }
   let(:review) { create(:review, user: current_user, tourist_spot: tourist_spot) }
   let(:comment) { create(:comment, user: current_user, review: review) }
@@ -44,7 +44,7 @@ RSpec.describe 'ユーザー権限のテスト', type: :feature do
         is_expected.to have_button '保存'
       end
       it 'ログインしていても、自分が作成した観光スポットでなければ失敗する' do
-        login(other_user)
+        login(another_user)
         visit edit_user_tourist_spot_path(tourist_spot)
         expect(current_path).to eq('/')
       end
@@ -73,7 +73,7 @@ RSpec.describe 'ユーザー権限のテスト', type: :feature do
         is_expected.to have_button '保存'
       end
       it 'ログインしていても、自分が投稿したレビューでなければ失敗する' do
-        login(other_user)
+        login(another_user)
         visit edit_user_tourist_spot_review_path(tourist_spot, review)
         expect(current_path).to eq('/')
       end
@@ -90,7 +90,7 @@ RSpec.describe 'ユーザー権限のテスト', type: :feature do
         is_expected.to have_button '保存'
       end
       it 'ログインしていても、自分が投稿したコメントでなければ失敗する' do
-        login(other_user)
+        login(another_user)
         visit edit_user_tourist_spot_review_comment_path(tourist_spot, review, comment)
         expect(current_path).to eq('/')
       end
@@ -115,8 +115,8 @@ RSpec.describe 'ユーザー権限のテスト', type: :feature do
     context 'ダイレクトメッセージ詳細画面' do
       it 'ログインしていれば成功する' do
         login(current_user)
-        visit user_room_path(room, user)
-        expect(current_path).to eq('/user/rooms')
+        visit user_room_path(current_user, room)
+        is_expected.to have_button '送信'
       end
       it 'ログインしていなければ失敗する' do
         visit user_room_path(room)
