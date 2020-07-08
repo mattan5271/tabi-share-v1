@@ -4,11 +4,11 @@
   .col-xs-3
 
   .col-xs-6
-    - if @anotherEntries.present?
+    - if @another_entries.present?
       .table-responsive
         table.table.table-bordered.table-hover
           tbody
-            - @anotherEntries.each do |entry|
+            - @another_entries.each do |entry|
               - last_message = Message.find_by(id: entry.room.message_ids.last)
               tr
                 td
