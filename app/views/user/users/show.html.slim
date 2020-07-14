@@ -57,7 +57,7 @@
 
               - if @user == current_user
                 = link_to 'プロフィールを編集', edit_user_user_path(@user), class: 'btn btn-primary'
-                = link_to '退会', user_user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger margin-left--10px'
+                = link_to '退会', user_user_path(@user), method: :delete, data: { confirm: '本当に退会しますか？' }, class: 'btn btn-danger margin-left--10px'
                 br
                 br
 

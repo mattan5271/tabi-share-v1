@@ -5,9 +5,6 @@ RSpec.describe '表示のテスト', type: :feature do
   let(:current_user) { create(:user) }
   let(:another_user) { create(:user) }
   let(:tourist_spot) { create(:tourist_spot, user: current_user) }
-  let(:review) { create(:review, user: current_user, tourist_spot: tourist_spot) }
-  let(:comment) { create(:comment, user: current_user, review: review) }
-  let(:room) { create(:room) }
   subject { page }
   before do
     visit new_user_session_path
@@ -230,12 +227,12 @@ RSpec.describe '表示のテスト', type: :feature do
       it '自分が登録した観光スポットであれば表示される' do
         login(current_user)
         visit user_tourist_spot_path(tourist_spot)
-        is_expected.to have_link '編集'
+        is_expected.to have_link '編集', href: edit_user_tourist_spot_path(tourist_spot)
       end
       it '自分が登録した観光スポットでなければ表示されない' do
         login(another_user)
         visit user_tourist_spot_path(tourist_spot)
-        is_expected.not_to have_link '編集'
+        is_expected.not_to have_link '編集', href: edit_user_tourist_spot_path(tourist_spot)
       end
     end
 

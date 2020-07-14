@@ -5,7 +5,7 @@
 
     #genre-search
     .row
-      .page-header
+      .page-header id='introjs-step2'
         h3
           i.fas.fa-list-ul
           |  ジャンルから探す
@@ -19,7 +19,7 @@
 
     #scene-search
     .row
-      .page-header
+      .page-header id='introjs-step3'
         h3
           i.fas.fa-bullseye
           |  利用シーンから探す
@@ -34,7 +34,7 @@
 
     #prefecture-search
     .row
-      .page-header
+      .page-header id='introjs-step4'
         h3
           i.fas.fa-globe-asia
           |  都道府県から探す
@@ -57,7 +57,7 @@
                         users: @users
 #location-search
 .row
-  .page-header
+  .page-header id='introjs-step5'
     h3
       i.fas.fa-map-marker-alt
       |  現在地から探す
@@ -118,4 +118,6 @@
       });
     }
 
+= javascript_include_tag 'intro.js'
+= javascript_include_tag 'tutorial.js'
 = javascript_include_tag 'scroll.js'

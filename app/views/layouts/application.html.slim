@@ -175,13 +175,16 @@ html
               a href='' id='go-location-search'
                 i.fas.fa-map-marker-alt
                   |  現在地から探す
+              button id='tutorial' class='btn'
+                i.fas.fa-book-reader
+                |  チュートリアル
 
       .container
         - unless request.path.include?('admin') || request.path.include?('sign')
           = form_with url: user_tourist_spot_keyword_search_path, method: :get, local: true do
             .row
               .col-xs-10
-                = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', class: 'form-control'
+                = text_field_tag :keyword_search, '', placeholder: '観光スポットキーワード検索', id: 'introjs-step1', class: 'form-control'
               .col-xs-2
                 = button_tag type: 'submit', name: nil, class: 'btn btn-info btn-block' do
                   i.fas.fa-search
@@ -214,7 +217,7 @@ html
                 = link_to about_path do
                   i.fas.fa-info-circle
                   |  サイト説明
-              li
+              li id='introjs-step6'
                 = link_to new_user_tourist_spot_path, 'data-turbolinks': false do
                   i.fas.fa-pen-square
                   |  観光地登録

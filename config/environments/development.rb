@@ -60,8 +60,10 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   #JSファイルの設定
+  config.assets.precompile += ['intro.js']
   config.assets.precompile += ['tag-it.js']
   config.assets.precompile += ['scroll.js']
+  config.assets.precompile += ['tutorial.js']
   config.assets.precompile += ['calendar.js']
   config.assets.precompile += ['table_sort.js']
   config.assets.precompile += ['genre_form.js']
