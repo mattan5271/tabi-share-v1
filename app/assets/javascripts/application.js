@@ -19,8 +19,8 @@
 //= require jquery-ui/widgets/sortable
 //= require bootstrap-sprockets
 //= require jquery.jpostal
-//= require highcharts/highcharts
-//= require highcharts/highcharts-more
+// require highcharts/highcharts
+// require highcharts/highcharts-more
 //= require tag-it
 //= require moment
 //= require fullcalendar
