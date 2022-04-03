@@ -116,5 +116,5 @@ gem 'dotenv-rails'
 gem 'google-cloud-vision'
 
 group :production do
-  gem 'mysql2'
+  gem 'pg'
 end
