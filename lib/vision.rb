@@ -6,7 +6,7 @@ module Vision
     def image_analysis(profile_image)
       image_annotator = Google::Cloud::Vision::ImageAnnotator.new(
           version: :v1,
-          credentials: JSON.parse(File.open("tabishare-276013-04d50c9c7865.json") do |f| f.read end)
+          credentials: JSON.parse(File.open("tabi-share-0af400ab0eff.json") do |f| f.read end)
       )
 
       # リクエストパラメータ作成

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tabi-share",
+  "private_key_id": "0af400ab0eff5dda468c7821bb87a46be82b62da",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCZJ1UvG3UnTe8V\nwhwo7SbXwHmUbbzASs5grzW3b8p4qudFVZ3eMR4g/bUDkN8NXTw2iioORjw3jBe8\nmFV9ifHWQJnlVa3Qpw9aPo++uBrligC0B4W2AYmIHvQyQiefxR9by9t4jpGRzINH\nIrx3XBvbcWSrYlHFmWlAfwhXGPLrH3aFF4sEdnJDFkGYVMQpNSZclDfsSezImRCW\nYvBf22xgp7kbp9XwlCdWRK+n6S+NVGVqvrLkrUaZ7M/9TY7A59b3zNXbvaROHVGb\nVVK/HZC9UrTfjCS7rlTk/Tht8ci592vMG2Vg4Hu47wg13HWByqnkoHLU/uF3jXrM\nTlaQtBubAgMBAAECggEACumdjTdkopdP/iSQQxjwF+wT/aUlZNeFBaiWUuq5P4iA\nkBUopCirH+ipRDFyDeQNzUkM9BVsZvzUGCZhOQpiMUT1x5HSSmK3mlOI2dWzvOqX\nYDyE+idOjboUO5yGcZY8b3BYGVVMlASWz15vQAX6dNQLO0Gh1/WKuq4Sgbo6XNG1\n4CJbcFTUNTtIIdGlbYy1cxbGLKiJufi8r4lZELWf015hwQe6DJzHTl90RXgk1ATo\nDE8RG43IKSbUj7WBmeMPiAateOl1QHa6AD81XKp/a2WaQikIG0zXOzWnqWGT3cqH\nyfUAVgjxL3a2lf79HC5G6c9F2OQFxHWPTPE4yorjaQKBgQDGmX6ZMXTZ8QDGGp0y\nEh9ZARA/Vc9jPD6NClhyjoqvXwdhtwtCVtbdvjh54z+/cqy9ZGRwOvy4YKpWONlu\n7UOdHZfGzDkBN6rIaMUdMacHNcoxhP0pTyeQdIwzAgoB8wpWQpFclMoQmlwgar/X\nRkQpuJNwBQ4GpIBw8UWCN0+33wKBgQDFa0PPtJ7GwGCDfVPDU+llf9T3EM1VdTF9\nQ5nkDq2YdXQhQt6rTTL+m4hrXrT4gqX4sUya7brN/DTzS9d7LMzq3haRnTMzBIpE\nQFSVm4FQbda+nGbpNHJO00FL8FLd2uoS3F5J58aRQNMna8gTsDOkL3CIE0mcpfN8\ng/eJ5UwDxQKBgQCkJQO87GKPK6GfGyon01CziKx8HJlvhMCSZCWccXHw5tM8EUUu\nDIZE+k7Fd20d+FMLqmlVVXvBjKvc3dng1BvZRTdIKU1IU1FFmUqqCXrq+6tlaGyx\n8ulZfOrP0fShjdZSW2y3n4avWFWiuXhcHoiCDztVD+h61wYN02zG5p5t8wKBgHqL\nZ++BleGXvxE/9YPVDZcEr8SheGQouAyirt8iwV1W4zxWTvQUmqfzEc5cXoe4SaBD\nJmMxWHjOqmuv01VRbO4J6AaBhyuPEOjm6dpoSfAMDnYJjdQKyz3k4q5pwnaWkiAd\nDKZhqh+2Fpxsyih2gsfS7s548oO7e5X6MOk3HWVlAoGAHwyaqkxbBv/Ml4yTsl+o\nZ61Ho9yAcvIS4Z8g4zLijfjRl/TYhubOIk5e2NDhqrCcW4lEhU6FD+t1GEm5d/Cx\nqfEMYRqRYtM/AI/Bqm6kmungEW3Qr8tYTx27T9LS2UOb07FuoQMpkLN2Zy4FN3uL\nH6PD8LjYbvFRP8WDShexe0I=\n-----END PRIVATE KEY-----\n",
+  "client_email": "tabi-share-v1@tabi-share.iam.gserviceaccount.com",
+  "client_id": "116204915648660146402",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tabi-share-v1%40tabi-share.iam.gserviceaccount.com"
+}
