@@ -1,4 +1,4 @@
-# <TaBi Share>
+# TaBi Share
   
 ## URL
 https://tabi-share-v1.herokuapp.com
